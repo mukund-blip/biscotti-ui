@@ -128,7 +128,7 @@ export default async function ComponentPage({ params }: { params: Promise<{ slug
               {toc.map((t) => (
                 <li key={t.id}>
                   <a href={`#${t.id}`} className="focus-ring -ml-px flex items-baseline gap-2 border-l border-transparent py-1 pl-3 text-sm text-ink-2 hover:border-pencil hover:text-ink">
-                    <span className="tabular font-mono text-2xs text-faint">{num(t.id)}</span>
+                    <span className="tabular font-mono text-2xs text-muted">{num(t.id)}</span>
                     {t.label}
                   </a>
                 </li>
@@ -156,7 +156,7 @@ export default async function ComponentPage({ params }: { params: Promise<{ slug
               <div className="grid gap-2">
                 <h3 className="text-sm font-medium">Copy the source with the shadcn CLI</h3>
                 <Code lang="sh" title="Terminal" code={install} />
-                <p className="max-w-[680px] text-sm text-muted">
+                <p className="max-w-[680px] text-sm text-muted [overflow-wrap:anywhere]">
                   Adds the component and the shared <span className="font-mono text-ink-2">detent-foundation</span> (tokens, springs, sound engine, icons) under <span className="font-mono text-ink-2">components/detent/</span>
                   {e.dependencies.length > 0 && <>, and installs <span className="font-mono text-ink-2">{e.dependencies.join(" ")}</span></>}. Then import the styles after Tailwind in your global CSS: <span className="font-mono text-ink-2">@import &quot;./components/detent/styles/index.css&quot;;</span>
                 </p>
