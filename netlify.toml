@@ -1,4 +1,8 @@
-# Netlify Git builds for https://detent.netlify.app.
+# Build settings for https://detent.netlify.app.
+# Production now deploys from GitHub Actions (.github/workflows/netlify.yml):
+# Netlify's own Git builds are stopped for this site (build_settings.stop_builds)
+# because the Free plan blocks them for this private repo. This file still
+# documents the build and keeps `netlify build` / any future Git builds in step.
 # Reproduces the static export that was deployed by hand: `pnpm build:pages`
 # (Next.js `output: "export"`) served from the domain root. Values here override
 # the Netlify UI. Build from the repository root (no base directory): it's a
