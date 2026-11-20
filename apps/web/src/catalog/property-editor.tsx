@@ -39,6 +39,7 @@ export const entry: CatalogEntry = {
     { name: "PropertySelect.options / optionStyle", type: "{value,label}[] / fn", description: "Native select; optionStyle can render families in their own face." },
     { name: "PropertySegmented.options", type: "{value,label,name?}[]", description: "Compact radiogroup with a gliding indicator." },
     { name: "PropertyBoxModel.value", type: "{ margin: [t,r,b,l], padding: [t,r,b,l] }", description: "Box model in px." },
+    { name: "PropertyBoxModel.pixelsPerUnit / contentLabel", type: "number / ReactNode", default: '2 / "content"', description: "Drag distance per 1 px of change (hold Shift while dragging to snap to the 4 px grid), and the label in the centre box." },
     { name: "PropertyBoxModel.onActiveChange", type: "(target | null) => void", description: "Hovered, focused or dragged edge, to highlight the preview." },
     { name: "sound", type: "boolean", default: "true", description: "Allow sounds. Set on PropertyEditor to silence every field inside." },
   ],

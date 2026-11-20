@@ -19,27 +19,29 @@ export const entry: CatalogEntry = {
   title="Pre-orders"
   data={dailyPreorders}              // [{ date: "2026-03-14", value: 102 }, …]
   annotations={[{ date: "2026-03-12", label: "Launch email", detail: "Sent to 18,400 subscribers" }]}
-  insight={({ delta }) => \`Up 3× after the launch email on 12 Mar.\`}
+  unitLabel="pre-orders"
+  insight={({ range, delta }) =>
+    delta == null ? null : \`\${delta >= 0 ? "Up" : "Down"} \${Math.abs(Math.round(delta * 100))}% on the previous \${range} days.\`}
   source="Scout, from Shopify orders"
 />`,
   props: [
     { name: "title", type: "string", required: true, description: "Metric name." },
     { name: "data", type: "{ date, value }[]", required: true, description: "Daily series, ascending. 2× the largest range enables comparison." },
     { name: "ranges", type: "number[]", default: "[7, 30, 90]", description: "Window lengths in days." },
-    { name: "range / defaultRange / onRangeChange", type: "number", default: "— / 30", description: "Controlled or uncontrolled window." },
-    { name: "compare / defaultCompare / onCompareChange", type: "boolean", default: "— / false", description: "Previous period as a dashed line." },
+    { name: "range / defaultRange / onRangeChange", type: "number / number / (days) => void", default: "— / 30 / —", description: "Controlled or uncontrolled window, in days." },
+    { name: "compare / defaultCompare / onCompareChange", type: "boolean / boolean / (on) => void", default: "— / false / —", description: "Previous period as a dashed line." },
     { name: "aggregate", type: '"sum" | "mean" | "last"', default: '"sum"', description: "How the headline summarises the window." },
     { name: "format", type: "Intl.NumberFormatOptions", description: "Value format (compact, currency, percent…). The axis uses its compact form." },
     { name: "locale", type: "string", default: '"en-GB"', description: "Numbers and dates. Fixed by default so server and client agree." },
     { name: "goodDirection", type: '"up" | "down"', default: '"up"', description: "Colours the delta badge." },
-    { name: "insight", type: "ReactNode | (ctx) => ReactNode", description: "Sentence-level insight; receives range, total, previous, delta." },
+    { name: "insight", type: "ReactNode | (ctx) => ReactNode", description: "Sentence-level insight. ctx is { range, total, previous, delta }; previous and delta are null when there isn't a full previous window, and delta is relative (0.124 = +12.4 %)." },
     { name: "source", type: "ReactNode", description: "Provenance for the insight, set in serif italic." },
-    { name: "annotations", type: "{ date, label, detail? }[]", description: "x-axis event markers." },
+    { name: "annotations", type: "{ date, label, detail? }[]", description: "x-axis event markers; only those inside the current window are drawn." },
     { name: "unitLabel", type: "string", description: "Noun used in announcements and the hidden table." },
     { name: "chartHeight", type: "number", default: "132", description: "Plot height in px; width follows the card." },
-    { name: "sound", type: "boolean", default: "true", description: "Allow sounds." },
+    { name: "sound", type: "boolean", default: "true", description: "Allow this instance to play sounds (range and compare changes only)." },
   ],
-  exports: [{ name: "InsightNumber", description: "The rolling-digits display on its own (visual only; pair with real text)." }],
+  exports: [{ name: "InsightNumber", description: "The rolling-digits display on its own. Takes value (an already formatted string, e.g. \"$12.9K\") and className. Visual only; pair it with real text for assistive tech." }],
   dependencies: ["motion"],
   keyboard: [
     { keys: ["←", "→"], action: "Move the crosshair a day (Shift: a week)" },

@@ -82,6 +82,7 @@ const voices: { name: SoundName; use: string }[] = [
   { name: "dismiss", use: "Close, remove" },
   { name: "notify", use: "Toast arrives" },
   { name: "open", use: "Palette opens" },
+  { name: "close", use: "Palette closes" },
 ];
 
 export function SoundBoard() {

@@ -7,6 +7,11 @@ const ROOT = join(import.meta.dirname, "..");
 const SRC = join(ROOT, "packages/ui/src");
 const OUT = join(ROOT, "apps/web/public/r");
 const BASE = (process.env.REGISTRY_URL ?? process.env.NEXT_PUBLIC_REGISTRY_URL ?? "http://localhost:3410").replace(/\/$/, "");
+// Keep in sync with apps/web/src/site.ts.
+const REPO = (process.env.NEXT_PUBLIC_REPO_URL ?? "https://github.com/mukund-blip/detent").replace(/\/$/, "");
+const BRANCH = process.env.NEXT_PUBLIC_REPO_BRANCH ?? "main";
+/** One quiet line at the top of each copied component, pointing back to its source. No licence terms implied. */
+const origin = (slug, title) => `// ${title} · Detent — ${REPO.replace(/^https?:\/\//, "")}/tree/${BRANCH}/packages/ui/src/components/${slug}\n`;
 mkdirSync(OUT, { recursive: true });
 
 const walk = (d) => readdirSync(d).flatMap((f) => (statSync(join(d, f)).isDirectory() ? walk(join(d, f)) : [join(d, f)]));
@@ -48,6 +53,8 @@ for (const slug of readdirSync(join(SRC, "components"))) {
   if (!files.some((f) => f.content.length > 40 && !/^export \{\};\s*$/.test(f.content))) continue; // empty slot
   const crossDeps = [...new Set(files.flatMap((f) => [...f.content.matchAll(/from "\.\.\/([a-z-]+)(?:\/[^"]*)?"/g)].map((m) => m[1])))].filter((d) => d !== slug && existsSync(join(SRC, "components", d)));
   const m = meta(slug);
+  const main = files.find((f) => f.path === `detent/components/${slug}/${slug}.tsx`);
+  if (main) main.content = origin(slug, m.title ?? slug) + main.content;
   const item = {
     $schema: "https://ui.shadcn.com/schema/registry-item.json",
     name: slug,

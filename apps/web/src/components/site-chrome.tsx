@@ -3,6 +3,7 @@ import Link from "next/link";
 import { usePathname } from "next/navigation";
 import { useEffect, useRef, useState, type ReactNode } from "react";
 import { AnimatePresence, motion } from "motion/react";
+import { REPO_URL } from "@/site";
 import { Icon, cn, surfaceVariants, useMotionTokens, useSoundPrefs, sound } from "@detent/ui";
 
 export function Logo({ className }: { className?: string }) {
@@ -27,27 +28,29 @@ export function Logo({ className }: { className?: string }) {
 function ThemeSwitch() {
   const [pref, setPref] = useState<"light" | "dark" | "system">("system");
   useEffect(() => {
-    setPref((document.documentElement.dataset.themePref as "light" | "dark" | "system") ?? "system");
+    const frame = requestAnimationFrame(() => setPref((document.documentElement.dataset.themePref as "light" | "dark" | "system") ?? "system"));
+    return () => cancelAnimationFrame(frame);
   }, []);
   const apply = (p: "light" | "dark" | "system") => {
     setPref(p);
     localStorage.setItem("detent.theme", p);
     const dark = p === "dark" || (p === "system" && matchMedia("(prefers-color-scheme: dark)").matches);
-    document.documentElement.dataset.theme = dark ? "dark" : "light";
-    document.documentElement.dataset.themePref = p;
+    document.documentElement.setAttribute("data-theme", dark ? "dark" : "light");
+    document.documentElement.setAttribute("data-theme-pref", p);
   };
   const opts = [
     { id: "light", icon: "sun", label: "Light theme" },
     { id: "dark", icon: "moon", label: "Dark theme" },
+    { id: "system", icon: "globe", label: "System theme" },
   ] as const;
-  const resolved = pref === "system" ? null : pref;
+  const resolved = pref;
   return (
-    <div role="radiogroup" aria-label="Theme" className="flex h-8 items-center rounded-md bg-sunken p-0.5 shadow-[inset_0_0_0_1px_var(--dt-hairline)]">
+    <div role="group" aria-label="Theme" className="flex h-8 items-center rounded-md bg-sunken p-0.5 shadow-[inset_0_0_0_1px_var(--dt-hairline)]">
       {opts.map((o) => {
         const on = resolved === o.id;
         return (
-          <button key={o.id} role="radio" aria-checked={on} aria-label={o.label}
-            onClick={() => apply(on ? "system" : o.id)}
+          <button key={o.id} aria-pressed={on} aria-label={o.label}
+            onClick={() => apply(o.id)}
             className={cn("focus-ring grid size-7 place-items-center rounded-sm text-muted transition-colors duration-[90ms] hover:text-ink",
               on && "bg-raised text-ink shadow-1")}
           >
@@ -143,7 +146,7 @@ export function SiteChrome({ children }: { children: ReactNode }) {
         Skip to content
       </a>
       <header className="sticky top-0 z-40 bg-paper/85 backdrop-blur-md [box-shadow:inset_0_-1px_0_var(--dt-hairline)]">
-        <div className="mx-auto flex h-14 max-w-[1320px] items-center gap-6 px-5 md:px-8">
+        <div className="mx-auto flex h-16 max-w-[1320px] items-center gap-6 px-5 md:px-8">
           <Link href="/" className="focus-ring flex items-center gap-2 rounded-sm text-ink">
             <Logo className="size-5" />
             <span className="text-[15px] font-semibold tracking-[-0.01em]">Detent</span>
@@ -154,20 +157,23 @@ export function SiteChrome({ children }: { children: ReactNode }) {
               const active = path?.startsWith(n.href);
               return (
                 <Link key={n.href} href={n.href} aria-current={active ? "page" : undefined}
-                  className={cn("focus-ring rounded-sm px-2.5 py-1.5 text-sm transition-colors duration-[90ms]", active ? "text-ink" : "text-muted hover:text-ink")}>
+                  className={cn("focus-ring rounded-sm px-2.5 py-1.5 text-sm transition-colors duration-[90ms]", active ? "bg-sunken text-ink" : "text-muted hover:bg-surface hover:text-ink")}>
                   {n.label}
                 </Link>
               );
             })}
           </nav>
           <div className="ml-auto flex items-center gap-2">
-            <SoundControl />
+            <a href={REPO_URL} className="focus-ring mr-2 hidden items-center gap-1.5 rounded-sm text-xs text-muted hover:text-ink lg:inline-flex">Source<Icon name="arrowUpRight" size={13} /></a>
+            {/* The labelled control fits from 384 px; narrower phones get the icon-only version so the header never overflows. */}
+            <div className="hidden min-[384px]:block"><SoundControl /></div>
+            <div className="min-[384px]:hidden"><SoundControl compact /></div>
             <ThemeSwitch />
           </div>
         </div>
         <nav className="flex gap-1 overflow-x-auto px-3 pb-2 md:hidden" aria-label="Primary mobile">
           {nav.map((n) => (
-            <Link key={n.href} href={n.href} className={cn("focus-ring rounded-sm px-2.5 py-1 text-sm", path?.startsWith(n.href) ? "text-ink" : "text-muted")}>{n.label}</Link>
+            <Link key={n.href} href={n.href} aria-current={path?.startsWith(n.href) ? "page" : undefined} className={cn("focus-ring rounded-sm px-2.5 py-1 text-sm", path?.startsWith(n.href) ? "bg-sunken text-ink" : "text-muted")}>{n.label}</Link>
           ))}
         </nav>
       </header>

@@ -17,3 +17,37 @@ body { min-height: 100dvh; }
 ::selection { background: var(--dt-pencil-soft); color: inherit; }
 * { -webkit-tap-highlight-color: transparent; }
 :focus-visible { outline: none; }
+
+/* Site surfaces use the same paper, rules and pencil as the components. */
+html { scroll-padding-top: 6rem; }
+body { margin: 0; }
+.hero-instrument { position: relative; }
+.hero-instrument::before {
+  content: "";
+  position: absolute;
+  z-index: -1;
+  inset: -28px -16px -24px;
+  background-image: radial-gradient(var(--dt-rule) 0.65px, transparent 0.65px);
+  background-size: 12px 12px;
+  mask-image: linear-gradient(transparent, black 25%, black 75%, transparent);
+  opacity: 0.6;
+}
+.gallery-tile { transition: border-color 120ms ease; }
+.gallery-tile:focus-within { border-color: var(--dt-pencil); }
+.gallery-preview { isolation: isolate; }
+.gallery-preview::before {
+  content: "";
+  position: absolute;
+  z-index: -1;
+  inset: 0;
+  pointer-events: none;
+  background-image: radial-gradient(var(--dt-hairline) 0.65px, transparent 0.65px);
+  background-size: 12px 12px;
+  opacity: 0.65;
+}
+@media (hover: hover) {
+  .gallery-tile:hover { border-color: var(--dt-rule); }
+}
+@media (prefers-reduced-motion: reduce) {
+  .gallery-tile { transition: none; }
+}

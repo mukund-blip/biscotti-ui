@@ -6,6 +6,7 @@ import {
   useContext,
   useEffect,
   useId,
+  useLayoutEffect,
   useMemo,
   useRef,
   useState,
@@ -19,6 +20,8 @@ import { spring, surfaceVariants, useMotionTokens } from "../../motion/tokens";
 import { usePlay } from "../../sound/react";
 import { Icon } from "../../icons";
 import { cn, useControllable } from "../../lib/utils";
+
+const useIsoLayoutEffect = typeof window === "undefined" ? useEffect : useLayoutEffect;
 
 /* ════════════════════════════════════════════════════════════════
  * Number helpers
@@ -388,6 +391,20 @@ export function PropertyScrub({
   const valueRef = useRef(value);
   valueRef.current = value;
 
+  // After an arrow step or Enter, select the field so the next keystroke replaces the value. Committing a new
+  // value rewrites `input.value` (which drops the selection), so re-select right after that commit instead of
+  // in a later animation frame, which could land between the user's keystrokes and swallow what they typed.
+  const selectPending = useRef(false);
+  const selectAfterCommit = () => {
+    selectPending.current = true;
+    inputRef.current?.select(); // covers the no-re-render case (e.g. already at a limit)
+  };
+  useIsoLayoutEffect(() => {
+    if (!selectPending.current) return;
+    selectPending.current = false;
+    if (inputRef.current && document.activeElement === inputRef.current) inputRef.current.select();
+  });
+
   const display = formatPropertyNumber(value, Math.max(decimals, decimalsOf(roundTo(value, decimals + 1))));
   const name = ariaLabel ?? (typeof label === "string" ? label : undefined);
 
@@ -474,10 +491,10 @@ export function PropertyScrub({
       set(roundTo(base + (e.key === "ArrowUp" ? inc : -inc), decimalsOf(inc)));
       setDraft(null);
       setInvalid(false);
-      requestAnimationFrame(() => inputRef.current?.select());
+      selectAfterCommit();
     } else if (e.key === "Enter") {
       e.preventDefault();
-      if (commitDraft()) requestAnimationFrame(() => inputRef.current?.select());
+      if (commitDraft()) selectAfterCommit();
     } else if (e.key === "Escape") {
       if (draft != null) {
         e.preventDefault();
@@ -541,11 +558,13 @@ export function PropertyScrub({
         disabled={disabled}
         value={draft ?? display}
         onChange={(e) => {
+          selectPending.current = false; // the user is typing: never select over their input
           setDraft(e.target.value);
           setInvalid(false);
         }}
         onFocus={(e) => e.currentTarget.select()}
         onBlur={() => {
+          selectPending.current = false;
           if (!commitDraft()) {
             setDraft(null);
             setInvalid(false);

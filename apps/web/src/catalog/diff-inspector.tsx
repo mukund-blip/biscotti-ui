@@ -8,7 +8,7 @@ export const entry: CatalogEntry = {
   group: "Information & editing",
   summary: "Review proposed edits hunk by hunk. Accepted changes settle into the document.",
   description:
-    "A reviewer for AI-proposed edits to prose or code. Each pending hunk carries a pencil rule with a gap; accepting closes the gap, seats the change with a latch, and collapses the removed text so the document reads clean. Word-level highlights show exactly what changed, and the agent's rationale sits beside each hunk as provenance.",
+    "A reviewer for AI-proposed edits to prose or code. Each pending hunk carries a pencil rule with a gap; accepting closes the gap, seats the change with a latch, and collapses the removed text so the document reads clean. Word-level highlights show exactly what changed, and the agent's rationale sits beside each hunk as provenance. Decide one change at a time from the keyboard, or use Accept all / Reject all (\"rest\" once you've started); U undoes the most recent decision.",
   useCases: ["Reviewing an agent's edits to a document or file", "Partial acceptance of a suggested rewrite", "Copy review before publishing"],
   scale: "l",
   Demo: DiffInspectorDemo,
@@ -38,7 +38,8 @@ export const entry: CatalogEntry = {
     { name: "decisions", type: "Record<string, HunkDecision>", description: "Controlled decisions keyed by hunk id." },
     { name: "defaultDecisions", type: "Record<string, HunkDecision>", description: "Initial decisions when uncontrolled." },
     { name: "onDecisionsChange", type: "(d) => void", description: "Fires on every accept, reject or undo." },
-    { name: "onResolve", type: "(d) => void", description: "Fires once when no hunk is pending." },
+    { name: "onResolve", type: "(d) => void", description: "Fires when the last pending hunk is decided. After an undo it can fire again once everything is decided again." },
+    { name: "shortcuts", type: "boolean", default: "true", description: "Single-key shortcuts (J/K/A/R/U) on the focused change. Arrows, Home/End and Enter always work." },
     { name: "sound", type: "boolean", default: "true", description: "Allow this instance to play sounds (still requires global opt-in)." },
   ],
   exports: [{ name: "DiffHunk, DiffLine, HunkDecision", description: "Types for hunks, lines and decisions." }],
@@ -46,15 +47,16 @@ export const entry: CatalogEntry = {
   keyboard: [
     { keys: ["J", "↓"], action: "Next change" },
     { keys: ["K", "↑"], action: "Previous change" },
-    { keys: ["A", "Enter"], action: "Accept focused change" },
-    { keys: ["R", "⌫"], action: "Reject focused change" },
-    { keys: ["U"], action: "Undo decision on focused change" },
+    { keys: ["Home", "End"], action: "First / last change" },
+    { keys: ["A", "Enter"], action: "Accept the focused change, then move to the next one" },
+    { keys: ["R"], action: "Reject the focused change, then move to the next one" },
+    { keys: ["U"], action: "Undo the most recent decision" },
   ],
   a11y: [
     "Changes are a list; the focused change is the single tab stop (roving tabindex) and its label states its position, location and decision.",
     "Added and removed lines are announced with visually hidden “Added:” / “Removed:” prefixes; meaning never relies on colour alone (strike-through, +/− gutters).",
     "Decisions are announced through a polite live region.",
-    "Single-key shortcuts only work while a change has focus (WCAG 2.1.4).",
+    "Single-key shortcuts only work while a change has focus, and can be turned off with shortcuts={false} (WCAG 2.1.4).",
   ],
   motion: [
     { state: "Rest", behaviour: "Pending hunks show a pencil rule with a 5 px gap near the top." },
@@ -67,9 +69,8 @@ export const entry: CatalogEntry = {
   sound: [
     { event: "Accept", voice: "latch" },
     { event: "Reject", voice: "dismiss" },
-    { event: "Undo", voice: "unlatch" },
-    { event: "Bulk accept / reject", voice: "confirm" },
-    { event: "Last change decided", voice: "complete" },
-    { event: "J / K navigation", voice: "tick (quiet)" },
+    { event: "Undo", voice: "unlatch (soft)" },
+    { event: "Last change decided, or Accept / Reject all (replaces the decision's own voice)", voice: "complete" },
+    { event: "Navigation", voice: "none" },
   ],
 };

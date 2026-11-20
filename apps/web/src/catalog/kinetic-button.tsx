@@ -60,7 +60,7 @@ export const entry: CatalogEntry = {
     { state: "Label change", behaviour: "Old label lifts 5 px and fades over 90 ms; the new one rises in; button width follows on the control spring." },
     { state: "Pending", behaviour: "Spinner replaces the icon (the one live mark)." },
     { state: "Success", behaviour: "Check draws via stroke-dashoffset (260 ms) with the past-tense label; reverts after 1.6 s." },
-    { state: "Error", behaviour: "1.5 px err edge plus a single ±2 px nudge; label becomes the retry copy." },
+    { state: "Error", behaviour: "1.5 px err edge plus one damped 2 px horizontal nudge (260 ms); the icon becomes a retry glyph and the label the errorLabel copy." },
     { state: "Hold", behaviour: "Pencil fill sweeps left→right linearly, with label inverted under the fill; early release drains back in ≤340 ms; completion seats with the latch spring then the pencil drains (240 ms)." },
     { state: "Reduced motion", behaviour: "No press travel, nudge or draw; label swaps crossfade over 120 ms; the hold fill steps by quarters." },
   ],

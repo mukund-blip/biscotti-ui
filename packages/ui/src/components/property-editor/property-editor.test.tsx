@@ -46,6 +46,31 @@ describe("PropertyScrub", () => {
     expect(onChange).toHaveBeenLastCalledWith(96);
   });
 
+  it("selects the committed value synchronously, so a late animation frame can't clobber typing", async () => {
+    // Hold every animation frame until the test releases it. On a busy machine (or a janky page) a frame can
+    // land between keystrokes; any deferred `select()` would then swallow what the user has already typed.
+    const frames: FrameRequestCallback[] = [];
+    const raf = vi.spyOn(window, "requestAnimationFrame").mockImplementation((cb) => frames.push(cb));
+    const releaseFrames = () => act(() => frames.splice(0).forEach((cb) => cb(performance.now())));
+    try {
+      render(<PropertyScrub label="Size" defaultValue={16} min={8} max={96} unit="px" />);
+      const input = screen.getByRole("spinbutton", { name: "Size" }) as HTMLInputElement;
+      input.focus();
+      await userEvent.keyboard("{ArrowUp}");
+      expect(input).toHaveValue("17");
+      // Selected straight after the commit, without waiting for a frame, so typing replaces the value.
+      expect([input.selectionStart, input.selectionEnd]).toEqual([0, 2]);
+      await userEvent.keyboard("5");
+      releaseFrames(); // a late frame arrives mid-typing
+      await userEvent.keyboard("00px{Enter}");
+      expect(input).toHaveAttribute("aria-valuenow", "96");
+      expect(input).toHaveValue("96");
+      expect([input.selectionStart, input.selectionEnd]).toEqual([0, 2]);
+    } finally {
+      raf.mockRestore();
+    }
+  });
+
   it("marks invalid input and Escape reverts", async () => {
     render(<PropertyScrub label="Size" defaultValue={16} />);
     const input = screen.getByRole("spinbutton", { name: "Size" });
