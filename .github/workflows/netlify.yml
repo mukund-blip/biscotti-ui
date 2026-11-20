@@ -5,7 +5,8 @@ name: Netlify production deploy
 # Netlify's own Git builds are stopped for this site (build_settings.stop_builds):
 # they can't build this private repo on the Free plan ("Unrecognized Git
 # contributor"), so this workflow is the only production deploy path.
-# pages.yml stays as the pull-request check (GitHub Pages base path).
+# pages.yml is the pull-request check (same build, validation and tests under a
+# /detent sub-path); this workflow only runs on main.
 
 on:
   push:
