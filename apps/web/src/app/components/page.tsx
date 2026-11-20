@@ -29,11 +29,11 @@ export default function ComponentsIndex() {
     <div className="mx-auto max-w-[1320px] px-5 pb-24 pt-12 md:px-8 md:pt-16">
       <header className="mb-8">
         <div>
-          <p className="mb-3 font-mono text-2xs uppercase tracking-[0.08em] text-muted">The collection / React + Tailwind + Motion</p>
+          <p className="mb-3 font-mono text-2xs uppercase tracking-[0.08em] text-muted">Index · React + Tailwind v4 + Motion</p>
           <h1 className="text-[clamp(36px,6vw,64px)] font-semibold leading-[0.98] tracking-[-0.04em]">
-            Small details. Real difference.
+            {catalog.length === 20 ? "Twenty" : catalog.length} components, all live.
           </h1>
-          <p className="mt-5 max-w-[620px] text-md leading-[26px] text-ink-2">{catalog.length} interactive components, built to work together. Try a preview, open the docs, then install the source into your project.</p>
+          <p className="mt-5 max-w-[620px] text-md leading-[26px] text-ink-2">Every tile below is the real component, not a screenshot. Try it here, open its page for the API, keyboard map and states, then copy the source into your project.</p>
         </div>
         <nav aria-label="Groups" className="mt-8 grid grid-cols-2 gap-2 lg:grid-cols-4">
           {groups.map((g) => (

@@ -3,6 +3,7 @@ import Link from "next/link";
 import { usePathname } from "next/navigation";
 import { useEffect, useRef, useState, type ReactNode } from "react";
 import { AnimatePresence, motion } from "motion/react";
+import { REPO_URL } from "@/site";
 import { Icon, cn, surfaceVariants, useMotionTokens, useSoundPrefs, sound } from "@detent/ui";
 
 export function Logo({ className }: { className?: string }) {
@@ -163,7 +164,7 @@ export function SiteChrome({ children }: { children: ReactNode }) {
             })}
           </nav>
           <div className="ml-auto flex items-center gap-2">
-            <a href="https://github.com/mukund-blip/detent" className="focus-ring mr-2 hidden items-center gap-1.5 rounded-sm text-xs text-muted hover:text-ink lg:inline-flex">Source<Icon name="arrowUpRight" size={13} /></a>
+            <a href={REPO_URL} className="focus-ring mr-2 hidden items-center gap-1.5 rounded-sm text-xs text-muted hover:text-ink lg:inline-flex">Source<Icon name="arrowUpRight" size={13} /></a>
             <div className="hidden sm:block"><SoundControl /></div>
             <div className="sm:hidden"><SoundControl compact /></div>
             <ThemeSwitch />

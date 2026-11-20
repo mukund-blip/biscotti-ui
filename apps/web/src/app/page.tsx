@@ -1,6 +1,7 @@
 import Link from "next/link";
 import { Icon } from "@detent/ui";
 import { GalleryTile } from "@/components/gallery-tile";
+import { REPO_URL } from "@/site";
 import { catalog, groups } from "@/catalog";
 import { HeroRuler } from "@/components/home/ruler";
 import { HeroBench } from "@/components/home/bench";
@@ -43,7 +44,7 @@ export default function Home() {
                 Open the workbench
               </Link>
             </div>
-            <p className="mt-5 flex items-center gap-2 font-mono text-2xs text-muted"><Icon name="code" size={13} /> Open source · Own the code · MIT licensed</p>
+            <p className="mt-5 flex items-center gap-2 font-mono text-2xs text-muted"><Icon name="code" size={13} /> Source you copy into your app, not a black-box package</p>
           </div>
           <div className="flex justify-center lg:justify-end">
             <HeroBench />
@@ -53,7 +54,7 @@ export default function Home() {
 
       <div className="border-y border-hairline bg-surface">
         <div className="mx-auto grid max-w-[1320px] gap-4 px-5 py-5 text-sm text-ink-2 md:grid-cols-3 md:px-8">
-          {[["01", "Find your component", "Explore working previews."], ["02", "Make it yours", "Install the source. Change anything."], ["03", "Build with a system", "One language for state, motion and sound."]].map(([n, title, detail]) => <div key={n} className="flex gap-3"><span className="pt-0.5 font-mono text-2xs text-pencil-ink">{n}</span><p><span className="font-medium text-ink">{title}</span><span className="mt-0.5 block text-xs text-muted">{detail}</span></p></div>)}
+          {[["01", "Try the real thing", "Every preview is the shipped component, with its pending, error and undo states."], ["02", "Copy the source", "One shadcn command puts it in components/detent/, ready to edit."], ["03", "Keep one state language", "Pencil while provisional, ink once committed, across all twenty."]].map(([n, title, detail]) => <div key={n} className="flex gap-3"><span className="pt-0.5 font-mono text-2xs text-pencil-ink">{n}</span><p><span className="font-medium text-ink">{title}</span><span className="mt-0.5 block text-xs text-muted">{detail}</span></p></div>)}
         </div>
       </div>
       {/* Pencil, then ink */}
@@ -142,7 +143,7 @@ export default function Home() {
           <span>Detent 0.1 — MIT</span>
           <Link href="/foundations" className="hover:text-ink">Foundations</Link>
           <a href="/r/registry.json" className="hover:text-ink">Registry</a>
-          <a href="https://github.com/mukund-blip/detent" className="inline-flex items-center gap-1.5 hover:text-ink">Detent source <Icon name="arrowUpRight" size={13} /></a>
+          <a href={REPO_URL} className="inline-flex items-center gap-1.5 hover:text-ink">Source on GitHub <Icon name="arrowUpRight" size={13} /></a>
           <span className="ml-auto">Respects prefers-reduced-motion · Sound off by default</span>
         </div>
       </footer>

@@ -12,7 +12,7 @@ export function HeroBench() {
   return (
     <div className="hero-instrument w-full max-w-[480px]">
       <div className="mb-3 flex items-center justify-between font-mono text-2xs uppercase tracking-[0.08em] text-muted">
-        <span>01 / An interface you can feel</span><Icon name="sliders" size={14} />
+        <span>Try it · pencil until you save</span><Icon name="sliders" size={14} />
       </div>
       <div className="overflow-hidden rounded-xl border border-rule bg-raised shadow-3">
         <div className="flex items-center justify-between border-b border-hairline px-5 py-4">
@@ -30,7 +30,7 @@ export function HeroBench() {
           <SegmentedControl aria-label="Signal envelope" value={mode} onValueChange={(v) => { setMode(v); setDirty(true); setSaved(false); }}>
             <SegmentedControlItem value="amp">Amplitude</SegmentedControlItem><SegmentedControlItem value="filter">Filter</SegmentedControlItem><SegmentedControlItem value="mod">Modulation</SegmentedControlItem>
           </SegmentedControl>
-          <div className="my-6 border-y border-hairline py-4"><PrecisionToggle label="Arpeggiator" description="A little movement. A precise response." checked={enabled} onCheckedChange={(v) => { setEnabled(v); setDirty(true); setSaved(false); }} /></div>
+          <div className="my-6 border-y border-hairline py-4"><PrecisionToggle label="Arpeggiator" description="Changes stay in pencil until the patch is saved." checked={enabled} onCheckedChange={(v) => { setEnabled(v); setDirty(true); setSaved(false); }} /></div>
           <div className="flex items-center justify-between gap-3">
             <p aria-live="polite" className={`flex items-center gap-2 text-xs ${dirty ? "text-pencil-ink" : "text-muted"}`}><Icon name={dirty ? "pencil" : "check"} size={13} />{dirty ? "Pencil · unsaved changes" : saved ? "Ink · patch saved" : "Ink · all changes saved"}</p>
             <KineticButton icon="check" onClick={async () => { await new Promise((r) => setTimeout(r, 650)); setDirty(false); setSaved(true); }}>Save patch</KineticButton>
