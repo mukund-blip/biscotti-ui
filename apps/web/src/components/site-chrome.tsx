@@ -25,18 +25,38 @@ export function Logo({ className }: { className?: string }) {
   );
 }
 
+type ThemePref = "light" | "dark" | "system";
+
+function readThemePref(): ThemePref {
+  try {
+    const v = localStorage.getItem("detent.theme");
+    if (v === "light" || v === "dark" || v === "system") return v;
+  } catch {}
+  return "system";
+}
+
+function paintTheme(p: ThemePref) {
+  const dark = p === "dark" || (p === "system" && matchMedia("(prefers-color-scheme: dark)").matches);
+  document.documentElement.setAttribute("data-theme", dark ? "dark" : "light");
+  document.documentElement.setAttribute("data-theme-pref", p);
+}
+
 function ThemeSwitch() {
-  const [pref, setPref] = useState<"light" | "dark" | "system">("system");
+  const [pref, setPref] = useState<ThemePref>("system");
   useEffect(() => {
-    const frame = requestAnimationFrame(() => setPref((document.documentElement.dataset.themePref as "light" | "dark" | "system") ?? "system"));
+    // The saved preference is the source of truth. If hydration ever falls back to a
+    // client render, React resets <html data-theme> to its server value; re-apply it here.
+    const frame = requestAnimationFrame(() => {
+      const saved = readThemePref();
+      setPref(saved);
+      paintTheme(saved);
+    });
     return () => cancelAnimationFrame(frame);
   }, []);
-  const apply = (p: "light" | "dark" | "system") => {
+  const apply = (p: ThemePref) => {
     setPref(p);
-    localStorage.setItem("detent.theme", p);
-    const dark = p === "dark" || (p === "system" && matchMedia("(prefers-color-scheme: dark)").matches);
-    document.documentElement.setAttribute("data-theme", dark ? "dark" : "light");
-    document.documentElement.setAttribute("data-theme-pref", p);
+    try { localStorage.setItem("detent.theme", p); } catch {}
+    paintTheme(p);
   };
   const opts = [
     { id: "light", icon: "sun", label: "Light theme" },
