@@ -1,0 +1,98 @@
+# Detent
+
+**Interfaces that click into place.** Twenty interactive React components for productivity, creative and AI‑native software.
+
+> Quiet at rest. Delightful in motion. Precise in use.
+
+Detent is built around one idea: **pencil, then ink**. Anything provisional (streamed text, proposed edits, pending writes, running tools) is drawn in a cobalt *pencil*. The moment it becomes real is a *detent*: a latch you can see, feel and (optionally) hear. See [`DESIGN.md`](./DESIGN.md) for the full rationale.
+
+## Run it
+
+```bash
+pnpm install
+pnpm dev            # showcase at http://localhost:3410 (pass --port to change)
+pnpm test           # component behaviour tests (Vitest + Testing Library)
+pnpm test:e2e       # Playwright: every route × light/dark, axe WCAG 2.2 AA, sound opt‑in
+pnpm build          # regenerates catalog + registry, then builds the site
+```
+
+Requires Node 20+ and pnpm 10.
+
+## Tour
+
+- **`/components`**: the index of all twenty, grouped as tactile controls, commands & composition, agent interactions, and information & editing. Every tile is live.
+- **`/components/<slug>`**: the full demo with state controls, a copyable usage example, props, keyboard map, accessibility notes, a motion spec and a sound map.
+- **`/workbench`**: *Ostra Ops: the encoder shortage*, an integrated mini-app where the components drive each other:
+  - ⌘K filters the orders table, including a nested "Filter by status" page and live order search.
+  - "Mark shipped" is undoable from the toast.
+  - Scout's tool calls collapse into a summary while its answer streams from `/api/stream`.
+  - Approving the purchase order (hold to confirm, 5 s undo) creates a task in the agent activity stack.
+- **`/foundations`**: tokens, springs and the sound board.
+
+## Verification
+
+- `pnpm test`: 165 behaviour tests across all 20 components (keyboard, ARIA state, controlled/uncontrolled, streaming robustness).
+- `pnpm test:e2e`: 100 Playwright checks, run on desktop and mobile:
+  - Every route renders in light and dark with no console errors.
+  - axe WCAG 2.2 AA passes. Axe is sampled twice and only stable violations fail, so a looping demo caught mid-fade doesn't flake.
+  - Reduced motion is respected.
+  - Sound is opt-in and persists.
+- `pnpm build`: type-checks and statically prerenders every page.
+
+## Structure
+
+```
+packages/ui/                  @detent/ui — the library (no showcase code)
+  src/styles/                 tokens.css (CSS vars, light/dark), theme.css (Tailwind v4 mapping)
+  src/motion/tokens.ts        springs & tweens per interaction class, reduced‑motion helpers
+  src/sound/                  Web Audio synth engine (opt‑in) + usePlay / useSoundPrefs / SoundScope
+  src/lib/                    cn, useControllable, fmt, Kbd, Spinner, LiveMark, useElapsed
+  src/icons/                  16‑px icon set
+  src/components/<slug>/      one folder per component (+ tests)
+apps/web/                     Next.js showcase: gallery, docs pages, foundations, workbench
+  src/catalog/<slug>.tsx      docs metadata per component (props, motion spec, sound map, a11y)
+  src/demos/                  interactive demos (Ostra, a fictional synth maker, is the shared story)
+  public/r/                   generated shadcn registry
+scripts/                      gen-catalog.mjs, build-registry.mjs
+e2e/                          Playwright suites
+```
+
+## Use it in your app
+
+**Option A: shadcn registry (copy the source).**
+
+```bash
+npx shadcn@latest add <registry-url>/r/diff-inspector.json
+```
+
+Each component pulls in `detent-foundation` (tokens, motion, sound, utilities, icons) under `components/detent/`. Then add the styles after Tailwind:
+
+```css
+@import "tailwindcss";
+@import "./components/detent/styles/index.css";
+@source "./components/detent";
+```
+
+Set `NEXT_PUBLIC_REGISTRY_URL` / `REGISTRY_URL` to wherever you host `apps/web/public/r` (it defaults to the local dev server).
+
+**Option B: workspace package.** Depend on `@detent/ui` and import from it directly. Peer deps: `react@19`, `motion@12+`.
+
+### Theming in a host app
+
+Every visual decision is a `--dt-*` CSS variable. Remap them on `:root` (or any subtree) to adopt your palette. Detent never forces its page background on you. Dark mode applies under `[data-theme="dark"]`, `.dark`, or `[data-theme="system"]` with `prefers-color-scheme`.
+
+```css
+:root { --dt-pencil: #5b5bd6; --dt-font-sans: "Inter", sans-serif; }
+```
+
+### Sound
+
+Sound is **off by default**. Call `sound.enable()` from a user gesture (or render your own toggle with `useSoundPrefs()`). Components only play sounds for deliberate actions and outcomes: never on hover, focus, per streamed token or for background updates. Silence one instance with `sound={false}`, or a subtree with `<SoundScope muted>`. Users can disable sound permanently, and that choice is persisted.
+
+### Motion
+
+Springs are chosen per interaction class (`spring.control`, `latch`, `glide`, `layout`, `surface`). Under `prefers-reduced-motion`, travel becomes instant and a short opacity cue remains.
+
+## Licence
+
+MIT.

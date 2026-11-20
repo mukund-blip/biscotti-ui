@@ -1,0 +1,133 @@
+{
+  "$schema": "https://ui.shadcn.com/schema/registry.json",
+  "name": "detent",
+  "homepage": "http://localhost:3410",
+  "items": [
+    {
+      "name": "detent-foundation",
+      "type": "registry:lib",
+      "title": "Detent foundation",
+      "description": "Tokens (CSS variables + Tailwind v4 theme), motion springs, the synthesised sound engine, utilities, primitives and icons."
+    },
+    {
+      "name": "action-toolbar",
+      "type": "registry:ui",
+      "title": "Contextual Action Toolbar",
+      "description": "A floating toolbar that follows the text selection and morphs into an inline input."
+    },
+    {
+      "name": "activity-stack",
+      "type": "registry:ui",
+      "title": "Agent Activity Stack",
+      "description": "Concurrent agent tasks that sort by urgency and sink into a deck of finished work."
+    },
+    {
+      "name": "approval-card",
+      "type": "registry:ui",
+      "title": "Human Approval Card",
+      "description": "An agent asks before it acts. Decide, and the card folds into a receipt you can undo."
+    },
+    {
+      "name": "command-palette",
+      "type": "registry:ui",
+      "title": "Command Palette",
+      "description": "⌘K search over commands, with fuzzy ranking, nested pages and async results."
+    },
+    {
+      "name": "data-table",
+      "type": "registry:ui",
+      "title": "Smart Data Table",
+      "description": "Sort, inspect, and act on live records without losing your place."
+    },
+    {
+      "name": "diff-inspector",
+      "type": "registry:ui",
+      "title": "Interactive Diff Inspector",
+      "description": "Review proposed edits hunk by hunk. Accepted changes settle into the document."
+    },
+    {
+      "name": "filter-builder",
+      "type": "registry:ui",
+      "title": "Visual Filter Builder",
+      "description": "Build readable filters with typed editors, editable clauses, and live results."
+    },
+    {
+      "name": "insight-card",
+      "type": "registry:ui",
+      "title": "Insight Card",
+      "description": "A KPI with rolling digits, a scrubbable SVG chart and an insight sentence worth reading."
+    },
+    {
+      "name": "interactive-slider",
+      "type": "registry:ui",
+      "title": "Interactive Slider",
+      "description": "A precision fader with a measuring ruler, magnetic detents and fine adjust."
+    },
+    {
+      "name": "kinetic-button",
+      "type": "registry:ui",
+      "title": "Kinetic Button",
+      "description": "A button family that presses physically and narrates its own async lifecycle."
+    },
+    {
+      "name": "mention-picker",
+      "type": "registry:ui",
+      "title": "Contextual Mention Picker",
+      "description": "Find people, files and tools at the caret, then insert a reference as one token."
+    },
+    {
+      "name": "notifications",
+      "type": "registry:ui",
+      "title": "Notification & Feedback System",
+      "description": "Stacked toasts with undo countdowns, in-place progress and a persistent Callout."
+    },
+    {
+      "name": "precision-toggle",
+      "type": "registry:ui",
+      "title": "Precision Toggle",
+      "description": "A latching switch that stays in pencil until the change is actually saved."
+    },
+    {
+      "name": "prompt-composer",
+      "type": "registry:ui",
+      "title": "Intelligent Prompt Composer",
+      "description": "Compose a prompt with file uploads, inline references and slash commands."
+    },
+    {
+      "name": "property-editor",
+      "type": "registry:ui",
+      "title": "Inline Property Editor",
+      "description": "An inspector with scrubbable numbers, a colour picker and a box model you drag directly."
+    },
+    {
+      "name": "segmented-control",
+      "type": "registry:ui",
+      "title": "Segmented Control",
+      "description": "A segmented control whose indicator inchworms — lead edge first, trailing edge after."
+    },
+    {
+      "name": "streaming-response",
+      "type": "registry:ui",
+      "title": "Streaming Response",
+      "description": "Renders a real text stream as light markdown, with chunk fades, citations and a pencil caret."
+    },
+    {
+      "name": "thinking-timeline",
+      "type": "registry:ui",
+      "title": "Thinking Timeline",
+      "description": "An agent's progress as user-facing steps that shrink into a past-tense summary."
+    },
+    {
+      "name": "tool-chip",
+      "type": "registry:ui",
+      "title": "Tool Execution Chip",
+      "description": "One quiet inline chip per tool call that opens in place into its input and output."
+    },
+    {
+      "name": "workflow-stepper",
+      "type": "registry:ui",
+      "title": "Workflow Stepper",
+      "description": "A multi-step run drawn as dependency lanes that split, run in parallel and merge."
+    }
+  ]
+}

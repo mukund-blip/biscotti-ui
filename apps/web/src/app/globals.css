@@ -1,0 +1,19 @@
+@import "tailwindcss";
+@import "@detent/ui/styles.css";
+@source "../../../../packages/ui/src";
+
+@custom-variant dark (&:where([data-theme="dark"], [data-theme="dark"] *));
+
+html {
+  background: var(--dt-paper);
+  color: var(--dt-ink);
+  font-family: var(--dt-font-sans);
+  -webkit-font-smoothing: antialiased;
+  -moz-osx-font-smoothing: grayscale;
+  text-rendering: optimizeLegibility;
+  font-feature-settings: "ss01" 1, "cv11" 1;
+}
+body { min-height: 100dvh; }
+::selection { background: var(--dt-pencil-soft); color: inherit; }
+* { -webkit-tap-highlight-color: transparent; }
+:focus-visible { outline: none; }
