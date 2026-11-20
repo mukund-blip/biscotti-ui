@@ -1,0 +1,97 @@
+name: Netlify production deploy
+
+# Builds the static export for https://detent.netlify.app (served from the domain
+# root), validates and tests exactly that artifact, then publishes it to Netlify.
+# Netlify's own Git builds are stopped for this site (build_settings.stop_builds):
+# they can't build this private repo on the Free plan ("Unrecognized Git
+# contributor"), so this workflow is the only production deploy path.
+# pages.yml stays as the pull-request check (GitHub Pages base path).
+
+on:
+  push:
+    branches: [main]
+  workflow_dispatch:
+
+permissions:
+  contents: read
+
+# Only the latest main commit deploys. Netlify publishes atomically at the end of
+# `netlify deploy`, so cancelling an older run never leaves a half-published site.
+concurrency:
+  group: netlify-production
+  cancel-in-progress: true
+
+env:
+  PAGES_SITE_URL: https://detent.netlify.app
+  NETLIFY_SITE_ID: d72b2ca2-49f5-4083-a77a-70f142673db1
+  NETLIFY_CLI_VERSION: 27.20.1
+
+jobs:
+  deploy:
+    runs-on: ubuntu-latest
+    timeout-minutes: 20
+    steps:
+      - uses: actions/checkout@v4
+      - uses: pnpm/action-setup@v4
+      - uses: actions/setup-node@v4
+        with:
+          node-version: 22
+          cache: pnpm
+      - run: pnpm install --frozen-lockfile
+
+      - name: Build static export (root base path)
+        run: pnpm build:pages
+      - name: Validate export
+        run: node scripts/check-pages.mjs
+
+      # Test the exact artifact that ships before publishing it.
+      - run: pnpm exec playwright install --with-deps chromium
+      - name: Test export
+        run: pnpm test:pages
+        env:
+          CI: "1"
+      - if: failure()
+        uses: actions/upload-artifact@v4
+        with:
+          name: netlify-pages-e2e-results
+          path: test-results
+          retention-days: 7
+
+      - name: Deploy to Netlify (production)
+        id: netlify
+        env:
+          # Read from the environment by netlify-cli; never passed as an argument or printed.
+          NETLIFY_AUTH_TOKEN: ${{ secrets.NETLIFY_AUTH_TOKEN }}
+        run: |
+          npx -y "netlify-cli@${NETLIFY_CLI_VERSION}" deploy \
+            --prod --no-build \
+            --dir apps/web/out \
+            --site "$NETLIFY_SITE_ID" \
+            --message "GitHub Actions ${GITHUB_SHA::7} (run ${GITHUB_RUN_ID})" \
+            --json > netlify-deploy.json
+          deploy_id=$(jq -r .deploy_id netlify-deploy.json)
+          echo "deploy_id=$deploy_id" >> "$GITHUB_OUTPUT"
+          {
+            echo "### Netlify production deploy"
+            echo "- Deploy: \`$deploy_id\` ($(jq -r .deploy_url netlify-deploy.json))"
+            echo "- Site: $(jq -r .url netlify-deploy.json)"
+            echo "- Commit: \`${GITHUB_SHA}\`"
+          } >> "$GITHUB_STEP_SUMMARY"
+          rm netlify-deploy.json
+
+      - name: Smoke-check production
+        run: |
+          for i in $(seq 1 12); do
+            rev=$(curl -fsS "$PAGES_SITE_URL/pages-build.json" | jq -r .revision) || rev=""
+            if [ "$rev" = "$GITHUB_SHA" ]; then break; fi
+            sleep 5
+          done
+          if [ "$rev" != "$GITHUB_SHA" ]; then
+            echo "::error::Production serves revision '$rev', expected $GITHUB_SHA"
+            exit 1
+          fi
+          for path in "" components/ foundations/ components/tool-chip/ robots.txt sitemap.xml r/registry.json; do
+            code=$(curl -s -o /dev/null -w '%{http_code}' "$PAGES_SITE_URL/$path")
+            echo "$code /$path"
+            [ "$code" = 200 ] || { echo "::error::/$path returned $code"; exit 1; }
+          done
