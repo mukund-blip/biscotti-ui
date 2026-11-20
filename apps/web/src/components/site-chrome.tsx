@@ -166,12 +166,13 @@ export function SiteChrome({ children }: { children: ReactNode }) {
         Skip to content
       </a>
       <header className="sticky top-0 z-40 bg-paper/85 backdrop-blur-md [box-shadow:inset_0_-1px_0_var(--dt-hairline)]">
-        <div className="mx-auto flex h-16 max-w-[1320px] items-center gap-6 px-5 md:px-8">
-          {/* Named by its content ("Biscotti UI 0.1, home") so the accessible name always contains the visible text. */}
+        <div className="mx-auto flex h-16 max-w-[1320px] items-center gap-3 px-4 sm:gap-6 sm:px-5 md:px-8">
+          {/* Named by its content ("Biscotti UI 0.1, home"; no version below sm) so the accessible name always contains the visible text. */}
           <Link href="/" className="focus-ring flex items-center gap-2 rounded-sm text-ink">
             <Logo className="size-5" />
-            <span className="text-[15px] font-semibold tracking-[-0.01em]">Biscotti UI</span>{" "}
-            <span className="font-mono text-2xs text-muted">0.1</span>
+            <span className="whitespace-nowrap text-[15px] font-semibold tracking-[-0.01em]">Biscotti UI</span>{" "}
+            {/* The version yields to the wordmark on narrow phones. */}
+            <span className="hidden font-mono text-2xs text-muted sm:inline">0.1</span>
             <span className="sr-only">, home</span>
           </Link>
           <nav className="hidden items-center gap-1 md:flex" aria-label="Primary">
@@ -187,9 +188,9 @@ export function SiteChrome({ children }: { children: ReactNode }) {
           </nav>
           <div className="ml-auto flex items-center gap-2">
             <a href={REPO_URL} className="focus-ring mr-2 hidden items-center gap-1.5 rounded-sm text-xs text-muted hover:text-ink lg:inline-flex">Source<Icon name="arrowUpRight" size={13} /></a>
-            {/* The labelled control fits from 384 px; narrower phones get the icon-only version so the header never overflows. */}
-            <div className="hidden min-[384px]:block"><SoundControl /></div>
-            <div className="min-[384px]:hidden"><SoundControl compact /></div>
+            {/* The labelled control fits from 400 px; narrower phones get the icon-only version so the header never overflows. */}
+            <div className="hidden min-[400px]:block"><SoundControl /></div>
+            <div className="min-[400px]:hidden"><SoundControl compact /></div>
             <ThemeSwitch />
           </div>
         </div>
