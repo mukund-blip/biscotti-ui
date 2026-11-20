@@ -25,7 +25,7 @@ Requires Node 20+ and pnpm 10.
 - **`/workbench`**: *Ostra Ops: the encoder shortage*, an integrated mini-app where the components drive each other:
   - ⌘K filters the orders table, including a nested "Filter by status" page and live order search.
   - "Mark shipped" is undoable from the toast.
-  - Scout's tool calls collapse into a summary while its answer streams from `/api/stream`.
+  - Scout's simulated tool calls collapse into a summary while a canned answer streams at a controlled pace in the browser (no backend or model request).
   - Approving the purchase order (hold to confirm, 5 s undo) creates a task in the agent activity stack.
 - **`/foundations`**: tokens, springs and the sound board.
 
@@ -96,3 +96,48 @@ Springs are chosen per interaction class (`spring.control`, `latch`, `glide`, `l
 ## Licence
 
 MIT.
+
+
+## GitHub Pages export (review first)
+
+`pnpm dev` and `pnpm build` retain the normal root-path Next app. For a static project-site export:
+
+```bash
+PAGES_SITE_URL=https://mukund-blip.github.io/detent pnpm build:pages
+node scripts/check-pages.mjs
+pnpm preview:pages  # exact apps/web/out files at http://127.0.0.1:3418/detent/
+```
+
+The URL above is a **proposed target**, not a claim that a site is live. The build sets
+`output: export`, `/detent` as the base path, trailing slashes, canonical metadata,
+sitemap and registry dependency URLs from the same `PAGES_SITE_URL`. It emits
+`.nojekyll` and a `pages-build.json` revision manifest. For a custom domain or fork,
+pass its full origin and optional base path instead. The preview command is a
+static deployment-path test harness: it serves those exact files, with real 404s,
+not Next dev or a fallback SPA. It needs no extra packages.
+
+`PAGES_SITE_URL` also controls the install commands on detail pages. The Pages
+build regenerates registry JSON directly in `out/r`, leaving the checked-in local
+registry unchanged. For clean-consumer testing against the loopback preview,
+build with `PAGES_SITE_URL=http://127.0.0.1:3418/detent`; rebuild for the intended
+public origin before uploading. A local preview of a public-origin build still
+displays that public origin in install commands; it does not make that host live.
+
+The streaming showcase and Scout workbench use a clearly labelled browser-paced
+simulation. Speed, partial-answer cancellation, simulated failure and retry stay
+interactive on a static host. Library consumers can still supply `fetch` Responses,
+ReadableStreams or async iterables to `useTextStream`.
+
+`.github/workflows/pages.yml` builds and uploads a Pages artifact on PRs or manual
+runs. It does **not** deploy on push/PR. After review and account eligibility are
+resolved, a human may manually run it on `main` with `deploy=true`. No repository
+visibility changes, plan changes or secrets are configured here. Private-repository
+Pages availability depends on the account plan; the current repository's Pages
+API was unavailable during preparation. Keep deployment disabled until that is
+resolved and the final export is approved.
+
+A project site's `/detent/robots.txt` is emitted for completeness, but crawlers
+normally consult `/robots.txt` at the hostname root. That root policy must be
+managed by the account's user/organization site if needed; this project cannot
+set it from the `/detent` subpath. The sitemap includes only public showcase routes,
+not the internal `/lab/` pages.

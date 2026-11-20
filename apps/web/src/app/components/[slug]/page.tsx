@@ -5,7 +5,7 @@ import { bySlug, catalog } from "@/catalog";
 import { StageShell } from "@/components/stage-shell";
 import { Code } from "@/components/code";
 import { Icon, Kbd } from "@detent/ui";
-import { REGISTRY_IS_LOCAL, REGISTRY_URL, componentSourceUrl, originComment } from "@/site";
+import { canonicalMetadata, siteUrl, REGISTRY_IS_LOCAL, REGISTRY_URL, componentSourceUrl, originComment } from "@/site";
 
 export function generateStaticParams() {
   return catalog.map((e) => ({ slug: e.slug }));
@@ -17,9 +17,10 @@ export async function generateMetadata({ params }: { params: Promise<{ slug: str
   if (!e) return {};
   const title = `${e.name} — ${e.group}`;
   return {
+    ...canonicalMetadata(`components/${slug}`),
     title: e.name,
     description: e.summary,
-    openGraph: { title, description: e.summary, type: "article" },
+    openGraph: { url: siteUrl(`components/${slug}`), title, description: e.summary, type: "article" },
     twitter: { card: "summary", title, description: e.summary },
   };
 }

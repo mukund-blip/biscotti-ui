@@ -1,7 +1,8 @@
+import { canonicalMetadata } from "@/site";
 import type { Metadata } from "next";
 import { IconGrid, SoundBoard, Springs } from "./foundations-client";
 
-export const metadata: Metadata = { title: "Foundations" };
+export const metadata: Metadata = { ...canonicalMetadata("foundations"), title: "Foundations" };
 
 const colorGroups = [
   { name: "Surfaces", tokens: ["paper", "surface", "raised", "sunken", "well"] },

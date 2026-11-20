@@ -22,3 +22,16 @@ export const componentSourceUrl = (slug: string) => `${REPO_URL}/tree/${REPO_BRA
 
 /** One quiet line that travels with copied examples, pointing back to where they came from. */
 export const originComment = (slug: string, name: string) => `// ${name} · Detent — ${componentSourceUrl(slug).replace(/^https?:\/\//, "")}`;
+
+
+/** Build-time path for raw public assets; Next Link prefixes page links itself. */
+export const BASE_PATH = process.env.NEXT_PUBLIC_BASE_PATH ?? "";
+export const publicPath = (path: string) => `${BASE_PATH}/${path.replace(/^\//, "")}`;
+
+/** Set for hosted builds; normal development does not advertise a public canonical. */
+export const SITE_URL = process.env.NEXT_PUBLIC_SITE_URL?.replace(/\/$/, "");
+export const siteUrl = (path = "") => {
+  const route = path.replace(/^\/+|\/+$/g, "");
+  return SITE_URL ? `${SITE_URL}/${route ? `${route}/` : ""}` : undefined;
+};
+export const canonicalMetadata = (path = "") => SITE_URL ? { alternates: { canonical: siteUrl(path) } } : {};

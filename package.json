@@ -4,11 +4,14 @@
   "packageManager": "pnpm@10.34.5",
   "scripts": {
     "dev": "pnpm --filter web dev",
+    "build:pages": "node scripts/build-pages.mjs",
+    "preview:pages": "node scripts/preview-pages.mjs",
     "build": "node scripts/gen-catalog.mjs && node scripts/build-registry.mjs && pnpm --filter web build",
     "test": "pnpm --filter @detent/ui test",
     "typecheck": "pnpm -r typecheck",
     "catalog": "node scripts/gen-catalog.mjs",
     "registry": "node scripts/build-registry.mjs",
+    "test:pages": "playwright test -c playwright.pages.config.ts",
     "test:e2e": "playwright test"
   },
   "devDependencies": {

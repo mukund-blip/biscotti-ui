@@ -1,10 +1,11 @@
+import { canonicalMetadata } from "@/site";
 import type { Metadata } from "next";
 import Link from "next/link";
 import { Icon } from "@detent/ui";
 import { catalog, groups } from "@/catalog";
 import { GalleryTile } from "@/components/gallery-tile";
 
-export const metadata: Metadata = { title: "Components" };
+export const metadata: Metadata = { ...canonicalMetadata("components"), title: "Components" };
 
 const groupIntro: Record<string, string> = {
   "Tactile controls": "Small parts with real travel, detents and latches.",
