@@ -1,7 +1,7 @@
 "use client";
 
 /**
- * Ostra Ops — the integrated demo. Every panel is a Detent component and they drive each other:
+ * Ostra Ops — the integrated demo. Every panel is a Biscotti UI component and they drive each other:
  * the palette filters the table, Scout's approval spawns an activity task, bulk actions are undoable.
  */
 import { useCallback, useEffect, useMemo, useRef, useState, type ReactNode } from "react";
@@ -265,7 +265,7 @@ export function Workbench() {
           <p className="font-mono text-2xs uppercase tracking-[0.08em] text-muted">Workbench · Ostra Ops</p>
           <h1 className="mt-2 text-[clamp(28px,3.6vw,40px)] font-semibold leading-[1.05] tracking-[-0.03em]">The encoder shortage</h1>
           <p className="mt-2 max-w-[640px] text-base leading-[22px] text-ink-2">
-            {counts.awaiting} retailer orders ({counts.awaitingUnits} units) are waiting on PEC11R encoders. Ask Scout for a plan, approve the order, and ship what you can. Every panel is a Detent component, and they drive each other.
+            {counts.awaiting} retailer orders ({counts.awaitingUnits} units) are waiting on PEC11R encoders. Ask Scout for a plan, approve the order, and ship what you can. Every panel is a Biscotti UI component, and they drive each other.
           </p>
         </div>
         <button

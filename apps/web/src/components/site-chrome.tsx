@@ -167,10 +167,12 @@ export function SiteChrome({ children }: { children: ReactNode }) {
       </a>
       <header className="sticky top-0 z-40 bg-paper/85 backdrop-blur-md [box-shadow:inset_0_-1px_0_var(--dt-hairline)]">
         <div className="mx-auto flex h-16 max-w-[1320px] items-center gap-6 px-5 md:px-8">
+          {/* Named by its content ("Biscotti UI 0.1, home") so the accessible name always contains the visible text. */}
           <Link href="/" className="focus-ring flex items-center gap-2 rounded-sm text-ink">
             <Logo className="size-5" />
-            <span className="text-[15px] font-semibold tracking-[-0.01em]">Detent</span>
+            <span className="text-[15px] font-semibold tracking-[-0.01em]">Biscotti UI</span>{" "}
             <span className="font-mono text-2xs text-muted">0.1</span>
+            <span className="sr-only">, home</span>
           </Link>
           <nav className="hidden items-center gap-1 md:flex" aria-label="Primary">
             {nav.map((n) => {

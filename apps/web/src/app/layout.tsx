@@ -11,8 +11,9 @@ const serif = Newsreader({ subsets: ["latin"], style: ["italic"], weight: ["400"
 
 export const metadata: Metadata = {
   metadataBase: SITE_URL ? new URL(`${SITE_URL}/`) : undefined,
-  title: { default: "Detent: interactive React components", template: "%s · Detent" },
+  title: { default: "Biscotti UI: interactive React components", template: "%s · Biscotti UI" },
   description: "Twenty interactive React components. Try controls, editors and agent workflows, then copy the source into your app.",
+  openGraph: { siteName: "Biscotti UI", type: "website" },
 };
 
 export default function RootLayout({ children }: { children: React.ReactNode }) {
