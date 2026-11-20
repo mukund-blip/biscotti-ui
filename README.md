@@ -98,7 +98,7 @@ Springs are chosen per interaction class (`spring.control`, `latch`, `glide`, `l
 MIT.
 
 
-## GitHub Pages export (review first)
+## Static export and deployment
 
 `pnpm dev` and `pnpm build` retain the normal root-path Next app. For a static project-site export:
 
@@ -128,13 +128,14 @@ simulation. Speed, partial-answer cancellation, simulated failure and retry stay
 interactive on a static host. Library consumers can still supply `fetch` Responses,
 ReadableStreams or async iterables to `useTextStream`.
 
-`.github/workflows/pages.yml` builds and uploads a Pages artifact on PRs or manual
-runs. It does **not** deploy on push/PR. After review and account eligibility are
-resolved, a human may manually run it on `main` with `deploy=true`. No repository
-visibility changes, plan changes or secrets are configured here. Private-repository
-Pages availability depends on the account plan; the current repository's Pages
-API was unavailable during preparation. Keep deployment disabled until that is
-resolved and the final export is approved.
+Production is https://detent.netlify.app, served from the domain root.
+`.github/workflows/netlify.yml` deploys it on every push to `main` (or a manual run
+on `main`): `PAGES_SITE_URL=https://detent.netlify.app pnpm build:pages`, then
+`check-pages` and `test:pages` on that exact export, then `netlify deploy --prod`
+using the `NETLIFY_AUTH_TOKEN` repository secret. Netlify's own Git builds are
+stopped for the site. `.github/workflows/pages.yml` is the pull-request check: it
+builds the export under the `/detent` sub-path and runs the same validation and
+tests, without deploying. GitHub Pages isn't used.
 
 A project site's `/detent/robots.txt` is emitted for completeness, but crawlers
 normally consult `/robots.txt` at the hostname root. That root policy must be

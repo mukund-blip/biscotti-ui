@@ -106,7 +106,8 @@ export default function Foundations() {
               <p className="text-2xs text-muted">{use}</p>
             </div>
           ))}
-          <div className="ml-auto flex gap-4">
+          {/* Wraps on narrow screens; four 80 px swatches don't fit in a 320 px viewport. */}
+          <div className="flex flex-wrap gap-4 sm:ml-auto">
             {["shadow-1", "shadow-2", "shadow-3", "shadow-press"].map((s) => (
               <div key={s} className="text-center">
                 <div className={`size-20 rounded-lg bg-raised ${s}`} />

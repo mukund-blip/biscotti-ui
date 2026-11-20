@@ -1,15 +1,18 @@
-name: Pages export (review before deployment)
+name: Static export check
+
+# Pull-request gate for the static export. It builds under a sub-path
+# (/detent by default), so base-path prefixing, canonicals and registry URLs are
+# exercised, then validates and tests that export. Production is deployed from
+# main by netlify.yml (root path); that workflow doesn't run on pull requests,
+# so this is the only PR validation of the export. The former GitHub Pages
+# deploy job was removed: Pages isn't available for this private repo.
 
 on:
   pull_request:
   workflow_dispatch:
     inputs:
-      deploy:
-        description: Deploy after final approval (main only; requires eligible Pages account)
-        type: boolean
-        default: false
       site_url:
-        description: Public origin and base path used by metadata and registry
+        description: Public origin and optional base path to build for
         type: string
         default: https://mukund-blip.github.io/detent
 
@@ -39,22 +42,3 @@ jobs:
           name: pages-e2e-results
           path: test-results
           retention-days: 7
-      - uses: actions/upload-pages-artifact@v4
-        with:
-          path: apps/web/out
-
-  # Never runs on a push or PR. A human must choose deploy=true after review.
-  deploy:
-    if: github.event_name == 'workflow_dispatch' && inputs.deploy && github.ref == 'refs/heads/main'
-    needs: build
-    runs-on: ubuntu-latest
-    permissions:
-      pages: write
-      id-token: write
-    environment:
-      name: github-pages
-      url: ${{ steps.deployment.outputs.page_url }}
-    steps:
-      - uses: actions/configure-pages@v5
-      - uses: actions/deploy-pages@v4
-        id: deployment
