@@ -8,7 +8,7 @@ const read = (path) => readFileSync(join(root, path), "utf8");
 const { siteUrl, basePath } = JSON.parse(read("pages-build.json"));
 const slugs = readdirSync(resolve(import.meta.dirname, "../apps/web/src/catalog"))
   .filter((f) => f.endsWith(".tsx")).map((f) => f.slice(0, -4));
-assert.equal(slugs.length, 20);
+assert.ok(slugs.length > 0, "no catalog entries found");
 assert.ok(existsSync(join(root, ".nojekyll")), "missing .nojekyll");
 assert.ok(!existsSync(join(root, "api/stream")), "obsolete API route exported");
 const routes = ["", "components", "foundations", "workbench", ...slugs.map((s) => `components/${s}`)];
@@ -28,16 +28,23 @@ for (const route of routes) {
 }
 assert.ok(read("robots.txt").includes(`${siteUrl}/sitemap.xml`));
 // /detent/robots.txt can't hide anything, so every exported lab harness must carry noindex itself.
-const labDir = join(root, "lab");
-const labPages = existsSync(labDir) ? ["", ...readdirSync(labDir, { withFileTypes: true }).filter((d) => d.isDirectory()).map((d) => d.name)]
-  .map((d) => join("lab", d, "index.html")).filter((f) => existsSync(join(root, f))) : [];
+// Expected lab pages come from the source routes, so a missing export fails instead of passing with nothing checked.
+const labSrc = resolve(import.meta.dirname, "../apps/web/src/app/lab");
+const labPages = existsSync(labSrc) ? ["", ...readdirSync(labSrc, { withFileTypes: true }).filter((d) => d.isDirectory()).map((d) => d.name)]
+  .filter((d) => existsSync(join(labSrc, d, "page.tsx"))).map((d) => join("lab", d, "index.html")) : [];
+assert.ok(labPages.length > 0, "no lab routes found");
 for (const page of labPages) {
+  assert.ok(existsSync(join(root, page)), `lab page ${page} was not exported`);
   assert.match(read(page), /<meta name="robots" content="noindex, ?nofollow"/, `lab page ${page} is indexable`);
-  assert.ok(!sitemap.includes("/lab/"), "sitemap lists lab pages");
 }
+assert.ok(!sitemap.includes("/lab/"), "sitemap lists lab pages");
 const registry = JSON.parse(read("r/registry.json"));
 assert.equal(registry.homepage, siteUrl);
-assert.equal(registry.items.length, 21);
+// Every catalog page advertises an install URL, so each needs an item, alongside the shared foundation.
+const names = registry.items.map((i) => i.name);
+assert.equal(new Set(names).size, names.length, "duplicate registry item names");
+const missing = ["detent-foundation", ...slugs].filter((n) => !names.includes(n));
+assert.deepEqual(missing, [], `registry is missing ${missing.join(", ")}`);
 for (const { name } of registry.items) {
   const item = JSON.parse(read(`r/${name}.json`));
   for (const dependency of item.registryDependencies ?? []) {
@@ -46,4 +53,4 @@ for (const { name } of registry.items) {
   }
   for (const file of item.files) assert.ok(file.target.startsWith("components/detent/"));
 }
-console.log(`Validated ${routes.length} public routes, prefixed assets/canonicals, sitemap/robots and 21 registry items with nested dependencies (${siteUrl}).`);
+console.log(`Validated ${routes.length} public routes, prefixed assets/canonicals, sitemap/robots, ${labPages.length} noindex lab pages and ${registry.items.length} registry items with nested dependencies (${siteUrl}).`);

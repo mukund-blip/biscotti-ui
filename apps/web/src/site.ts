@@ -24,7 +24,10 @@ export const componentSourceUrl = (slug: string) => `${REPO_URL}/tree/${REPO_BRA
 export const originComment = (slug: string, name: string) => `// ${name} · Detent — ${componentSourceUrl(slug).replace(/^https?:\/\//, "")}`;
 
 
-/** Build-time path for raw public assets; Next Link prefixes page links itself. */
+/**
+ * Build-time path for raw public assets; Next Link prefixes page links itself.
+ * next.config.ts republishes the basePath it routes with, so this is never out of step with Next.
+ */
 export const BASE_PATH = process.env.NEXT_PUBLIC_BASE_PATH ?? "";
 export const publicPath = (path: string) => `${BASE_PATH}/${path.replace(/^\//, "")}`;
 
