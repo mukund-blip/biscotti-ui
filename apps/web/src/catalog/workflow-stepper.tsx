@@ -47,7 +47,7 @@ export const entry: CatalogEntry = {
   dependencies: ["motion"],
   keyboard: [
     { keys: ["←", "→"], action: "Horizontal: previous / next column, nearest lane" },
-    { keys: ["↑", "↓"], action: "Horizontal: lane above / below in the same column. Vertical: previous / next step" },
+    { keys: ["↑", "↓"], action: "Horizontal: lane above / below in the same column. Vertical: previous / next step (← → do the same)" },
     { keys: ["Home", "End"], action: "First / last step" },
     { keys: ["Tab"], action: "Leaves the track for the detail panel (Retry, dependency links, wizard content)" },
   ],

@@ -7,11 +7,12 @@ export const entry: CatalogEntry = {
   name: "Visual Filter Builder",
   group: "Information & editing",
   summary: "Build readable filters with typed editors, editable clauses, and live results.",
-  description: "Each condition is a three-part chip with separate editors for field, operator, and value. Choose enum options, enter a number or text, or pick a date window. AND and OR connect the chips, and committed edits update the order list and matching count.",
+  description: "Each condition reads as a sentence-like chip — field, operator, value — and each part opens its own typed editor: options for enum fields, a number or text input, or a date window (last 24 hours, 7 days, 30 days). Clickable AND / OR tokens join the chips. The component only owns the condition list; pair it with filterBuilderMatches to filter your rows, where AND binds before OR.",
   useCases: ["Ad hoc searches over structured records", "Filtering orders by status, market, and volume", "Building a reusable query from typed conditions"],
   scale: "l",
   Demo: FilterBuilderDemo,
-  usage: `import { FilterBuilder, filterBuilderMatches, type FilterBuilderCondition, type FilterBuilderField } from "@detent/ui";
+  usage: `import { useState } from "react";
+import { FilterBuilder, filterBuilderMatches, type FilterBuilderCondition, type FilterBuilderField } from "@detent/ui";
 
 type Order = { units: number };
 const fields: FilterBuilderField<Order>[] = [
@@ -19,11 +20,11 @@ const fields: FilterBuilderField<Order>[] = [
 ];
 
 const [filters, setFilters] = useState<readonly FilterBuilderCondition[]>([]);
-const matches = orders.filter(row => filterBuilderMatches(row, fields, filters, now));
+const matches = orders.filter(row => filterBuilderMatches(row, fields, filters, Date.now()));
 
 <FilterBuilder fields={fields} value={filters} onChange={setFilters} />`,
   props: [
-    { name: "fields", type: "readonly FilterBuilderField<Row>[]", required: true, description: "Field schema and row accessors. Date fields return epoch milliseconds." },
+    { name: "fields", type: "readonly FilterBuilderField<Row>[]", required: true, description: "id, label, type and accessor. enum fields also take options; date accessors return epoch ms. Operators per type — enum: is, is not, is any of, is none of; number: ≥, >, ≤, <, =; date: is within, is older than; text: contains, does not contain, is." },
     { name: "value / defaultValue", type: "readonly FilterBuilderCondition[]", default: "[]", description: "Controlled or initial condition list. Each condition after the first may carry an AND or OR join." },
     { name: "onChange", type: "(conditions: readonly FilterBuilderCondition[]) => void", description: "Called for committed edits, join changes, removals, and clears." },
     { name: "title", type: "string", default: '"Filters"', description: "Visible title and accessible section name." },
@@ -31,7 +32,7 @@ const matches = orders.filter(row => filterBuilderMatches(row, fields, filters, 
     { name: "className", type: "string", description: "Style the outer section." },
   ],
   exports: [
-    { name: "filterBuilderMatches", description: "Matches a row against typed conditions and a supplied clock. AND binds before OR." },
+    { name: "filterBuilderMatches(row, fields, conditions, now)", description: "True when the row passes. now (epoch ms) anchors date windows, so tests stay deterministic. AND binds before OR." },
     { name: "FilterBuilderProps, FilterBuilderField, FilterBuilderOption", description: "Component and schema types." },
     { name: "FilterBuilderCondition, FilterBuilderOperator, FilterBuilderJoin, FilterBuilderDatePreset", description: "Condition, operator, connective, and date-window types." },
   ],
@@ -40,20 +41,20 @@ const matches = orders.filter(row => filterBuilderMatches(row, fields, filters, 
     { keys: ["Tab", "Shift+Tab"], action: "Move through chip parts, connective tokens, and editor controls." },
     { keys: ["Enter", "Space"], action: "Open a chip editor or activate a choice." },
     { keys: ["↑", "↓"], action: "Move among field, operator, or single-value choices." },
-    { keys: ["⌫"], action: "Remove the focused condition." },
+    { keys: ["⌫"], action: "With a chip focused: remove that condition (focus moves to the next chip or the add button)." },
     { keys: ["Esc"], action: "Dismiss the editor and restore focus to its trigger." },
   ],
   a11y: [
     "Each chip part has its own button and accessible name. Each popup has a title that matches the current editing step.",
     "Enum multiselect uses labeled checkboxes. Text and number inputs have field-specific labels.",
     "Removing a focused chip returns focus to a neighboring chip or the add button.",
-    "The demo announces the settled result count once per committed change.",
+    "The component announces nothing itself; the demo shows the pattern of announcing the settled result count once per committed change.",
   ],
   motion: [
     { state: "Rest / focus", behaviour: "Hairlines separate the three chip parts. The open trigger is marked in pencil." },
     { state: "Editor", behaviour: "The anchored editor fades with 4 px of travel on entry and 2 px on exit." },
     { state: "Add / remove", behaviour: "Chip width opens or collapses with the layout spring as adjacent chips reposition." },
-    { state: "Results", behaviour: "Results refresh immediately and the tabular match count tweens to the new total." },
+    { state: "Results (demo)", behaviour: "In the demo, rows refresh immediately and the tabular match count tweens to the new total; the component leaves results to you." },
     { state: "Reduced motion", behaviour: "Chip widths and editor positions update immediately with short opacity cues. The count snaps." },
   ],
   sound: [

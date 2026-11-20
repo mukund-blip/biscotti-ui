@@ -44,7 +44,7 @@ export const entry: CatalogEntry = {
     { name: "sound", type: "boolean", default: "true", description: "Allow this instance to play sounds." },
     { name: "className", type: "string", description: "Applied to the root section." },
   ],
-  exports: [{ name: "ActivityTask, ActivityStatus", description: "Task data types." }],
+  exports: [{ name: "ActivityTask, ActivityStatus", description: "Task data: id, title, doneTitle? (falls back to title), status, progress? (0–1; omit for indeterminate), elapsedMs? (running time; a local timer fills in while running), meta?, error? (shown when failed)." }],
   dependencies: ["motion"],
   keyboard: [
     { keys: ["Tab"], action: "Moves through task titles, actions, the deck toggle and (when open) finished tasks" },

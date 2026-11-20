@@ -61,7 +61,7 @@ export const entry: CatalogEntry = {
     { name: "className", type: "string", description: "Applied to the root section." },
   ],
   exports: [
-    { name: "ApprovalEmailPreview", description: "From / To / Subject header plus body, sized for the card's preview peek." },
+    { name: "ApprovalEmailPreview", description: "Props: from, to, subject (strings) and children (the body). Renders a From / To / Subject header above the body, sized for the card's preview peek." },
     { name: "ApprovalDecision, ApprovalOutcome, ApprovalRisk, ApprovalScopeItem", description: "Types for decisions ({ outcome, note?, by?, at }), risk and scope." },
   ],
   dependencies: ["motion"],
@@ -91,7 +91,7 @@ export const entry: CatalogEntry = {
     { state: "Preview", behaviour: "The clipped peek expands to full height on the layout spring; the chevron turns on the control spring." },
     { state: "Request changes", behaviour: "The note field grows in with the layout spring and the footer swaps to Cancel / Send with a 120 ms crossfade." },
     { state: "Hold to approve", behaviour: "Pencil fills the button left to right over 1 s, with ticks at each quarter; released early, it drains back faster than it filled." },
-    { state: "Decide", behaviour: "The height folds at once on the glide spring. The request stays legible while the soft bottom edge clips it, then hands off late: it fades in 30 ms at about 105 ms and the receipt arrives at 130 ms, as the height nears its final size. No frame shows both, the dip between them is about 10 ms, and the fold settles in about 290 ms. The rule's gap closes with the latch spring and the check draws itself." },
+    { state: "Decide", behaviour: "The height folds at once on the glide spring. The request stays legible while the soft bottom edge clips it, then hands off late: it fades in 30 ms at about 105 ms and the receipt arrives at 130 ms, as the height nears its final size. The two views never overlap, and the fold settles in about 290 ms. The rule's gap closes with the latch spring and the check draws itself." },
     { state: "Undo", behaviour: "In reverse: the height opens at once from wherever it is (even mid-fold, carrying its velocity), the receipt is gone in 30 ms, and the request fades in from 35 ms. Settles in about 290 ms. The moving edge is always a short fade, never a hard cut through text." },
     { state: "Receipt detail", behaviour: "The chevron reopens the original request read-only beneath the receipt line, with the same height spring and fade; collapsing folds it back the same way. Silent." },
     { state: "Undo window", behaviour: "A 1 px meter along the receipt's bottom edge (pencil over a faint track) drains over 5 s, the card's only live mark. It appears once the fold lands. The outcome glyph stays pencil (provisional) meanwhile. When it empties, the rule drains to ink, the check takes the ok colour, the attribution fades in, and the receipt loses its shadow." },
