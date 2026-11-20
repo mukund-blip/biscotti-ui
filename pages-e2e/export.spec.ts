@@ -14,7 +14,16 @@ for (const theme of ["light", "dark"] as const) {
       await expect(page.locator("main")).toBeVisible();
       expect((await page.reload())?.status()).toBe(200);
       await expect(page.locator("html")).toHaveAttribute("data-theme", theme);
-      expect(await page.evaluate(() => document.documentElement.scrollWidth <= innerWidth)).toBe(true);
+      // On failure, name the elements that stick out so CI logs point at the cause.
+      const overflow = await page.evaluate(() => {
+        if (document.documentElement.scrollWidth <= innerWidth) return [];
+        return [...document.querySelectorAll("body *")]
+          .map((el) => ({ el, right: el.getBoundingClientRect().right }))
+          .filter(({ right }) => right > innerWidth + 0.5)
+          .sort((a, b) => b.right - a.right).slice(0, 8)
+          .map(({ el, right }) => `${Math.round(right)}px ${el.tagName.toLowerCase()}.${String(el.className).slice(0, 80)} "${(el.textContent ?? "").trim().slice(0, 40)}"`);
+      });
+      expect(overflow, `page is wider than ${page.viewportSize()?.width}px`).toEqual([]);
       expect(errors).toEqual([]);
     });
   }

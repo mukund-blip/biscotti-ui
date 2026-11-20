@@ -33,6 +33,12 @@ jobs:
       - run: node scripts/check-pages.mjs
       - run: pnpm exec playwright install --with-deps chromium
       - run: pnpm test:pages
+      - if: failure()
+        uses: actions/upload-artifact@v4
+        with:
+          name: pages-e2e-results
+          path: test-results
+          retention-days: 7
       - uses: actions/upload-pages-artifact@v4
         with:
           path: apps/web/out
