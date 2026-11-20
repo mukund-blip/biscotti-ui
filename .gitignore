@@ -7,3 +7,6 @@ playwright-report
 .scratch
 
 /apps/web/out/
+
+# Netlify CLI local state
+.netlify
