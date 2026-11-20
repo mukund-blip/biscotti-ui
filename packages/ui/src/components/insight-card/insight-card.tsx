@@ -239,10 +239,14 @@ export function InsightCard({
   /* measure */
   const plotRef = useRef<HTMLDivElement>(null);
   const [W, setW] = useState(480);
+  // Until the first measurement (server HTML, pre-hydration) W is a guess; the plot and marker row
+  // are clipped horizontally so that guess can't widen narrow pages.
+  const [measured, setMeasured] = useState(false);
   useLayoutEffect(() => {
     const el = plotRef.current;
     if (!el) return;
     setW(el.clientWidth || 480);
+    setMeasured(true);
     const ro = new ResizeObserver(([e]) => setW(Math.round(e.contentRect.width)));
     ro.observe(el);
     return () => ro.disconnect();
@@ -410,7 +414,7 @@ export function InsightCard({
       )}
 
       {/* Chart */}
-      <div className="relative mt-4">
+      <div className={cn("relative mt-4", !measured && "overflow-x-clip")}>
         {/* y tick labels sit just above their gridlines */}
         <div
           ref={plotRef}
