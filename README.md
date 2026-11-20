@@ -140,4 +140,5 @@ A project site's `/detent/robots.txt` is emitted for completeness, but crawlers
 normally consult `/robots.txt` at the hostname root. That root policy must be
 managed by the account's user/organization site if needed; this project cannot
 set it from the `/detent` subpath. The sitemap includes only public showcase routes,
-not the internal `/lab/` pages.
+not the internal `/lab/` harness pages; those are still exported, but hosted builds
+mark every one `noindex, nofollow`, and `check-pages` enforces it.

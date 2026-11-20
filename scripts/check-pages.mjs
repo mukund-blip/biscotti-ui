@@ -27,6 +27,14 @@ for (const route of routes) {
   if (route.startsWith("components/")) assert.ok(html.includes(`${siteUrl}/r/${route.split("/")[1]}.json`), `wrong displayed install URL in ${route}`);
 }
 assert.ok(read("robots.txt").includes(`${siteUrl}/sitemap.xml`));
+// /detent/robots.txt can't hide anything, so every exported lab harness must carry noindex itself.
+const labDir = join(root, "lab");
+const labPages = existsSync(labDir) ? ["", ...readdirSync(labDir, { withFileTypes: true }).filter((d) => d.isDirectory()).map((d) => d.name)]
+  .map((d) => join("lab", d, "index.html")).filter((f) => existsSync(join(root, f))) : [];
+for (const page of labPages) {
+  assert.match(read(page), /<meta name="robots" content="noindex, ?nofollow"/, `lab page ${page} is indexable`);
+  assert.ok(!sitemap.includes("/lab/"), "sitemap lists lab pages");
+}
 const registry = JSON.parse(read("r/registry.json"));
 assert.equal(registry.homepage, siteUrl);
 assert.equal(registry.items.length, 21);
