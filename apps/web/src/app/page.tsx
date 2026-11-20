@@ -1,4 +1,6 @@
 import Link from "next/link";
+import { Icon } from "@detent/ui";
+import { GalleryTile } from "@/components/gallery-tile";
 import { catalog, groups } from "@/catalog";
 import { HeroRuler } from "@/components/home/ruler";
 import { HeroBench } from "@/components/home/bench";
@@ -22,25 +24,26 @@ export default function Home() {
       {/* Hero */}
       <section className="mx-auto max-w-[1320px] px-5 md:px-8">
         <div className="hidden pt-6 md:block"><HeroRuler /></div>
-        <div className="grid items-center gap-12 pb-20 pt-12 md:pt-16 lg:grid-cols-[1.15fr_1fr]">
+        <div className="grid items-center gap-12 pb-14 pt-12 md:pb-20 md:pt-16 lg:grid-cols-[1.15fr_1fr] lg:gap-16">
           <div>
             <p className="mb-6 flex flex-wrap items-center gap-x-3 gap-y-1 font-mono text-2xs uppercase tracking-[0.08em] text-muted">
               <span>Detent 0.1</span><span aria-hidden className="h-px w-6 bg-rule" /><span>{catalog.length} components</span><span aria-hidden className="h-px w-6 bg-rule" /><span>React · Tailwind v4 · Motion</span>
             </p>
-            <h1 className="max-w-[760px] text-[clamp(44px,7.4vw,92px)] font-semibold leading-[0.94] tracking-[-0.045em]">
-              Interfaces that click into place.
+            <h1 className="max-w-[760px] text-[clamp(46px,6.6vw,84px)] font-semibold leading-[0.94] tracking-[-0.045em]">
+              Interfaces that<br className="hidden lg:block" /> click into place.
             </h1>
             <p className="mt-7 max-w-[560px] text-[17px] leading-[27px] text-ink-2">
-              Twenty interactive components for productivity, creative and AI-native software. Quiet at rest. Delightful in motion. Precise in use.
+              {catalog.length} interactive React components for productivity, creative and AI-native software. Quiet at rest. Delightful in motion. Precise in use.
             </p>
             <div className="mt-9 flex flex-wrap items-center gap-3">
-              <Link href="/components" className="focus-ring inline-flex h-10 items-center gap-2 rounded-sm bg-ink px-4 text-base font-medium text-on-ink transition-transform duration-[90ms] active:translate-y-px">
-                Browse components <span aria-hidden>→</span>
+              <Link href="/components" className="focus-ring inline-flex h-11 items-center gap-3 rounded-md bg-ink px-4 text-base font-medium text-on-ink transition-transform duration-[90ms] active:translate-y-px">
+                Browse components <Icon name="arrowRight" size={16} />
               </Link>
-              <Link href="/workbench" className="focus-ring inline-flex h-10 items-center rounded-sm bg-raised px-4 text-base text-ink shadow-[inset_0_0_0_1px_var(--dt-edge)] transition-transform duration-[90ms] hover:bg-surface active:translate-y-px">
+              <Link href="/workbench" className="focus-ring inline-flex h-11 items-center rounded-md bg-raised px-4 text-base text-ink shadow-[inset_0_0_0_1px_var(--dt-edge)] transition-transform duration-[90ms] hover:bg-surface active:translate-y-px">
                 Open the workbench
               </Link>
             </div>
+            <p className="mt-5 flex items-center gap-2 font-mono text-2xs text-muted"><Icon name="code" size={13} /> Open source · Own the code · MIT licensed</p>
           </div>
           <div className="flex justify-center lg:justify-end">
             <HeroBench />
@@ -48,8 +51,13 @@ export default function Home() {
         </div>
       </section>
 
+      <div className="border-y border-hairline bg-surface">
+        <div className="mx-auto grid max-w-[1320px] gap-4 px-5 py-5 text-sm text-ink-2 md:grid-cols-3 md:px-8">
+          {[["01", "Find your component", "Explore working previews."], ["02", "Make it yours", "Install the source. Change anything."], ["03", "Build with a system", "One language for state, motion and sound."]].map(([n, title, detail]) => <div key={n} className="flex gap-3"><span className="pt-0.5 font-mono text-2xs text-pencil-ink">{n}</span><p><span className="font-medium text-ink">{title}</span><span className="mt-0.5 block text-xs text-muted">{detail}</span></p></div>)}
+        </div>
+      </div>
       {/* Pencil, then ink */}
-      <section className="border-t border-hairline bg-surface">
+      <section className="border-b border-hairline bg-surface">
         <div className="mx-auto grid max-w-[1320px] gap-10 px-5 py-20 md:px-8 lg:grid-cols-[380px_1fr]">
           <div>
             <p className="font-mono text-2xs uppercase tracking-[0.08em] text-pencil-ink">The idea</p>
@@ -69,23 +77,11 @@ export default function Home() {
       {feat.length > 0 && (
         <section className="mx-auto max-w-[1320px] px-5 py-20 md:px-8">
           <div className="mb-8 flex items-end justify-between gap-6">
-            <h2 className="text-[clamp(28px,3.4vw,40px)] font-semibold leading-[1.05] tracking-[-0.03em]">Every control works.</h2>
-            <Link href="/components" className="focus-ring rounded-xs font-mono text-2xs uppercase tracking-[0.08em] text-muted hover:text-ink">All {catalog.length} →</Link>
+            <div><p className="mb-3 font-mono text-2xs uppercase tracking-[0.08em] text-muted">A few from the collection</p><h2 className="text-[clamp(28px,3.4vw,40px)] font-semibold leading-[1.05] tracking-[-0.03em]">Every control works.</h2></div>
+            <Link href="/components" className="focus-ring inline-flex shrink-0 items-center gap-2 rounded-xs text-sm text-ink-2 hover:text-ink">View all {catalog.length} <Icon name="arrowRight" size={15} /></Link>
           </div>
-          <div className="grid gap-4 md:grid-cols-2">
-            {feat.map((e) => {
-              const P = e.Preview ?? e.Demo;
-              return (
-                <article key={e.slug} className="flex flex-col overflow-hidden rounded-xl border border-hairline bg-surface">
-                  <div className="flex min-h-[380px] flex-1 flex-col items-center justify-center bg-paper"><P /></div>
-                  <Link href={`/components/${e.slug}`} className="focus-ring flex items-baseline gap-3 border-t border-hairline px-4 py-3.5 hover:bg-raised">
-                    <span className="tabular font-mono text-2xs text-muted">{e.number}</span>
-                    <span className="text-base font-medium">{e.name}</span>
-                    <span className="hidden truncate text-sm text-muted sm:inline">{e.summary}</span>
-                  </Link>
-                </article>
-              );
-            })}
+          <div className="grid grid-cols-1 gap-5 md:grid-cols-6">
+            {feat.map((e) => <GalleryTile key={e.slug} e={e} cols={3} />)}
           </div>
         </section>
       )}
@@ -112,7 +108,7 @@ export default function Home() {
           <div>
             <p className="font-mono text-2xs uppercase tracking-[0.08em] text-muted">Sound</p>
             <h2 className="mt-3 text-[clamp(28px,3.4vw,40px)] font-semibold leading-[1.05] tracking-[-0.03em]">Heard, not noticed.</h2>
-            <p className="mt-5 text-md leading-[26px] text-ink-2">Twelve tiny voices synthesised in your browser and tuned to one pentatonic scale, so they never clash. Off by default, adjustable, and permanently mutable.</p>
+            <p className="mt-5 text-md leading-[26px] text-ink-2">Thirteen tiny voices synthesised in your browser and tuned to one pentatonic scale, so they never clash. Off by default, adjustable, and permanently mutable.</p>
           </div>
           <SoundBoard />
         </div>
@@ -131,7 +127,7 @@ export default function Home() {
                     <Link href={`/components/${e.slug}`} className="focus-ring group flex items-baseline gap-3 border-b border-hairline py-2 text-sm hover:text-ink">
                       <span className="tabular font-mono text-2xs text-muted">{e.number}</span>
                       <span className="text-ink-2 group-hover:text-ink">{e.name}</span>
-                      <span aria-hidden className="ml-auto text-muted opacity-0 transition-opacity group-hover:opacity-100">→</span>
+                      <span aria-hidden className="ml-auto text-muted transition-colors group-hover:text-ink"><Icon name="arrowRight" size={14} /></span>
                     </Link>
                   </li>
                 ))}
@@ -146,6 +142,7 @@ export default function Home() {
           <span>Detent 0.1 — MIT</span>
           <Link href="/foundations" className="hover:text-ink">Foundations</Link>
           <a href="/r/registry.json" className="hover:text-ink">Registry</a>
+          <a href="https://github.com/mukund-blip/detent" className="inline-flex items-center gap-1.5 hover:text-ink">Detent source <Icon name="arrowUpRight" size={13} /></a>
           <span className="ml-auto">Respects prefers-reduced-motion · Sound off by default</span>
         </div>
       </footer>
