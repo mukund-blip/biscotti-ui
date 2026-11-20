@@ -120,7 +120,7 @@ export default function Foundations() {
         <Springs />
       </Section>
 
-      <Section id="sound" n="05" title="Sound" intro="Twelve voices synthesised with the Web Audio API — filtered noise transients and pentatonic sine partials through one limiter. Off by default; never on hover, focus or background updates.">
+      <Section id="sound" n="05" title="Sound" intro="Thirteen voices synthesised with the Web Audio API — filtered noise transients and pentatonic sine partials through one limiter. Off by default; never on hover, focus or background updates.">
         <SoundBoard />
       </Section>
 
