@@ -28,6 +28,9 @@ env:
 
 jobs:
   deploy:
+    # Production only ever comes from main. workflow_dispatch can be started from any
+    # branch, so without this a manual run would publish an unreviewed branch with --prod.
+    if: github.ref == 'refs/heads/main'
     runs-on: ubuntu-latest
     timeout-minutes: 20
     steps:
