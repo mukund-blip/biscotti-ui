@@ -1,5 +1,5 @@
 /**
- * Shared by the /api/stream route handler (real network stream) and the scripted replay,
+ * Shared by the paced browser demo and the scripted replay,
  * so both demos stream exactly the same answer with the same token timing.
  */
 import type { StreamingSource } from "@detent/ui";
@@ -40,7 +40,7 @@ export const scoutSources: StreamingSource[] = [
 
 export const scoutSuggestions = ["Draft the Digi-Key PO", "What if Digi-Key slips?", "Summarise for Mara"];
 
-/** Deterministic PRNG so every replay and every request has the same rhythm. */
+/** Deterministic PRNG so every replay and every demo run has the same rhythm. */
 function mulberry32(seed: number) {
   return () => {
     seed |= 0;
@@ -93,4 +93,35 @@ export function streamTimeline(text: string, seed = 7) {
     end += s.text.length;
     return { at: t, end };
   });
+}
+
+
+/** Wait without leaving a timer or abort listener behind after Stop or unmount. */
+function pause(ms: number, signal: AbortSignal): Promise<void> {
+  if (signal.aborted) return Promise.resolve();
+  return new Promise((resolve) => {
+    const finish = () => {
+      clearTimeout(timer);
+      signal.removeEventListener("abort", finish);
+      resolve();
+    };
+    const timer = setTimeout(finish, ms);
+    signal.addEventListener("abort", finish, { once: true });
+  });
+}
+
+/**
+ * A canned answer paced in the browser, not a model or network request.
+ * Each factory call creates a fresh iterable for Retry/Regenerate. Stop interrupts
+ * the current delay and keeps the partial answer through useTextStream.
+ */
+export async function* demoTextStream(signal: AbortSignal, { speed = 1, fail = false }: { speed?: number; fail?: boolean } = {}): AsyncGenerator<string> {
+  const rate = Number.isFinite(speed) ? Math.min(4, Math.max(0.25, speed)) : 1;
+  const plan = streamPlan(scoutAnswer);
+  for (let i = 0; i < plan.length; i++) {
+    await pause(plan[i].delay / rate, signal);
+    if (signal.aborted) return;
+    if (fail && i === Math.floor(plan.length * 0.55)) throw new Error("Simulated stream interruption");
+    yield plan[i].text;
+  }
 }

@@ -75,7 +75,7 @@ export function useScript<S>(initial: S, cues: Cue<S>[], opts: { duration?: numb
   return { state, t, duration, playing, speed, setSpeed, replay, seek, toggle, setPlaying, cues: sorted, ref };
 }
 
-type Script = ReturnType<typeof useScript<any>>;
+type Script = Omit<ReturnType<typeof useScript<any>>, "ref">;
 
 /** Tick-ruled scrubber. The playhead is the page's one live mark. */
 export function ScriptBar({ script, className }: { script: Script; className?: string }) {

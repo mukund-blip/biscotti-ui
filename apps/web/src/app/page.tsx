@@ -1,7 +1,7 @@
 import Link from "next/link";
 import { Icon } from "@detent/ui";
 import { GalleryTile } from "@/components/gallery-tile";
-import { REPO_URL } from "@/site";
+import { REPO_URL, publicPath, canonicalMetadata } from "@/site";
 import { catalog, groups } from "@/catalog";
 import { HeroRuler } from "@/components/home/ruler";
 import { HeroBench } from "@/components/home/bench";
@@ -17,6 +17,8 @@ const principles = [
 ];
 
 const featured = ["command-palette", "streaming-response", "data-table", "insight-card"];
+
+export const metadata = canonicalMetadata();
 
 export default function Home() {
   const feat = featured.map((s) => catalog.find((e) => e.slug === s)).filter(Boolean) as typeof catalog;
@@ -142,7 +144,7 @@ export default function Home() {
         <div className="mx-auto flex max-w-[1320px] flex-wrap items-center gap-x-6 gap-y-2 px-5 py-8 font-mono text-2xs text-muted md:px-8">
           <span>Detent 0.1 — MIT</span>
           <Link href="/foundations" className="hover:text-ink">Foundations</Link>
-          <a href="/r/registry.json" className="hover:text-ink">Registry</a>
+          <a href={publicPath("/r/registry.json")} className="hover:text-ink">Registry</a>
           <a href={REPO_URL} className="inline-flex items-center gap-1.5 hover:text-ink">Source on GitHub <Icon name="arrowUpRight" size={13} /></a>
           <span className="ml-auto">Respects prefers-reduced-motion · Sound off by default</span>
         </div>

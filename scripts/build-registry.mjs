@@ -1,11 +1,11 @@
 // Builds a shadcn-compatible registry into apps/web/public/r/.
 // Every file keeps its path under components/detent/, so relative imports survive.
 import { readdirSync, readFileSync, writeFileSync, mkdirSync, statSync, existsSync } from "node:fs";
-import { join, relative } from "node:path";
+import { join, relative, resolve } from "node:path";
 
 const ROOT = join(import.meta.dirname, "..");
 const SRC = join(ROOT, "packages/ui/src");
-const OUT = join(ROOT, "apps/web/public/r");
+const OUT = resolve(ROOT, process.env.REGISTRY_OUTPUT_DIR ?? "apps/web/public/r");
 const BASE = (process.env.REGISTRY_URL ?? process.env.NEXT_PUBLIC_REGISTRY_URL ?? "http://localhost:3410").replace(/\/$/, "");
 // Keep in sync with apps/web/src/site.ts.
 const REPO = (process.env.NEXT_PUBLIC_REPO_URL ?? "https://github.com/mukund-blip/detent").replace(/\/$/, "");
@@ -72,4 +72,4 @@ writeFileSync(
   join(OUT, "registry.json"),
   JSON.stringify({ $schema: "https://ui.shadcn.com/schema/registry.json", name: "detent", homepage: BASE, items }, null, 2),
 );
-console.log(`registry: ${items.length} items → apps/web/public/r (base ${BASE})`);
+console.log(`registry: ${items.length} items → ${relative(ROOT, OUT)} (base ${BASE})`);

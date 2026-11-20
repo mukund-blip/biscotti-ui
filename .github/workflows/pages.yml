@@ -1,0 +1,60 @@
+name: Pages export (review before deployment)
+
+on:
+  pull_request:
+  workflow_dispatch:
+    inputs:
+      deploy:
+        description: Deploy after final approval (main only; requires eligible Pages account)
+        type: boolean
+        default: false
+      site_url:
+        description: Public origin and base path used by metadata and registry
+        type: string
+        default: https://mukund-blip.github.io/detent
+
+permissions:
+  contents: read
+
+jobs:
+  build:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+      - uses: pnpm/action-setup@v4
+      - uses: actions/setup-node@v4
+        with:
+          node-version: 22
+          cache: pnpm
+      - run: pnpm install --frozen-lockfile
+      - run: pnpm build:pages
+        env:
+          PAGES_SITE_URL: ${{ inputs.site_url || 'https://mukund-blip.github.io/detent' }}
+      - run: node scripts/check-pages.mjs
+      - run: pnpm exec playwright install --with-deps chromium
+      - run: pnpm test:pages
+      - if: failure()
+        uses: actions/upload-artifact@v4
+        with:
+          name: pages-e2e-results
+          path: test-results
+          retention-days: 7
+      - uses: actions/upload-pages-artifact@v4
+        with:
+          path: apps/web/out
+
+  # Never runs on a push or PR. A human must choose deploy=true after review.
+  deploy:
+    if: github.event_name == 'workflow_dispatch' && inputs.deploy && github.ref == 'refs/heads/main'
+    needs: build
+    runs-on: ubuntu-latest
+    permissions:
+      pages: write
+      id-token: write
+    environment:
+      name: github-pages
+      url: ${{ steps.deployment.outputs.page_url }}
+    steps:
+      - uses: actions/configure-pages@v5
+      - uses: actions/deploy-pages@v4
+        id: deployment

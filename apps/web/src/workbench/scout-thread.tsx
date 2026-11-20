@@ -1,7 +1,7 @@
 "use client";
 
 /**
- * Scout's thread in the workbench: composer → tool calls → a real network stream (/api/stream)
+ * Scout's thread in the workbench: composer → tool calls → a canned answer paced in the browser
  * → a human approval for the purchase order it recommends.
  */
 import { useCallback, useEffect, useImperativeHandle, useRef, useState, type Ref } from "react";
@@ -16,7 +16,7 @@ import {
   useTextStream,
   type MentionItem,
 } from "@detent/ui";
-import { scoutSources, scoutSuggestions } from "@/demos/streaming-response-data";
+import { demoTextStream, scoutSources, scoutSuggestions } from "@/demos/streaming-response-data";
 
 export interface ScoutHandle {
   /** Ask Scout a question (as if it were typed and sent). */
@@ -46,7 +46,7 @@ export function ScoutThread({ ref, mentions, onApproved }: { ref?: Ref<ScoutHand
   const [turn, setTurn] = useState<Turn | null>(null);
   const [phase, setPhase] = useState<Phase>("idle");
   const [toolsDone, setToolsDone] = useState(0);
-  /** The network stream only starts once the tool calls finish (and never if Stop came first). */
+  /** The paced demo stream only starts once the tool calls finish (and never if Stop came first). */
   const [streamed, setStreamed] = useState(false);
   const root = useRef<HTMLDivElement>(null);
   const timers = useRef<number[]>([]);
@@ -59,15 +59,12 @@ export function ScoutThread({ ref, mentions, onApproved }: { ref?: Ref<ScoutHand
   useEffect(() => clearTimers, []);
 
   const stream = useTextStream(
-    turn && streamed ? (signal: AbortSignal) => fetch("/api/stream?speed=1.5", { signal }) : null,
+    turn && streamed ? (signal: AbortSignal) => demoTextStream(signal, { speed: 1.5 }) : null,
     { key: turn?.id },
   );
 
-  useEffect(() => {
-    if (phase !== "streaming") return;
-    if (stream.status === "done") setPhase("answered");
-    else if (stream.status === "error") setPhase("error");
-  }, [phase, stream.status]);
+  const shownPhase = phase === "streaming" && stream.status === "done" ? "answered"
+    : phase === "streaming" && stream.status === "error" ? "error" : phase;
 
   const ask = useCallback((question: string) => {
     clearTimers();
@@ -99,7 +96,7 @@ export function ScoutThread({ ref, mentions, onApproved }: { ref?: Ref<ScoutHand
 
   useImperativeHandle(ref, () => ({ ask, focus }), [ask, focus]);
 
-  const generating = phase === "tools" || phase === "streaming";
+  const generating = shownPhase === "tools" || shownPhase === "streaming";
 
   return (
     <div ref={root} className="flex flex-col gap-4">
@@ -128,7 +125,7 @@ export function ScoutThread({ ref, mentions, onApproved }: { ref?: Ref<ScoutHand
             />
           )}
 
-          {phase === "answered" && (
+          {shownPhase === "answered" && (
             <ApprovalCard
               key={turn.id}
               action={<>Place a {PO.supplier} order for {PO.units.toLocaleString("en")} PEC11R encoders.</>}
@@ -149,6 +146,7 @@ export function ScoutThread({ ref, mentions, onApproved }: { ref?: Ref<ScoutHand
         </div>
       )}
 
+      <p className="text-xs text-muted">Demo: Scout’s answer and tool results are simulated in your browser.</p>
       <PromptComposer
         aria-label="Message Scout"
         placeholder="Ask Scout about orders, suppliers or firmware…"

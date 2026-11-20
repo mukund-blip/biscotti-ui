@@ -3,9 +3,9 @@ import { useCallback, useEffect, useMemo, useRef, useState } from "react";
 import { StreamingResponse, useTextStream, type StreamingFeedback } from "@detent/ui";
 import { ScriptBar, useScript, type Cue } from "@/components/stage/script-player";
 import { ControlButton, ControlCheck, ControlSegment, Controls, DemoFrame, Readout, Stage } from "@/components/demo-kit";
-import { scoutAnswer, scoutQuestion, scoutSources, scoutSuggestions, streamTimeline } from "./streaming-response-data";
+import { demoTextStream, scoutAnswer, scoutQuestion, scoutSources, scoutSuggestions, streamTimeline } from "./streaming-response-data";
 
-/* ── scripted replay: text(t) is derived from the same chunk plan the route uses ── */
+/* ── scripted replay: text(t) is derived from the same chunk plan the paced demo uses ── */
 const timeline = streamTimeline(scoutAnswer);
 const firstAt = timeline[0].at;
 const endAt = timeline.at(-1)!.at;
@@ -51,7 +51,7 @@ export function StreamingResponseDemo({ compact = false }: { compact?: boolean }
   const [feedback, setFeedback] = useState<StreamingFeedback>(null);
   const [lastAction, setLastAction] = useState("—");
 
-  // Live: begin fetching once the demo is on screen.
+  // Start the paced browser stream once the demo is on screen.
   const host = useRef<HTMLDivElement>(null);
   const [visible, setVisible] = useState(false);
   useEffect(() => {
@@ -61,20 +61,22 @@ export function StreamingResponseDemo({ compact = false }: { compact?: boolean }
     return () => io.disconnect();
   }, []);
   const factory = useCallback(
-    (signal: AbortSignal) => fetch(`/api/stream?speed=${speed}${drop ? "&fail=1" : ""}`, { signal, cache: "no-store" }),
+    (signal: AbortSignal) => demoTextStream(signal, { speed: Number(speed), fail: drop }),
     [speed, drop],
   );
   const live = useTextStream(mode === "live" && visible ? factory : null, { key: `${speed}-${drop}` });
 
   // Replay
-  const script = useScript<S>({ phase: "idle" }, cues, { duration: endAt + 900, autoplay: mode === "replay" });
+  const { ref: replayRef, ...script } = useScript<S>({ phase: "idle" }, cues, { duration: endAt + 900, autoplay: mode === "replay" });
   const [stoppedAt, setStoppedAt] = useState<number | null>(null);
   const replayT = stoppedAt ?? script.t;
   const replayText = useMemo(() => textAt(replayT), [replayT]);
   const replayStatus = stoppedAt != null ? "stopped" : script.state.phase === "streaming" && replayT >= endAt ? "done" : script.state.phase;
-  useEffect(() => {
-    if (stoppedAt != null && script.t < stoppedAt - 1) setStoppedAt(null); // scrubbed back
-  }, [script.t, stoppedAt]);
+  const replayScript = {
+    ...script,
+    seek: (ms: number) => { setStoppedAt(null); script.seek(ms); },
+    replay: () => { setStoppedAt(null); script.replay(); },
+  };
 
   const response =
     mode === "live" ? (
@@ -108,7 +110,7 @@ export function StreamingResponseDemo({ compact = false }: { compact?: boolean }
     );
 
   return (
-    <div ref={(el) => { host.current = el; (script.ref as React.RefObject<HTMLDivElement | null>).current = el; }}>
+    <div ref={host}><div ref={replayRef}>
       <DemoFrame
         stage={
           <Stage minH={compact ? 300 : 520} center={false} className="flex justify-center px-5 py-8 sm:px-10">
@@ -121,13 +123,13 @@ export function StreamingResponseDemo({ compact = false }: { compact?: boolean }
               <ControlSegment
                 label="Source"
                 value={mode}
-                options={[{ value: "live", label: "Live · /api/stream" }, { value: "replay", label: "Scripted replay" }]}
+                options={[{ value: "live", label: "Paced browser demo" }, { value: "replay", label: "Scripted replay" }]}
                 onChange={(v) => { setMode(v); setFeedback(null); if (v === "replay") { setStoppedAt(null); script.replay(); } }}
               />
               {mode === "live" && (
                 <>
                   <ControlSegment label="Speed" value={speed} options={[{ value: "0.5", label: "0.5×" }, { value: "1", label: "1×" }, { value: "2", label: "2×" }]} onChange={setSpeed} />
-                  <ControlCheck label="Drop connection midway" checked={drop} onChange={setDrop} />
+                  <ControlCheck label="Simulate failure midway" checked={drop} onChange={setDrop} />
                   <ControlButton onClick={() => { setFeedback(null); live.restart(); }}>Ask again</ControlButton>
                   <Readout label="Stream">{live.status} · {live.chunks} chunks · {live.bytes} B</Readout>
                 </>
@@ -136,8 +138,8 @@ export function StreamingResponseDemo({ compact = false }: { compact?: boolean }
             </Controls>
           )
         }
-        footer={mode === "replay" ? <ScriptBar script={script} /> : undefined}
+        footer={mode === "replay" ? <ScriptBar script={replayScript} /> : undefined}
       />
-    </div>
+    </div></div>
   );
 }
