@@ -11,8 +11,8 @@ const serif = Newsreader({ subsets: ["latin"], style: ["italic"], weight: ["400"
 
 export const metadata: Metadata = {
   metadataBase: SITE_URL ? new URL(`${SITE_URL}/`) : undefined,
-  title: { default: "Detent — interactive components for precise software", template: "%s · Detent" },
-  description: "Twenty components for productivity, creative and AI-native tools. Quiet at rest. Delightful in motion. Precise in use.",
+  title: { default: "Detent: interactive React components", template: "%s · Detent" },
+  description: "Twenty interactive React components. Try controls, editors and agent workflows, then copy the source into your app.",
 };
 
 export default function RootLayout({ children }: { children: React.ReactNode }) {

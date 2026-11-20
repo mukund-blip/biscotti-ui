@@ -4,15 +4,9 @@ import Link from "next/link";
 import { Icon } from "@detent/ui";
 import { catalog, groups } from "@/catalog";
 import { GalleryTile } from "@/components/gallery-tile";
+import { groupId, groupIntro } from "@/catalog/group-info";
 
 export const metadata: Metadata = { ...canonicalMetadata("components"), title: "Components" };
-
-const groupIntro: Record<string, string> = {
-  "Tactile controls": "Small parts with real travel, detents and latches.",
-  "Commands & composition": "Keyboard-first ways to say what you want.",
-  "Agent interactions": "Making provisional, long-running work legible.",
-  "Information & editing": "Dense data and direct manipulation, without the noise.",
-};
 
 /**
  * Curated tiling (columns of 6) so every group fills complete rows, in reading order.
@@ -28,40 +22,41 @@ const layout: Record<string, [slug: string, cols: 2 | 3 | 4 | 6][]> = {
 export default function ComponentsIndex() {
   return (
     <div className="mx-auto max-w-[1320px] px-5 pb-24 pt-12 md:px-8 md:pt-16">
-      <header className="mb-8">
-        <div>
-          <p className="mb-3 font-mono text-2xs uppercase tracking-[0.08em] text-muted">Index · React + Tailwind v4 + Motion</p>
-          <h1 className="text-[clamp(36px,6vw,64px)] font-semibold leading-[0.98] tracking-[-0.04em]">
-            {catalog.length === 20 ? "Twenty" : catalog.length} components, all live.
-          </h1>
-          <p className="mt-5 max-w-[620px] text-md leading-[26px] text-ink-2">Every tile below is the real component, not a screenshot. Try it here, open its page for the API, keyboard map and states, then copy the source into your project.</p>
-        </div>
-        <nav aria-label="Groups" className="mt-8 grid grid-cols-2 gap-2 lg:grid-cols-4">
+      <header className="mb-10 md:mb-14">
+        <h1 className="text-[clamp(32px,5vw,52px)] font-semibold leading-[1.02] tracking-[-0.035em]">Components</h1>
+        <p className="mt-4 max-w-[600px] text-md leading-[26px] text-ink-2">
+          Every preview is the real component. Use it here, then open its page for the props, keyboard map and install command.
+        </p>
+        <div className="mt-7 flex flex-wrap items-start gap-2">
+          <nav aria-label="Groups" className="flex flex-wrap gap-2">
           {groups.map((g) => (
-            <a key={g} href={`#${g.toLowerCase().replace(/[^a-z]+/g, "-")}`} className="focus-ring group flex items-center gap-2 rounded-md border border-hairline bg-surface px-3 py-3 text-xs sm:px-4 sm:text-sm text-ink-2 transition-colors hover:border-rule hover:bg-raised hover:text-ink">
-              {g} <span className="tabular ml-auto font-mono text-2xs text-muted">{String(catalog.filter((e) => e.group === g).length).padStart(2, "0")}</span><Icon name="arrowDown" size={13} className="text-muted" />
+            <a key={g} href={`#${groupId(g)}`} className="focus-ring inline-flex h-9 items-center gap-2 rounded-md bg-surface px-3 text-sm text-ink-2 shadow-[inset_0_0_0_1px_var(--dt-hairline)] transition-colors hover:bg-raised hover:text-ink">
+              {g} <span className="tabular font-mono text-2xs text-muted">{catalog.filter((e) => e.group === g).length}</span>
             </a>
           ))}
-        </nav>
+          </nav>
+          <details className="group/names relative">
+            <summary className="focus-ring inline-flex h-9 cursor-pointer list-none items-center gap-1.5 rounded-md px-3 text-sm text-muted hover:text-ink [&::-webkit-details-marker]:hidden">
+              A–Z<span className="sr-only">: all components by name</span> <Icon name="chevronDown" size={13} className="transition-transform group-open/names:rotate-180" />
+            </summary>
+            <nav aria-label="All components by name" className="mt-2 grid w-[min(92vw,640px)] gap-x-4 rounded-lg bg-raised p-2 shadow-3 sm:grid-cols-2 md:absolute md:left-0 md:z-20">
+              {[...catalog].sort((a, b) => a.name.localeCompare(b.name)).map((e) => (
+                <Link key={e.slug} href={`/components/${e.slug}`} className="focus-ring rounded-sm px-2 py-1.5 text-sm text-ink-2 hover:bg-surface hover:text-ink">{e.name}</Link>
+              ))}
+            </nav>
+          </details>
+        </div>
       </header>
-      <details className="component-quick-index mb-12 rounded-md border border-hairline">
-        <summary className="focus-ring cursor-pointer rounded-md px-4 py-3 text-sm text-ink-2">Looking for something specific? <span className="ml-1 text-muted">Browse the name index</span></summary>
-        <nav aria-label="Component names" className="grid gap-1 border-t border-hairline p-3 sm:grid-cols-2 lg:grid-cols-4">
-          {catalog.map((e) => <Link key={e.slug} href={`/components/${e.slug}`} className="focus-ring flex items-center gap-2 rounded-sm px-2 py-2 text-sm hover:bg-surface"><span className="font-mono text-2xs text-muted">{e.number}</span>{e.name}<Icon name="chevronRight" size={12} className="ml-auto text-muted" /></Link>)}
-        </nav>
-      </details>
-      <p className="mb-5 flex items-center gap-2 font-mono text-2xs text-muted"><Icon name="play" size={12} /> Live previews · Click, drag, type. Every control is interactive.</p>
-      {groups.map((g, groupIndex) => {
+      {groups.map((g) => {
         const order = layout[g] ?? [];
         const rank = (slug: string) => { const i = order.findIndex(([s]) => s === slug); return i < 0 ? order.length : i; };
         const items = catalog.filter((e) => e.group === g).sort((a, b) => rank(a.slug) - rank(b.slug));
         if (!items.length) return null;
         return (
-          <section key={g} id={g.toLowerCase().replace(/[^a-z]+/g, "-")} aria-labelledby={`h-${g}`} className="mb-16 scroll-mt-32 md:scroll-mt-24">
-            <div className="mb-5 flex flex-wrap items-baseline gap-x-4 gap-y-1 border-t border-rule pt-5">
-              <span aria-hidden className="font-mono text-2xs text-pencil-ink">0{groupIndex + 1}</span>
-              <h2 id={`h-${g}`} className="text-[22px] font-medium tracking-[-0.01em]">{g}</h2>
-              <p className="text-sm text-muted">{groupIntro[g]}</p>
+          <section key={g} id={groupId(g)} aria-labelledby={`h-${groupId(g)}`} className="mb-16 scroll-mt-32 md:scroll-mt-24">
+            <div className="mb-5 border-t border-rule pt-5">
+              <h2 id={`h-${groupId(g)}`} className="text-[22px] font-semibold tracking-[-0.015em]">{g}</h2>
+              <p className="mt-1 max-w-[640px] text-sm text-muted">{groupIntro[g]}</p>
             </div>
             <div className="grid grid-cols-1 gap-5 md:grid-cols-6">
               {items.map((e) => <GalleryTile key={e.slug} e={e} cols={order.find(([s]) => s === e.slug)?.[1]} />)}

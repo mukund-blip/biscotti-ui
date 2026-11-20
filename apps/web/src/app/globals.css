@@ -21,17 +21,6 @@ body { min-height: 100dvh; }
 /* Site surfaces use the same paper, rules and pencil as the components. */
 html { scroll-padding-top: 6rem; }
 body { margin: 0; }
-.hero-instrument { position: relative; }
-.hero-instrument::before {
-  content: "";
-  position: absolute;
-  z-index: -1;
-  inset: -28px -16px -24px;
-  background-image: radial-gradient(var(--dt-rule) 0.65px, transparent 0.65px);
-  background-size: 12px 12px;
-  mask-image: linear-gradient(transparent, black 25%, black 75%, transparent);
-  opacity: 0.6;
-}
 .gallery-tile { transition: border-color 120ms ease; }
 .gallery-tile:focus-within { border-color: var(--dt-pencil); }
 .gallery-preview { isolation: isolate; }
