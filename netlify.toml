@@ -1,0 +1,29 @@
+# Netlify Git builds for https://detent.netlify.app.
+# Reproduces the static export that was deployed by hand: `pnpm build:pages`
+# (Next.js `output: "export"`) served from the domain root. Values here override
+# the Netlify UI. Build from the repository root (no base directory): it's a
+# pnpm workspace and build:pages drives the whole monorepo.
+
+[build]
+  command = "pnpm build:pages"
+  publish = "apps/web/out"
+
+[build.environment]
+  NODE_VERSION = "22"
+  # pnpm itself comes from package.json "packageManager" (exact version) via Corepack.
+  # The site is a plain static export; keep Netlify's Next.js runtime out of it.
+  NETLIFY_NEXT_PLUGIN_SKIP = "true"
+  # Browser tests run in CI, not in Netlify builds.
+  PLAYWRIGHT_SKIP_BROWSER_DOWNLOAD = "1"
+  # build:pages derives the base path, canonicals, sitemap, robots and the
+  # registry install URLs from this origin. Production (and any context without
+  # its own command below) builds for the production URL at the domain root.
+  PAGES_SITE_URL = "https://detent.netlify.app"
+
+# Previews and branch deploys use their own unique URL (Netlify sets DEPLOY_PRIME_URL
+# at build time), so their canonicals and install commands point at themselves.
+[context.deploy-preview]
+  command = 'PAGES_SITE_URL="$DEPLOY_PRIME_URL" pnpm build:pages'
+
+[context.branch-deploy]
+  command = 'PAGES_SITE_URL="$DEPLOY_PRIME_URL" pnpm build:pages'
