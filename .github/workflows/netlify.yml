@@ -17,6 +17,8 @@ permissions:
 
 # Only the latest main commit deploys. Netlify publishes atomically at the end of
 # `netlify deploy`, so cancelling an older run never leaves a half-published site.
+# Trade-off: if that newer run then fails (say a flaky e2e), production stays on
+# the last successful deploy, older than both; re-run the failed workflow to recover.
 concurrency:
   group: netlify-production
   cancel-in-progress: true
@@ -82,6 +84,8 @@ jobs:
           } >> "$GITHUB_STEP_SUMMARY"
           rm netlify-deploy.json
 
+      # Assumes production is publicly reachable (visitor access: non-production only).
+      # If site password or team-login protection ever covers production, this fails with 401.
       - name: Smoke-check production
         run: |
           for i in $(seq 1 12); do
@@ -94,7 +98,7 @@ jobs:
             exit 1
           fi
           for path in "" components/ foundations/ components/tool-chip/ robots.txt sitemap.xml r/registry.json; do
-            code=$(curl -s -o /dev/null -w '%{http_code}' "$PAGES_SITE_URL/$path")
+            code=$(curl -s -o /dev/null -w '%{http_code}' "$PAGES_SITE_URL/$path") || code=000
             echo "$code /$path"
             [ "$code" = 200 ] || { echo "::error::/$path returned $code"; exit 1; }
           done
