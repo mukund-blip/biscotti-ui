@@ -100,8 +100,13 @@ jobs:
             echo "::error::Production serves revision '$rev', expected $GITHUB_SHA"
             exit 1
           fi
-          for path in "" components/ foundations/ components/tool-chip/ robots.txt sitemap.xml r/registry.json; do
+          for path in "" foundations/ workbench/ components/tool-chip/ robots.txt sitemap.xml r/registry.json; do
             code=$(curl -s -o /dev/null -w '%{http_code}' "$PAGES_SITE_URL/$path") || code=000
             echo "$code /$path"
             [ "$code" = 200 ] || { echo "::error::/$path returned $code"; exit 1; }
           done
+          # The old index moved to the homepage: /components/ must 301 to / (apps/web/public/_redirects).
+          out=$(curl -s -o /dev/null -w '%{http_code} %{redirect_url}' "$PAGES_SITE_URL/components/") || out="000 "
+          code=${out%% *}; location=${out#* }
+          echo "$code /components/ -> $location"
+          [ "$code" = 301 ] && [ "$location" = "$PAGES_SITE_URL/" ] || { echo "::error::/components/ returned $code -> '$location', expected 301 -> $PAGES_SITE_URL/"; exit 1; }
