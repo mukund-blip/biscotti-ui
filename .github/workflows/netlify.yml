@@ -28,6 +28,10 @@ env:
   PAGES_SITE_URL: https://biscotti-ui.netlify.app
   NETLIFY_SITE_ID: d72b2ca2-49f5-4083-a77a-70f142673db1
   NETLIFY_CLI_VERSION: 27.20.1
+  # Repository links (header/footer Source, Star on GitHub, View source) render only when the
+  # repository is public. Derived from its visibility at run time: after changing visibility,
+  # re-run this workflow so the site rebuilds in the matching state.
+  NEXT_PUBLIC_REPO_PUBLIC: ${{ github.event.repository.private == false && 'true' || 'false' }}
 
 jobs:
   deploy:
@@ -110,3 +114,13 @@ jobs:
           code=${out%% *}; location=${out#* }
           echo "$code /components/ -> $location"
           [ "$code" = 301 ] && [ "$location" = "$PAGES_SITE_URL/" ] || { echo "::error::/components/ returned $code -> '$location', expected 301 -> $PAGES_SITE_URL/"; exit 1; }
+          # Launch state: GitHub links appear only when the repository is public; the X link always does.
+          home=$(curl -fsS "$PAGES_SITE_URL/")
+          grep -q 'href="https://x.com/MukundMohanK"' <<<"$home" || { echo "::error::X profile link missing"; exit 1; }
+          if [ "$NEXT_PUBLIC_REPO_PUBLIC" = true ]; then
+            grep -q 'Star on GitHub' <<<"$home" || { echo "::error::public repo but no Star on GitHub link"; exit 1; }
+            echo "public: Star on GitHub present"
+          else
+            ! grep -q 'href="https://github.com/' <<<"$home" || { echo "::error::private repo but the homepage links to GitHub"; exit 1; }
+            echo "private: no GitHub links"
+          fi

@@ -19,6 +19,12 @@ on:
 permissions:
   contents: read
 
+env:
+  # Repository links (header/footer Source, Star on GitHub, View source) render only when the
+  # repository is public. Derived from its visibility at run time: after changing visibility,
+  # re-run this workflow so the site rebuilds in the matching state.
+  NEXT_PUBLIC_REPO_PUBLIC: ${{ github.event.repository.private == false && 'true' || 'false' }}
+
 jobs:
   build:
     runs-on: ubuntu-latest
