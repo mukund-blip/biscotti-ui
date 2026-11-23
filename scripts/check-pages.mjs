@@ -52,5 +52,7 @@ for (const { name } of registry.items) {
     assert.ok(existsSync(join(root, dependency.slice(`${siteUrl}/`.length))), `missing dependency ${dependency}`);
   }
   for (const file of item.files) assert.ok(file.target.startsWith("components/biscotti/"));
+  // Every component (not the shared foundation) ships with a one-line origin comment on its main file.
+  if (name !== "biscotti-foundation") assert.ok(item.files.some((f) => f.content.startsWith(`// ${item.title} · Biscotti UI — `)), `${name} is missing its origin comment`);
 }
 console.log(`Validated ${routes.length} public routes, prefixed assets/canonicals, sitemap/robots, ${labPages.length} noindex lab pages and ${registry.items.length} registry items with nested dependencies (${siteUrl}).`);

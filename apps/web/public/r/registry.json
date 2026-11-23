@@ -61,7 +61,7 @@
       "name": "interactive-slider",
       "type": "registry:ui",
       "title": "Interactive Slider",
-      "description": "A precision fader with a measuring ruler, magnetic detents and fine adjust."
+      "description": "A precision fader with a measuring ruler, magnetic notches and fine adjust."
     },
     {
       "name": "kinetic-button",

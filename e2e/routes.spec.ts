@@ -44,7 +44,7 @@ test("reduced motion: pages render and timeline uses no sweep animation", async 
   await page.emulateMedia({ reducedMotion: "reduce" });
   await page.goto("/components/thinking-timeline", { waitUntil: "networkidle" });
   const anim = await page.evaluate(() => {
-    const el = document.querySelector(".dt-live-text");
+    const el = document.querySelector(".bis-live-text");
     return el ? getComputedStyle(el).animationName : "none";
   });
   expect(anim).toBe("none");

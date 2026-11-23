@@ -31,7 +31,7 @@ describe("ToolChip", () => {
   it("Enter and Space toggle the detail card with input, output and duration", async () => {
     const user = userEvent.setup();
     render(
-      <ToolChip kind="search" target="DETENT_THRESHOLD" results={2} durationMs={836} args={{ pattern: "DETENT_THRESHOLD", path: "firmware/" }} output={["src/a.ts:4  const X = 3;", "src/b.ts:9  X"]} />,
+      <ToolChip kind="search" target="CLICK_THRESHOLD" results={2} durationMs={836} args={{ pattern: "CLICK_THRESHOLD", path: "firmware/" }} output={["src/a.ts:4  const X = 3;", "src/b.ts:9  X"]} />,
     );
     const face = screen.getByRole("button", { name: /Searched/ });
     face.focus();

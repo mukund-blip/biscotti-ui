@@ -5,7 +5,7 @@ import { ToolChip, ToolChipGroup, useMotionTokens, type ToolChipProps } from "@b
 import { ScriptBar, useScript, type Cue } from "@/components/stage/script-player";
 import { ControlSegment, Controls, DemoFrame, Readout, Stage } from "@/components/demo-kit";
 
-/* ── Scout fixing fast-turn detent skipping on the OS-1 encoder ── */
+/* ── Scout fixing fast-turn click skipping on the OS-1 encoder ── */
 
 type Call = ToolChipProps & { id: string };
 type S = { calls: Call[]; done: boolean };
@@ -22,10 +22,10 @@ const ENCODER = "firmware/src/input/encoder.ts";
 const ACCEL = "firmware/src/input/accel.ts";
 
 const readOut = [
-  "1   // OS-1 rotary encoder: PEC11R-4220K, 24 detents/rev",
+  "1   // OS-1 rotary encoder: PEC11R-4220K, 24 clicks/rev",
   "2   import { clampVelocity } from \"./accel\";",
   "3   ",
-  "4   const DETENT_THRESHOLD = 3;   // quadrature edges per detent",
+  "4   const CLICK_THRESHOLD = 3;   // quadrature edges per click",
   "5   const DEBOUNCE_US = 800;",
   "6   ",
   "7   export function createEncoder(pinA: Pin, pinB: Pin) {",
@@ -34,35 +34,35 @@ const readOut = [
 ];
 
 const searchOut = [
-  "src/input/encoder.ts:4  const DETENT_THRESHOLD = 3;",
-  "src/input/encoder.ts:58  if (Math.abs(edges) >= DETENT_THRESHOLD) {",
-  "src/input/encoder.ts:61  edges -= Math.sign(edges) * DETENT_THRESHOLD;",
-  "src/input/accel.ts:12  // DETENT_THRESHOLD edges make one step",
-  "src/ui/menu.ts:88  const step = DETENT_THRESHOLD > 2 ? 1 : 2;",
-  "test/encoder.detent.test.ts:9  expect(DETENT_THRESHOLD).toBe(3);",
-  "docs/hardware/encoder.md:31  `DETENT_THRESHOLD` — edges per click",
+  "src/input/encoder.ts:4  const CLICK_THRESHOLD = 3;",
+  "src/input/encoder.ts:58  if (Math.abs(edges) >= CLICK_THRESHOLD) {",
+  "src/input/encoder.ts:61  edges -= Math.sign(edges) * CLICK_THRESHOLD;",
+  "src/input/accel.ts:12  // CLICK_THRESHOLD edges make one step",
+  "src/ui/menu.ts:88  const step = CLICK_THRESHOLD > 2 ? 1 : 2;",
+  "test/encoder.click.test.ts:9  expect(CLICK_THRESHOLD).toBe(3);",
+  "docs/hardware/encoder.md:31  `CLICK_THRESHOLD` — edges per click",
 ];
 
 const editOut = [
   "@@ -1,9 +1,18 @@",
-  "-const DETENT_THRESHOLD = 3;   // quadrature edges per detent",
+  "-const CLICK_THRESHOLD = 3;   // quadrature edges per click",
   "-const DEBOUNCE_US = 800;",
-  "+const DETENT_THRESHOLD = 4;   // full quadrature cycle per detent",
+  "+const CLICK_THRESHOLD = 4;   // full quadrature cycle per click",
   "+const DEBOUNCE_US = 350;",
   "+",
   "+/** Edges that arrive faster than this are treated as bounce. */",
   "+const MIN_EDGE_US = 120;",
   "@@ -55,6 +64,9 @@ export function createEncoder",
-  "-    if (Math.abs(edges) >= DETENT_THRESHOLD) {",
+  "-    if (Math.abs(edges) >= CLICK_THRESHOLD) {",
   "+    if (now - last < MIN_EDGE_US) return;",
   "+    last = now;",
-  "+    if (Math.abs(edges) >= DETENT_THRESHOLD) {",
+  "+    if (Math.abs(edges) >= CLICK_THRESHOLD) {",
 ];
 
 const testHead = [
   "> @ostra/os1-firmware@2.4.0 test",
   "> vitest run src/input",
-  " ✓ src/input/encoder.detent.test.ts (12 tests) 38ms",
+  " ✓ src/input/encoder.click.test.ts (12 tests) 38ms",
   " ✓ src/input/encoder.debounce.test.ts (9 tests) 21ms",
 ];
 
@@ -71,7 +71,7 @@ const cues: Cue<S>[] = [
   { at: 200, label: "read", apply: add({ id: "read", kind: "read", status: "pending", target: ENCODER, args: { path: ENCODER, offset: 1, limit: 184 } }) },
   { at: 1000, apply: set("read", { status: "done", lines: [1, 184], output: readOut, durationMs: 412 }) },
   // 2 · search
-  { at: 1250, label: "search", apply: add({ id: "search", kind: "search", status: "pending", target: "DETENT_THRESHOLD", args: { pattern: "DETENT_THRESHOLD", path: "firmware/", glob: "*.{ts,md}" } }) },
+  { at: 1250, label: "search", apply: add({ id: "search", kind: "search", status: "pending", target: "CLICK_THRESHOLD", args: { pattern: "CLICK_THRESHOLD", path: "firmware/", glob: "*.{ts,md}" } }) },
   { at: 2200, apply: set("search", { status: "done", results: 7, output: searchOut, durationMs: 836 }) },
   // 3 · edit encoder.ts
   { at: 2450, label: "edit", apply: add({ id: "edit-1", kind: "edit", status: "pending", target: ENCODER, args: { path: ENCODER, hunks: 2 } }) },
@@ -88,7 +88,7 @@ const cues: Cue<S>[] = [
     at: 6000,
     apply: (s) =>
       append("test-1", " Tests  1 failed | 23 passed (24)")(
-        set("test-1", { status: "error", exitCode: 1, durationMs: 2040, error: "1 test failed: accel.ts still assumes 3 edges per detent." })(s),
+        set("test-1", { status: "error", exitCode: 1, durationMs: 2040, error: "1 test failed: accel.ts still assumes 3 edges per click." })(s),
       ),
   },
   // 5 · fix accel.ts
@@ -100,7 +100,7 @@ const cues: Cue<S>[] = [
       added: 2,
       removed: 1,
       durationMs: 640,
-      output: ["@@ -10,4 +10,5 @@", "-const EDGES_PER_STEP = 3;", "+import { DETENT_THRESHOLD } from \"./encoder\";", "+const EDGES_PER_STEP = DETENT_THRESHOLD;"],
+      output: ["@@ -10,4 +10,5 @@", "-const EDGES_PER_STEP = 3;", "+import { CLICK_THRESHOLD } from \"./encoder\";", "+const EDGES_PER_STEP = CLICK_THRESHOLD;"],
     }),
   },
   // 6 · retry tests — pass
@@ -148,7 +148,7 @@ export function ToolChipDemo({ compact = false }: { compact?: boolean }) {
                 <span className="font-mono text-2xs text-muted">ostra/os1-firmware · fix/encoder-skips</span>
               </p>
               <p className="mb-3 text-base leading-[22px] text-ink-2">
-                Fast turns skip detents above about 40 steps a second. I’ll count a full quadrature cycle per detent and add an edge filter.
+                Fast turns skip clicks above about 40 steps a second. I’ll count a full quadrature cycle per click and add an edge filter.
               </p>
               {layout === "grouped" ? (
                 <ToolChipGroup defaultOpen={!compact}>{chips}</ToolChipGroup>

@@ -10,7 +10,7 @@ import { ControlCheck, ControlSegment, Controls, DemoFrame, Readout, Stage } fro
 type Run = Record<string, { status: WorkflowStepStatus; startedAt?: number; durationMs?: number; error?: string }>;
 
 const BASE: (Omit<WorkflowStep, "status"> & { work: number })[] = [
-  { id: "bom", title: "Finalise BOM", doneTitle: "BOM finalised", owner: "Theo Okafor", work: 1200, output: <p>Rev C locks the PEC11R encoder (24 detents) and the 2.0 mm keybed spacer. 112 line items, $184.20 per unit.</p> },
+  { id: "bom", title: "Finalise BOM", doneTitle: "BOM finalised", owner: "Theo Okafor", work: 1200, output: <p>Rev C locks the PEC11R encoder (24 clicks) and the 2.0 mm keybed spacer. 112 line items, $184.20 per unit.</p> },
   { id: "pcb", title: "Order PCBs", doneTitle: "PCBs ordered", owner: "Jun Park", dependsOn: ["bom"], work: 1900, output: <p>JLCPCB order <span className="font-mono text-xs">#JL-88213</span> · 50 boards, 4-layer, ENIG. Arrives in 9 days.</p> },
   { id: "enc", title: "Order encoders", doneTitle: "Encoders ordered", owner: "Scout", dependsOn: ["bom"], work: 2500, output: <p>Mouser PO <span className="font-mono text-xs">4471-0932</span> · 240 × PEC11R-4220F-S0024 at $1.86.</p> },
   { id: "fw", title: "Build firmware 1.4.2", doneTitle: "Firmware 1.4.2 built", owner: "Ines Duarte", dependsOn: ["bom"], work: 1500, output: <p>Signed image <span className="font-mono text-xs">os1-1.4.2.bin</span> (412 KB) with the encoder debounce fix from ticket #412.</p> },
@@ -131,7 +131,7 @@ function Choice<T extends string>({ label, options, value, onChange }: { label: 
           onClick={() => onChange(o)}
           className={cn(
             "focus-ring h-8 rounded-sm px-3 text-sm transition-colors duration-[90ms]",
-            value === o ? "bg-raised text-ink shadow-[inset_0_0_0_1.5px_var(--dt-ink)]" : "text-ink-2 shadow-[inset_0_0_0_1px_var(--dt-rule)] hover:bg-sunken hover:text-ink",
+            value === o ? "bg-raised text-ink shadow-[inset_0_0_0_1.5px_var(--bis-ink)]" : "text-ink-2 shadow-[inset_0_0_0_1px_var(--bis-rule)] hover:bg-sunken hover:text-ink",
           )}
         >
           {o}
@@ -156,7 +156,7 @@ function WizardDemo({ setMode }: { setMode: (m: "workflow" | "wizard") => void }
       title: "OS-0 trade-in",
       content: (
         <label className="flex cursor-pointer items-start gap-2.5 text-sm text-ink-2">
-          <input type="checkbox" checked={owner} onChange={(e) => setOwner(e.target.checked)} className="mt-0.5 accent-[var(--dt-ink)]" />
+          <input type="checkbox" checked={owner} onChange={(e) => setOwner(e.target.checked)} className="mt-0.5 accent-[var(--bis-ink)]" />
           <span>I own an OS-0 <span className="block text-muted">Existing owners pay $599 instead of $649.</span></span>
         </label>
       ),
@@ -174,7 +174,7 @@ function WizardDemo({ setMode }: { setMode: (m: "workflow" | "wizard") => void }
           <label className="grid gap-1 text-sm text-ink-2">
             Email for the receipt
             <input value={email} onChange={(e) => setEmail(e.target.value)} type="email" placeholder="mara@ostra.studio"
-              className="focus-ring h-8 max-w-[280px] rounded-md bg-raised px-2.5 text-sm text-ink shadow-[inset_0_0_0_1px_var(--dt-rule)] placeholder:text-muted" />
+              className="focus-ring h-8 max-w-[280px] rounded-md bg-raised px-2.5 text-sm text-ink shadow-[inset_0_0_0_1px_var(--bis-rule)] placeholder:text-muted" />
           </label>
         </div>
       ),

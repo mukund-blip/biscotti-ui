@@ -6,7 +6,7 @@
 
 > Quiet at rest. Delightful in motion. Precise in use.
 
-Biscotti UI is built around one idea: **pencil, then ink**. Anything provisional (streamed text, proposed edits, pending writes, running tools) is drawn in a cobalt *pencil*. The moment it becomes real is a *detent*: a latch you can see, feel and (optionally) hear. See [`DESIGN.md`](./DESIGN.md) for the full rationale. The mascot, Biscotti, is rendered from an editable Blender model. The library package is `@biscotti/ui`; registry item names still use `detent-*`.
+Biscotti UI is built around one idea: **pencil, then ink**. Anything provisional (streamed text, proposed edits, pending writes, running tools) is drawn in a cobalt *pencil*. The moment it becomes real is a *click*: a latch you can see, feel and (optionally) hear. See [`DESIGN.md`](./DESIGN.md) for the full rationale. The mascot, Biscotti, is rendered from an editable Blender model. The library package is `@biscotti/ui` and its registry items are `biscotti-*`.
 
 ## Run it
 
@@ -81,10 +81,10 @@ Set `NEXT_PUBLIC_REGISTRY_URL` / `REGISTRY_URL` to wherever you host `apps/web/p
 
 ### Theming in a host app
 
-Every visual decision is a `--dt-*` CSS variable. Remap them on `:root` (or any subtree) to adopt your palette. Detent never forces its page background on you. Dark mode applies under `[data-theme="dark"]`, `.dark`, or `[data-theme="system"]` with `prefers-color-scheme`.
+Every visual decision is a `--bis-*` CSS variable. Remap them on `:root` (or any subtree) to adopt your palette. Biscotti UI never forces its page background on you. Dark mode applies under `[data-theme="dark"]`, `.dark`, or `[data-theme="system"]` with `prefers-color-scheme`.
 
 ```css
-:root { --dt-pencil: #5b5bd6; --dt-font-sans: "Inter", sans-serif; }
+:root { --bis-pencil: #5b5bd6; --bis-font-sans: "Inter", sans-serif; }
 ```
 
 ### Sound

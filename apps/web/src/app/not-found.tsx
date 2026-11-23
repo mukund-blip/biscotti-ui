@@ -45,7 +45,7 @@ export default function NotFound() {
           <Link
             key={r.href}
             href={r.href}
-            className="focus-ring group flex flex-col gap-3 rounded-lg bg-surface p-4 shadow-[inset_0_0_0_1px_var(--dt-hairline)] transition-colors duration-[90ms] hover:bg-raised"
+            className="focus-ring group flex flex-col gap-3 rounded-lg bg-surface p-4 shadow-[inset_0_0_0_1px_var(--bis-hairline)] transition-colors duration-[90ms] hover:bg-raised"
           >
             <Icon name={r.icon} size={16} className="text-muted transition-colors group-hover:text-pencil-ink" />
             <span>
@@ -64,7 +64,7 @@ export default function NotFound() {
           srcSet={`${publicPath("/brand/biscotti-head-480.webp")} 480w, ${publicPath("/brand/biscotti-head-960.webp")} 960w`}
           sizes="380px" width={1312} height={1200} loading="lazy"
           alt="Biscotti the pup, close up, smiling with its tongue out"
-          className="block h-auto w-full rounded-[14px] shadow-[inset_0_0_0_1px_var(--dt-hairline)]"
+          className="block h-auto w-full rounded-[14px] shadow-[inset_0_0_0_1px_var(--bis-hairline)]"
         />
         <figcaption className="mt-3 font-mono text-2xs text-muted">Biscotti looked everywhere. Nothing here yet.</figcaption>
       </figure>

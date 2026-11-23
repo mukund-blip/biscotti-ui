@@ -24,7 +24,7 @@ export default function RootLayout({ children }: { children: React.ReactNode }) 
   return (
     <html lang="en" data-theme="light" suppressHydrationWarning className={`${sans.variable} ${mono.variable} ${serif.variable} ${brand.variable}`}>
       <head>
-        <style>{`:root{--dt-font-sans:var(--font-geist),ui-sans-serif,system-ui,sans-serif;--dt-font-mono:var(--font-geist-mono),ui-monospace,monospace;--dt-font-serif:var(--font-newsreader),Georgia,serif}`}</style>
+        <style>{`:root{--bis-font-sans:var(--font-geist),ui-sans-serif,system-ui,sans-serif;--bis-font-mono:var(--font-geist-mono),ui-monospace,monospace;--bis-font-serif:var(--font-newsreader),Georgia,serif}`}</style>
       </head>
       <body>
         <ThemeScript />

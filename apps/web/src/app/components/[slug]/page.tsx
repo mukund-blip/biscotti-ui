@@ -91,7 +91,7 @@ export default async function ComponentPage({ params }: { params: Promise<{ slug
           <h1 className="text-[clamp(32px,5vw,52px)] font-semibold leading-[1.02] tracking-[-0.035em]">{e.name}</h1>
           <p className="mt-4 max-w-[640px] text-md leading-[26px] text-ink-2">{e.summary}</p>
         </div>
-        <dl className="grid grid-cols-2 gap-px overflow-hidden rounded-lg bg-hairline text-sm shadow-[inset_0_0_0_1px_var(--dt-hairline)] sm:grid-cols-4 lg:grid-cols-2">
+        <dl className="grid grid-cols-2 gap-px overflow-hidden rounded-lg bg-hairline text-sm shadow-[inset_0_0_0_1px_var(--bis-hairline)] sm:grid-cols-4 lg:grid-cols-2">
           {[
             ["Props", String(e.props.length)],
             ["Shortcuts", e.keyboard ? String(e.keyboard.length) : "—"],
@@ -114,7 +114,7 @@ export default async function ComponentPage({ params }: { params: Promise<{ slug
         <div className="mt-4 flex flex-wrap items-center gap-x-2 gap-y-2">
           <span className="mr-1 font-mono text-2xs uppercase tracking-[0.06em] text-muted">Covers</span>
           {states.map((s) => (
-            <a key={s} href="#motion" className="focus-ring rounded-xs bg-sunken px-2 py-[3px] text-xs text-ink-2 shadow-[inset_0_0_0_1px_var(--dt-hairline)] hover:text-ink">
+            <a key={s} href="#motion" className="focus-ring rounded-xs bg-sunken px-2 py-[3px] text-xs text-ink-2 shadow-[inset_0_0_0_1px_var(--bis-hairline)] hover:text-ink">
               {s}
             </a>
           ))}

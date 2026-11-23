@@ -10,7 +10,7 @@ if (!["http:", "https:"].includes(url.protocol) || url.search || url.hash || url
 }
 const basePath = url.pathname.replace(/\/$/, "");
 const siteUrl = `${url.origin}${basePath}`;
-const env = { ...process.env, DETENT_STATIC_EXPORT: "1", NEXT_PUBLIC_BASE_PATH: basePath,
+const env = { ...process.env, BISCOTTI_STATIC_EXPORT: "1", NEXT_PUBLIC_BASE_PATH: basePath,
   NEXT_PUBLIC_SITE_URL: siteUrl, NEXT_PUBLIC_REGISTRY_URL: siteUrl, REGISTRY_URL: siteUrl };
 function run(command, args, extraEnv = {}) {
   const result = spawnSync(command, args, { cwd: root, env: { ...env, ...extraEnv }, stdio: "inherit" });

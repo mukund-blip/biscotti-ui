@@ -53,8 +53,10 @@ for (const slug of readdirSync(join(SRC, "components"))) {
   if (!files.some((f) => f.content.length > 40 && !/^export \{\};\s*$/.test(f.content))) continue; // empty slot
   const crossDeps = [...new Set(files.flatMap((f) => [...f.content.matchAll(/from "\.\.\/([a-z-]+)(?:\/[^"]*)?"/g)].map((m) => m[1])))].filter((d) => d !== slug && existsSync(join(SRC, "components", d)));
   const m = meta(slug);
-  const main = files.find((f) => f.path === `detent/components/${slug}/${slug}.tsx`);
-  if (main) main.content = origin(slug, m.title ?? slug) + main.content;
+  // Derive the prefix from toFile so the origin comment can't silently drop if install paths change.
+  const main = files.find((f) => f.path === toFile(join(dir, `${slug}.tsx`)).path);
+  if (!main) throw new Error(`registry: ${slug} has no ${slug}.tsx to carry the origin comment`);
+  main.content = origin(slug, m.title ?? slug) + main.content;
   const item = {
     $schema: "https://ui.shadcn.com/schema/registry-item.json",
     name: slug,

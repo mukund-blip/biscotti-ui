@@ -502,7 +502,7 @@ export function ApprovalCard({
       animate={{ opacity: 1, y: 0, transition: { opacity: m.fade(tween.surfaceIn), y: m.move(spring.surface) } }}
       className={cn(
         "relative isolate overflow-hidden rounded-lg transition-[background-color,box-shadow] duration-[240ms] ease-out",
-        view === "pending" || undoable ? "bg-raised shadow-2" : "bg-surface shadow-[inset_0_0_0_1px_var(--dt-hairline)]",
+        view === "pending" || undoable ? "bg-raised shadow-2" : "bg-surface shadow-[inset_0_0_0_1px_var(--bis-hairline)]",
         className,
       )}
     >
@@ -574,7 +574,7 @@ export function ApprovalCard({
                           rows={2}
                           placeholder="e.g. Lead with the arpeggiator fix and drop the discount line."
                           aria-describedby={`${uid}-hint`}
-                          className="focus-ring block max-h-40 min-h-[60px] w-full resize-none rounded-md bg-field px-2.5 py-2 text-base leading-5 text-ink shadow-[inset_0_0_0_1px_var(--dt-rule)] placeholder:text-muted [field-sizing:content] focus-visible:shadow-[inset_0_0_0_1px_var(--dt-pencil),var(--dt-focus)]"
+                          className="focus-ring block max-h-40 min-h-[60px] w-full resize-none rounded-md bg-field px-2.5 py-2 text-base leading-5 text-ink shadow-[inset_0_0_0_1px_var(--bis-rule)] placeholder:text-muted [field-sizing:content] focus-visible:shadow-[inset_0_0_0_1px_var(--bis-pencil),var(--bis-focus)]"
                         />
                         <p id={`${uid}-hint`} className="mt-1.5 flex items-center gap-1 text-2xs text-muted">
                           <Kbd>⌘</Kbd>
@@ -711,7 +711,7 @@ export function ApprovalCard({
                       <p className="px-5 pt-3 text-base font-medium leading-[22px] text-ink-2 [text-wrap:pretty]">{action}</p>
                       {facts}
                       {decision?.outcome === "changes" && decision.note && (
-                        <div className="mx-5 mt-3 rounded-md bg-surface px-3 py-2 shadow-[inset_0_0_0_1px_var(--dt-hairline)]">
+                        <div className="mx-5 mt-3 rounded-md bg-surface px-3 py-2 shadow-[inset_0_0_0_1px_var(--bis-hairline)]">
                           <p className="font-mono text-2xs uppercase tracking-[0.06em] text-muted">Your note</p>
                           <p className="mt-1 text-sm leading-5 text-ink-2 [text-wrap:pretty]">{decision.note}</p>
                         </div>
@@ -738,7 +738,7 @@ export function ApprovalCard({
 function PendingRule({ state }: { state: "asking" | "decided" | "committed" | "closed" }) {
   const m = useMotionTokens();
   const color =
-    state === "asking" || state === "decided" ? "var(--dt-pencil)" : state === "committed" ? "var(--dt-rule)" : "var(--dt-hairline)";
+    state === "asking" || state === "decided" ? "var(--bis-pencil)" : state === "committed" ? "var(--bis-rule)" : "var(--bis-hairline)";
   const t = m.fade(tween.drain);
   return (
     <span aria-hidden className="pointer-events-none absolute bottom-3.5 left-[9px] top-3.5 z-10 w-[2px]">
@@ -805,8 +805,8 @@ function PreviewPeek({ label, defaultOpen, className, children }: { label: strin
   const clipped = needsPeek && !open;
 
   return (
-    <div className={cn("overflow-hidden rounded-md bg-surface shadow-[inset_0_0_0_1px_var(--dt-hairline)]", className)}>
-      <div className="flex h-8 items-center gap-2 pl-3 pr-1 [box-shadow:inset_0_-1px_0_var(--dt-hairline)]">
+    <div className={cn("overflow-hidden rounded-md bg-surface shadow-[inset_0_0_0_1px_var(--bis-hairline)]", className)}>
+      <div className="flex h-8 items-center gap-2 pl-3 pr-1 [box-shadow:inset_0_-1px_0_var(--bis-hairline)]">
         <span className="font-mono text-2xs uppercase tracking-[0.06em] text-muted">{label}</span>
         {needsPeek && (
           <button

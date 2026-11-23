@@ -62,8 +62,8 @@ export function CopyButton({ text, label = "Copy", className }: { text: string; 
 export function Code({ code, lang = "tsx", title, className }: { code: string; lang?: "tsx" | "sh" | "css"; title?: ReactNode; className?: string }) {
   const toks = lang === "sh" ? [{ t: "txt" as const, v: code }] : tokenize(code);
   return (
-    <div className={cn("overflow-hidden rounded-lg bg-surface shadow-[inset_0_0_0_1px_var(--dt-hairline)]", className)}>
-      <div className="flex h-9 items-center justify-between pl-3.5 pr-1 [box-shadow:inset_0_-1px_0_var(--dt-hairline)]">
+    <div className={cn("overflow-hidden rounded-lg bg-surface shadow-[inset_0_0_0_1px_var(--bis-hairline)]", className)}>
+      <div className="flex h-9 items-center justify-between pl-3.5 pr-1 [box-shadow:inset_0_-1px_0_var(--bis-hairline)]">
         <span className="font-mono text-2xs text-muted">{title ?? lang}</span>
         <CopyButton text={code} />
       </div>

@@ -244,7 +244,7 @@ export function MentionPicker({
         {rows.length > 0 && <span className="tabular ml-auto font-mono text-2xs text-muted">{rows.length} {rows.length === 1 ? "result" : "results"}</span>}
       </div>
       <div ref={list} id={id} role="listbox" aria-label={command ? "Commands" : "Mention suggestions"} aria-busy={loading || undefined}
-        style={{ maxHeight: placement?.height ?? 292 }} className="overscroll-contain overflow-y-auto px-1.5 py-1 [scrollbar-color:var(--dt-rule)_transparent] [scrollbar-width:thin]">
+        style={{ maxHeight: placement?.height ?? 292 }} className="overscroll-contain overflow-y-auto px-1.5 py-1 [scrollbar-color:var(--bis-rule)_transparent] [scrollbar-width:thin]">
         {groups.map((group) => {
           const options = rows.filter(({ item }) => item.type === group.type);
           if (!options.length) return null;
@@ -440,7 +440,7 @@ export function MentionInput({
     if (accepted && edit.insertedAt !== undefined) {
       const chip = field.querySelector<HTMLElement>(`[data-mention-token="${edit.insertedAt}"]`);
       if (chip) {
-        animate(chip, { backgroundColor: ["var(--dt-pencil-soft)", "var(--dt-sunken)"] }, chipTransition)
+        animate(chip, { backgroundColor: ["var(--bis-pencil-soft)", "var(--bis-sunken)"] }, chipTransition)
           .then(() => chip.style.removeProperty("background-color"));
       }
     }

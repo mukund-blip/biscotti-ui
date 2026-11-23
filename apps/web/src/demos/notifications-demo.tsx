@@ -16,7 +16,7 @@ const TICKETS = [
 function ActionButton({ children, onClick, icon }: { children: React.ReactNode; onClick: () => void; icon: Parameters<typeof Icon>[0]["name"] }) {
   return (
     <button type="button" onClick={onClick}
-      className="focus-ring flex h-8 items-center gap-2 rounded-sm bg-raised px-3 text-sm text-ink-2 shadow-[inset_0_0_0_1px_var(--dt-hairline),var(--dt-shadow-1)] transition-colors duration-[90ms] hover:text-ink hover:duration-0 active:translate-y-px">
+      className="focus-ring flex h-8 items-center gap-2 rounded-sm bg-raised px-3 text-sm text-ink-2 shadow-[inset_0_0_0_1px_var(--bis-hairline),var(--bis-shadow-1)] transition-colors duration-[90ms] hover:text-ink hover:duration-0 active:translate-y-px">
       <Icon name={icon} size={14} className="text-muted" />
       {children}
     </button>
@@ -88,7 +88,7 @@ export function NotificationsDemo() {
                 onDismiss={() => setBanner(false)}
                 action={
                   <button type="button" onClick={() => toast.info("Pre-order customers notified", { toaster: T, description: "212 emails queued." })}
-                    className="focus-ring h-7 rounded-sm px-2 text-sm font-medium text-ink shadow-[inset_0_0_0_1px_var(--dt-rule)] hover:bg-raised">
+                    className="focus-ring h-7 rounded-sm px-2 text-sm font-medium text-ink shadow-[inset_0_0_0_1px_var(--bis-rule)] hover:bg-raised">
                     Notify customers
                   </button>
                 }
@@ -100,7 +100,7 @@ export function NotificationsDemo() {
               <p className="px-4 pb-2 pt-3 font-mono text-2xs uppercase tracking-[0.06em] text-muted">Support queue · {open.length}</p>
               <ul>
                 {open.map((t) => (
-                  <li key={t.id} className="flex items-center gap-3 px-4 py-2 [box-shadow:inset_0_1px_0_var(--dt-hairline)]">
+                  <li key={t.id} className="flex items-center gap-3 px-4 py-2 [box-shadow:inset_0_1px_0_var(--bis-hairline)]">
                     <span className="tabular font-mono text-2xs text-muted">#{t.id}</span>
                     <span className="min-w-0 flex-1 truncate text-sm text-ink">{t.title}</span>
                     <span className="hidden text-xs text-muted sm:inline">{t.who}</span>
@@ -110,7 +110,7 @@ export function NotificationsDemo() {
                     </button>
                   </li>
                 ))}
-                {open.length === 0 && <li className="px-4 py-3 text-sm text-muted [box-shadow:inset_0_1px_0_var(--dt-hairline)]">Queue is empty.</li>}
+                {open.length === 0 && <li className="px-4 py-3 text-sm text-muted [box-shadow:inset_0_1px_0_var(--bis-hairline)]">Queue is empty.</li>}
               </ul>
             </div>
             <div className="flex flex-wrap gap-2">

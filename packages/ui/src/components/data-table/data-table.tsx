@@ -102,7 +102,7 @@ const firstCell: CellFocus = { row: null, column: null };
 const collator = new Intl.Collator("en", { numeric: true, sensitivity: "base" });
 const integer = new Intl.NumberFormat("en", { maximumFractionDigits: 0 });
 const decimal = new Intl.NumberFormat("en");
-const cellFocusRing = "focus-ring focus-visible:shadow-[inset_0_0_0_1px_var(--dt-paper),inset_0_0_0_3px_var(--dt-pencil)]";
+const cellFocusRing = "focus-ring focus-visible:shadow-[inset_0_0_0_1px_var(--bis-paper),inset_0_0_0_3px_var(--bis-pencil)]";
 const actionClass = "focus-ring inline-flex h-7 shrink-0 cursor-pointer items-center gap-1.5 rounded-sm px-2.5 text-xs font-medium hover:bg-sunken active:bg-well";
 const statusColor: Record<DataTableStatusTone, string> = {
   neutral: "bg-edge", success: "bg-ok", warning: "bg-warn", error: "bg-err",
@@ -125,7 +125,7 @@ function SelectionBox({ checked, label, disabled, tabIndex, onFocus, onClick, on
     >
       <span aria-hidden className={cn(
         "grid size-3.5 place-items-center rounded-xs",
-        checked ? "bg-ink text-on-ink" : "bg-raised shadow-[inset_0_0_0_1px_var(--dt-edge)]",
+        checked ? "bg-ink text-on-ink" : "bg-raised shadow-[inset_0_0_0_1px_var(--bis-edge)]",
       )}>
         {checked && <Icon name={checked === "mixed" ? "minus" : "check"} size={12} strokeWidth={1.8} />}
       </span>
@@ -172,8 +172,8 @@ function StatusCell({ label, tone, revision, onSettle }: { label: string; tone: 
           key={revision} aria-hidden data-status-mark
           onAnimationComplete={() => onSettle(revision)}
           className="pointer-events-none absolute inset-x-0 -bottom-1 h-px origin-left bg-pencil"
-          initial={{ opacity: 1, scaleX: m.reduced ? 1 : 0, backgroundColor: "var(--dt-pencil)" }}
-          animate={{ opacity: [1, 1, 0], scaleX: 1, backgroundColor: "var(--dt-ink)" }}
+          initial={{ opacity: 1, scaleX: m.reduced ? 1 : 0, backgroundColor: "var(--bis-pencil)" }}
+          animate={{ opacity: [1, 1, 0], scaleX: 1, backgroundColor: "var(--bis-ink)" }}
           transition={{
             scaleX: m.move(spring.glide),
             backgroundColor: m.fade({ ...tween.drain, delay: 0.18 }),
@@ -432,7 +432,7 @@ export function DataTable<Row>({
                   >
                     <td role="gridcell" className={cn(
                       "border-b border-hairline px-2 text-center", bodyHeight,
-                      picked && "shadow-[inset_2px_0_var(--dt-pencil)]",
+                      picked && "shadow-[inset_2px_0_var(--bis-pencil)]",
                     )}>
                       <SelectionBox label={`Select ${getRowLabel(row)}`} checked={picked}
                         tabIndex={activeRow === r && activeColumn === 0 ? 0 : -1} onFocus={() => setActive({ row: id, column: null })}
@@ -496,7 +496,7 @@ export function DataTable<Row>({
       <footer className="relative min-h-12 overflow-hidden border-t border-hairline bg-surface">
         <div
           aria-hidden={selectedRows.length > 0}
-          className={cn("flex min-h-12 items-center justify-between gap-4 px-4 transition-opacity duration-(--dt-dur-fade) sm:px-5", selectedRows.length > 0 && "opacity-0")}
+          className={cn("flex min-h-12 items-center justify-between gap-4 px-4 transition-opacity duration-(--bis-dur-fade) sm:px-5", selectedRows.length > 0 && "opacity-0")}
         >
           {!loading && <span className="text-xs text-muted"><span className="tabular font-mono text-ink-2">{integer.format(ordered.length)}</span> {ordered.length === 1 ? "row" : "rows"}</span>}
           {ready && <span className="hidden items-center gap-3 text-2xs text-muted sm:flex">

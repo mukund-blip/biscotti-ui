@@ -27,7 +27,7 @@ export function GalleryTile({ e, cols }: { e: CatalogEntry; cols?: 2 | 3 | 4 | 6
       </div>
       <Link
         href={`/components/${e.slug}`}
-        className="focus-ring flex items-start gap-3 rounded-b-xl px-4 py-4 [box-shadow:inset_0_1px_0_var(--dt-hairline)] hover:bg-raised"
+        className="focus-ring flex items-start gap-3 rounded-b-xl px-4 py-4 [box-shadow:inset_0_1px_0_var(--bis-hairline)] hover:bg-raised"
       >
         <span className="tabular pt-0.5 font-mono text-2xs text-muted">{e.number}</span>
         <span className="min-w-0 flex-1">

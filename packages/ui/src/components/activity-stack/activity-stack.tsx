@@ -278,7 +278,7 @@ function ActivityRow({ task: t, first, queuePos, onAct, canPause, canResume, can
       // Finished work sinks toward the deck as it leaves.
       exit={{ opacity: 0, y: m.reduced ? 0 : 14, scale: m.reduced ? 1 : 0.985, transition: m.reduced ? { duration: 0.12 } : { duration: 0.22, ease: [0.5, 0, 0.75, 0] } }}
       transition={m.reduced ? { duration: 0.12 } : { ...spring.layout, opacity: { duration: 0.18 } }}
-      className={cn("group/row relative flex gap-3 bg-raised py-2.5 pl-4 pr-3", !first && "[box-shadow:inset_0_1px_0_var(--dt-hairline)]")}
+      className={cn("group/row relative flex gap-3 bg-raised py-2.5 pl-4 pr-3", !first && "[box-shadow:inset_0_1px_0_var(--bis-hairline)]")}
     >
       <span aria-hidden className="mt-[2px] grid size-4 shrink-0 place-items-center">
         <StatusMark status={s} />
@@ -319,7 +319,7 @@ function ActivityRow({ task: t, first, queuePos, onAct, canPause, canResume, can
                 data-primary
                 onClick={() => onAct("retry", t.id)}
                 aria-label={`Retry ${t.title}`}
-                className="focus-ring flex h-6 shrink-0 items-center gap-1 rounded-sm px-2 text-xs text-ink shadow-[inset_0_0_0_1px_var(--dt-edge)] transition-[background-color,transform] duration-[90ms] hover:bg-sunken active:translate-y-px"
+                className="focus-ring flex h-6 shrink-0 items-center gap-1 rounded-sm px-2 text-xs text-ink shadow-[inset_0_0_0_1px_var(--bis-edge)] transition-[background-color,transform] duration-[90ms] hover:bg-sunken active:translate-y-px"
               >
                 <Icon name="refresh" size={12} />
                 Retry
@@ -361,7 +361,7 @@ function titleTone(s: ActivityStatus) {
 function StatusMark({ status }: { status: ActivityStatus }) {
   switch (status) {
     case "running":
-      return <span className="size-[7px] rounded-full bg-pencil shadow-[0_0_0_3px_var(--dt-pencil-soft)]" />;
+      return <span className="size-[7px] rounded-full bg-pencil shadow-[0_0_0_3px_var(--bis-pencil-soft)]" />;
     case "paused":
       return (
         <span className="flex h-[8px] gap-[2px]">
@@ -370,9 +370,9 @@ function StatusMark({ status }: { status: ActivityStatus }) {
         </span>
       );
     case "failed":
-      return <span className="size-[7px] rounded-full bg-err shadow-[0_0_0_3px_var(--dt-err-soft)]" />;
+      return <span className="size-[7px] rounded-full bg-err shadow-[0_0_0_3px_var(--bis-err-soft)]" />;
     case "queued":
-      return <span className="size-[7px] rounded-full shadow-[inset_0_0_0_1.25px_var(--dt-faint)]" />;
+      return <span className="size-[7px] rounded-full shadow-[inset_0_0_0_1.25px_var(--bis-faint)]" />;
     case "cancelled":
       return <span className="h-px w-[7px] bg-faint" />;
     default:
@@ -396,7 +396,7 @@ function ProgressTrack({ status, value, label }: { status: ActivityStatus; value
         <motion.span
           className="absolute inset-y-0 left-0 w-full origin-left rounded-[1px]"
           initial={false}
-          animate={{ scaleX: value, backgroundColor: live ? "var(--dt-pencil)" : "var(--dt-edge)" }}
+          animate={{ scaleX: value, backgroundColor: live ? "var(--bis-pencil)" : "var(--bis-edge)" }}
           transition={{ scaleX: m.reduced ? { duration: 0 } : { duration: 0.18, ease: "linear" }, backgroundColor: m.fade(tween.drain) }}
         />
       ) : (
@@ -454,7 +454,7 @@ function CompletedDeck({
   }, [open, buttonRef]);
 
   return (
-    <div className="bg-surface px-3 pb-3 pt-1.5 [box-shadow:inset_0_1px_0_var(--dt-hairline)]">
+    <div className="bg-surface px-3 pb-3 pt-1.5 [box-shadow:inset_0_1px_0_var(--bis-hairline)]">
       <button
         ref={buttonRef}
         type="button"
@@ -513,7 +513,7 @@ function DeckCard({ task: t, index: i, count, open, reduced, onOpen }: { task: A
       exit={{ opacity: 0, transition: { duration: 0.12 } }}
       transition={reduced ? { duration: 0.12 } : { ...spring.layout, delay, opacity: { duration: 0.2, delay } }}
       style={{ zIndex: count - i, transformOrigin: "50% 100%" }}
-      className="absolute inset-x-0 top-0 flex items-center gap-2.5 rounded-sm bg-raised px-3 shadow-[inset_0_0_0_1px_var(--dt-hairline),var(--dt-shadow-1)]"
+      className="absolute inset-x-0 top-0 flex items-center gap-2.5 rounded-sm bg-raised px-3 shadow-[inset_0_0_0_1px_var(--bis-hairline),var(--bis-shadow-1)]"
     >
       <motion.div
         className="flex min-w-0 flex-1 items-center gap-2.5"

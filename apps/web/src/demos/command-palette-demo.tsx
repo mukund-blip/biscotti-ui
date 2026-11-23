@@ -43,7 +43,7 @@ const ORDERS = [
 
 function Initials({ name }: { name: string }) {
   return (
-    <span aria-hidden className="flex size-5 items-center justify-center rounded-full bg-sunken font-mono text-[9px] text-ink-2 shadow-[inset_0_0_0_1px_var(--dt-hairline)]">
+    <span aria-hidden className="flex size-5 items-center justify-center rounded-full bg-sunken font-mono text-[9px] text-ink-2 shadow-[inset_0_0_0_1px_var(--bis-hairline)]">
       {name.split(" ").map((p) => p[0]).join("")}
     </span>
   );
@@ -210,7 +210,7 @@ function useOstraCommands(latency: Latency) {
 function TicketCard({ status, assignee, channel, view }: { status: Status; assignee: Person; channel: Channel; view: string }) {
   const st = STATUSES.find((x) => x.s === status)!;
   return (
-    <div className="w-full max-w-[560px] rounded-md bg-surface px-3.5 py-2.5 text-sm shadow-[inset_0_0_0_1px_var(--dt-hairline)]">
+    <div className="w-full max-w-[560px] rounded-md bg-surface px-3.5 py-2.5 text-sm shadow-[inset_0_0_0_1px_var(--bis-hairline)]">
       <div className="flex items-center gap-2">
         <span className="tabular font-mono text-2xs text-muted">#2041</span>
         <span className="truncate text-ink">Encoder skips steps on OS-1 after firmware 2.3</span>

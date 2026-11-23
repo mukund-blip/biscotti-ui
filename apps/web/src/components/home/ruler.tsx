@@ -44,10 +44,10 @@ export function HeroRuler() {
         {Array.from({ length: ticks + 1 }).map((_, i) => {
           const major = i % 10 === 0;
           const mid = i % 5 === 0;
-          return <line key={i} x1={i * 8 + 0.5} x2={i * 8 + 0.5} y1={24} y2={major ? 10 : mid ? 16 : 20} stroke={major ? "var(--dt-rule)" : "var(--dt-hairline)"} />;
+          return <line key={i} x1={i * 8 + 0.5} x2={i * 8 + 0.5} y1={24} y2={major ? 10 : mid ? 16 : 20} stroke={major ? "var(--bis-rule)" : "var(--bis-hairline)"} />;
         })}
         {Array.from({ length: Math.floor(ticks / 10) + 1 }).map((_, i) => (
-          <text key={i} x={i * 80 + 3} y={9} className="fill-[var(--dt-faint)] font-mono" fontSize={8.5}>{i * 80}</text>
+          <text key={i} x={i * 80 + 3} y={9} className="fill-[var(--bis-faint)] font-mono" fontSize={8.5}>{i * 80}</text>
         ))}
       </svg>
       <motion.div style={{ x }} animate={{ opacity: active ? 1 : 0 }} transition={{ duration: 0.12 }} className="absolute inset-y-0 left-0 w-0">

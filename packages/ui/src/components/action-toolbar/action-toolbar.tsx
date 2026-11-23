@@ -178,7 +178,7 @@ function computePos(range: Range, size: { w: number; h: number }, pref: "top" | 
 
 /* ── highlight for the selection while focus is in the toolbar ─ */
 
-const HL = "detent-toolbar-selection";
+const HL = "biscotti-toolbar-selection";
 function paintSelection(range: Range | null) {
   const css = (globalThis as { CSS?: { highlights?: Map<string, unknown> } }).CSS;
   const H = (globalThis as { Highlight?: new (...r: Range[]) => unknown }).Highlight;
@@ -186,7 +186,7 @@ function paintSelection(range: Range | null) {
   if (range) css.highlights.set(HL, new H(range));
   else css.highlights.delete(HL);
 }
-const HL_STYLE = `::highlight(${HL}){background-color:color-mix(in srgb,var(--dt-pencil) 22%,transparent);color:inherit}`;
+const HL_STYLE = `::highlight(${HL}){background-color:color-mix(in srgb,var(--bis-pencil) 22%,transparent);color:inherit}`;
 
 /* ── component ──────────────────────────────────────────────── */
 
@@ -504,7 +504,7 @@ export function ActionToolbar({
           key="toolbar"
           className="fixed left-0 top-0 z-[80]"
           style={{ x, y, opacity: flipOpacity, pointerEvents: suspended || offscreen ? "none" : undefined }}
-          data-detent="action-toolbar"
+          data-biscotti="action-toolbar"
         >
           <motion.div
             variants={v}
@@ -634,7 +634,7 @@ function ToolbarButton({
       className={cn(
         "focus-ring relative flex h-8 items-center justify-center gap-1.5 rounded-sm text-sm active:translate-y-px",
         action.text ? "px-2.5" : "w-8",
-        pressed ? "bg-[color-mix(in_srgb,var(--dt-ink)_9%,transparent)] text-ink shadow-press" : "text-ink-2 hover:bg-[color-mix(in_srgb,var(--dt-ink)_6%,transparent)] hover:text-ink",
+        pressed ? "bg-[color-mix(in_srgb,var(--bis-ink)_9%,transparent)] text-ink shadow-press" : "text-ink-2 hover:bg-[color-mix(in_srgb,var(--bis-ink)_6%,transparent)] hover:text-ink",
         "transition-[background-color,color] duration-[90ms] hover:duration-0",
       )}
     >

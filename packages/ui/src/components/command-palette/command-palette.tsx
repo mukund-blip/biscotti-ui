@@ -30,7 +30,7 @@ export interface CommandItem {
   title: string;
   /** Secondary text shown after the title (muted). Also searched. */
   subtitle?: string;
-  /** An icon name from the Detent set, or any node (avatar, swatch). */
+  /** An icon name from the Biscotti UI set, or any node (avatar, swatch). */
   icon?: IconName | ReactNode;
   /** Extra search terms that don't appear on screen. */
   keywords?: string[];
@@ -432,10 +432,10 @@ export function CommandPalette({
   return (
     <div
       className={cn("flex w-full flex-col overflow-hidden rounded-lg bg-raised text-ink", inDialog ? "shadow-3" : "shadow-2", className)}
-      data-detent="command-palette"
+      data-biscotti="command-palette"
     >
       {/* input row */}
-      <div className="flex h-12 shrink-0 items-center gap-2 px-3.5 [box-shadow:inset_0_-1px_0_var(--dt-hairline)]">
+      <div className="flex h-12 shrink-0 items-center gap-2 px-3.5 [box-shadow:inset_0_-1px_0_var(--bis-hairline)]">
         <AnimatePresence initial={false} mode="popLayout">
           {depth === 0 ? (
             <motion.span key="search" className="flex shrink-0 text-muted" initial={{ opacity: 0 }} animate={{ opacity: 1 }} exit={{ opacity: 0 }} transition={m.fade()}>
@@ -460,7 +460,7 @@ export function CommandPalette({
                   }}
                   className={cn(
                     "flex h-6 max-w-[180px] items-center gap-1 truncate rounded-xs px-1.5 text-xs transition-colors duration-[90ms]",
-                    i === stack.length - 1 ? "bg-[color-mix(in_srgb,var(--dt-ink)_6%,transparent)] text-ink shadow-[inset_0_0_0_1px_var(--dt-hairline)]" : "text-muted hover:text-ink",
+                    i === stack.length - 1 ? "bg-[color-mix(in_srgb,var(--bis-ink)_6%,transparent)] text-ink shadow-[inset_0_0_0_1px_var(--bis-hairline)]" : "text-muted hover:text-ink",
                   )}
                 >
                   {i === 0 && <Icon name="chevronLeft" size={12} className="-ml-0.5 text-muted" />}
@@ -550,7 +550,7 @@ export function CommandPalette({
                               flashing
                                 ? "bg-ink text-on-ink"
                                 : active
-                                  ? "bg-[color-mix(in_srgb,var(--dt-ink)_6%,transparent)] text-ink"
+                                  ? "bg-[color-mix(in_srgb,var(--bis-ink)_6%,transparent)] text-ink"
                                   : "text-ink-2 transition-colors duration-[90ms]",
                             )}
                           >
@@ -589,7 +589,7 @@ export function CommandPalette({
       </motion.div>
 
       {footer && (
-        <div className="flex h-9 shrink-0 items-center gap-4 px-3.5 text-2xs text-muted [box-shadow:inset_0_1px_0_var(--dt-hairline)]">
+        <div className="flex h-9 shrink-0 items-center gap-4 px-3.5 text-2xs text-muted [box-shadow:inset_0_1px_0_var(--bis-hairline)]">
           <span className="tabular min-w-0 flex-1 truncate font-mono">
             {anyLoading ? "" : searching ? `${options.length} ${options.length === 1 ? "result" : "results"}` : depth ? path.join(" › ") : ""}
           </span>
@@ -719,10 +719,10 @@ export function CommandPaletteDialog({
   return createPortal(
     <AnimatePresence onExitComplete={restoreFocus}>
       {open && (
-        <div key="cp" className="fixed inset-0 z-[90]" data-detent="command-palette-dialog">
+        <div key="cp" className="fixed inset-0 z-[90]" data-biscotti="command-palette-dialog">
           <motion.div
             aria-hidden
-            className="absolute inset-0 bg-[var(--dt-scrim)]"
+            className="absolute inset-0 bg-[var(--bis-scrim)]"
             initial={{ opacity: 0 }}
             animate={{ opacity: 1, transition: m.fade(tween.surfaceIn) }}
             exit={{ opacity: 0, transition: m.fade(tween.surfaceOut) }}

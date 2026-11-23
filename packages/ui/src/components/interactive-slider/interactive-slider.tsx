@@ -41,10 +41,10 @@ export interface InteractiveSliderProps<T extends SliderValue = number> {
   majorStep?: number;
   /** `log` maps position logarithmically (e.g. 20 Hz – 20 kHz). `min` must be > 0. */
   scale?: "linear" | "log";
-  /** Labelled reference points. Marks are detents: the thumb is pulled into them. */
+  /** Labelled reference points. Marks are notches: the thumb is pulled into them. */
   marks?: SliderMark[];
   /**
-   * Magnetic detents. `true` uses marks (or major ticks if there are none) with an 8 px pull;
+   * Magnetic notches. `true` uses marks (or major ticks if there are none) with an 8 px pull;
    * a number sets the pull radius in px. Defaults to on when `marks` are given.
    */
   snap?: boolean | number;
@@ -184,11 +184,11 @@ export function InteractiveSlider<T extends SliderValue = number>({
   };
   const resetTarget = resetValue ?? defaultValue;
 
-  /* ── detents ── */
+  /* ── notches ── */
   const ticks = useMemo(() => buildTicks(min, max, step, majorStep, sc.log), [min, max, step, majorStep, sc.log]);
   const snapOn = snap === undefined ? !!marks?.length : snap !== false;
   const snapRadius = typeof snap === "number" ? snap : 8;
-  const detents = useMemo(
+  const notches = useMemo(
     () => (!snapOn ? [] : marks?.length ? marks.map((mk) => mk.value) : ticks.filter((t) => t.major).map((t) => t.value)),
     [snapOn, marks, ticks],
   );
@@ -244,7 +244,7 @@ export function InteractiveSlider<T extends SliderValue = number>({
   const zoneOf = (raw: number, width: number) => {
     let best: number | null = null;
     let bestD = Infinity;
-    detents.forEach((d, k) => {
+    notches.forEach((d, k) => {
       const px = Math.abs(sc.toFrac(d) - raw) * width;
       if (px <= snapRadius && px < bestD) {
         best = k;
@@ -258,11 +258,11 @@ export function InteractiveSlider<T extends SliderValue = number>({
     const prevRaw = s.raw;
     s.raw = raw;
     const zone = zoneOf(raw, s.width);
-    const v = zone !== null ? detents[zone] : sc.quantize(sc.fromFrac(raw));
-    // Tick when entering a detent, or when skipping clean over one between frames.
+    const v = zone !== null ? notches[zone] : sc.quantize(sc.fromFrac(raw));
+    // Tick when entering a notch, or when skipping clean over one between frames.
     const crossed =
       (zone !== null && zone !== s.zone) ||
-      detents.some((d, k) => k !== s.zone && k !== zone && (sc.toFrac(d) - prevRaw) * (sc.toFrac(d) - raw) < 0);
+      notches.some((d, k) => k !== s.zone && k !== zone && (sc.toFrac(d) - prevRaw) * (sc.toFrac(d) - raw) < 0);
     if (crossed && !jump) play("tick", { velocity: clamp(0.35 + speed * 0.3, 0.3, 1), pitch: 0.92 + clamp(speed, 0, 2) * 0.08 });
     s.zone = zone;
     const next = [...valsRef.current];
@@ -270,7 +270,7 @@ export function InteractiveSlider<T extends SliderValue = number>({
     emit(next);
     const f = sc.toFrac(v);
     const gap = Math.abs(f - fracs[s.i].get()) * s.width;
-    // Small moves track 1:1; jumps (track click, detent pull/release) settle on the control spring.
+    // Small moves track 1:1; jumps (track click, notch pull/release) settle on the control spring.
     moveThumb(s.i, f, jump || gap > 3 || fracs[s.i].isAnimating() ? "control" : "set");
   };
 
@@ -385,7 +385,7 @@ export function InteractiveSlider<T extends SliderValue = number>({
     arr[i] = q;
     if (emit(arr)) {
       moveThumb(i, sc.toFrac(q), "set"); // keyboard moves instantly
-      play("tick", { velocity: detents.includes(q) ? 0.6 : 0.32 });
+      play("tick", { velocity: notches.includes(q) ? 0.6 : 0.32 });
       onValueCommit?.(pack(arr));
     }
   };
@@ -435,7 +435,7 @@ export function InteractiveSlider<T extends SliderValue = number>({
           // Pointer capture retargets the dblclick to the track; reset the thumb that was grabbed.
           onDoubleClick={() => lastGrab.current !== null && reset(lastGrab.current)}
         >
-          <div className="absolute inset-x-0 top-1/2 h-1 -translate-y-1/2 overflow-hidden rounded-xs bg-sunken shadow-[inset_0_0_0_1px_var(--dt-rule),var(--dt-press)]">
+          <div className="absolute inset-x-0 top-1/2 h-1 -translate-y-1/2 overflow-hidden rounded-xs bg-sunken shadow-[inset_0_0_0_1px_var(--bis-rule),var(--bis-press)]">
             <motion.div
               className={cn(
                 "absolute inset-0 origin-left",
@@ -580,7 +580,7 @@ function Thumb({ index, frac, thumbRef, label, labelledBy, value, valueText, min
           "focus-ring pointer-events-auto absolute left-0 top-1/2 h-5 w-3 -translate-x-1/2 -translate-y-1/2 rounded-[3px] outline-none",
           // ≥24 px hit area without changing the cap
           "before:absolute before:-inset-x-1.5 before:-inset-y-0.5 before:content-['']",
-          "bg-thumb shadow-[0_0_0_0.5px_var(--dt-thumb-edge),0_1px_2px_rgb(0_0_0/0.18),inset_0_1px_0_rgb(255_255_255/0.14)]",
+          "bg-thumb shadow-[0_0_0_0.5px_var(--bis-thumb-edge),0_1px_2px_rgb(0_0_0/0.18),inset_0_1px_0_rgb(255_255_255/0.14)]",
           disabled ? "cursor-not-allowed" : dragging ? "cursor-grabbing" : "cursor-grab",
         )}
       >
@@ -591,7 +591,7 @@ function Thumb({ index, frac, thumbRef, label, labelledBy, value, valueText, min
             <motion.span
               key="bubble"
               aria-hidden
-              className="absolute bottom-full left-1/2 mb-2 flex h-5 -translate-x-1/2 items-center whitespace-nowrap rounded-xs bg-raised px-1.5 font-mono text-2xs tabular text-pencil-ink shadow-[0_0_0_1px_var(--dt-pencil-line),0_4px_10px_-4px_rgb(0_0_0/0.18)]"
+              className="absolute bottom-full left-1/2 mb-2 flex h-5 -translate-x-1/2 items-center whitespace-nowrap rounded-xs bg-raised px-1.5 font-mono text-2xs tabular text-pencil-ink shadow-[0_0_0_1px_var(--bis-pencil-line),0_4px_10px_-4px_rgb(0_0_0/0.18)]"
               initial={{ opacity: 0, y: reduced ? 0 : 3 }}
               animate={{ opacity: 1, y: 0, transition: { opacity: reduced ? tween.fade : { duration: 0.09 }, y: reduced ? { duration: 0 } : spring.control } }}
               exit={{ opacity: 0, y: reduced ? 0 : 2, transition: { duration: 0.14, ease: ease.in } }}

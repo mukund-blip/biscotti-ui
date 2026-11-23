@@ -50,7 +50,7 @@ const refundLedger = (
     </div>
     <ul className="px-3">
       {REFUND_LINES.map(([sn, reason]) => (
-        <li key={sn} className="flex items-baseline gap-3 py-[3px] [box-shadow:inset_0_-1px_0_var(--dt-hairline)]">
+        <li key={sn} className="flex items-baseline gap-3 py-[3px] [box-shadow:inset_0_-1px_0_var(--bis-hairline)]">
           <span className="tabular w-[82px] shrink-0 font-mono text-2xs text-muted">{sn}</span>
           <span className="flex-1 text-ink-2">OS-1 · {reason}</span>
           <span className="tabular font-mono text-xs text-ink">$535.00</span>

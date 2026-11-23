@@ -224,7 +224,7 @@ function ValueEditor<Row>({ field, operator, current, onCommit }: {
                 const checked = event.currentTarget.checked;
                 setChoices((prev) => checked ? [...prev, value] : prev.filter((key) => key !== value));
               }}
-              className="focus-ring size-3.5 shrink-0 rounded-xs accent-[var(--dt-ink)]"
+              className="focus-ring size-3.5 shrink-0 rounded-xs accent-[var(--bis-ink)]"
             />
             {label ?? value}
           </label>
@@ -424,8 +424,8 @@ export function FilterBuilder<Row>({ fields, value, defaultValue = [], onChange,
                 "focus-ring flex max-h-[var(--available-height)] w-67 max-w-full origin-[var(--transform-origin)] flex-col overflow-hidden rounded-lg border border-hairline bg-raised text-ink shadow-3",
                 "transition-[opacity,transform] ease-surface data-[starting-style]:opacity-0 data-[ending-style]:opacity-0",
                 m.reduced
-                  ? "duration-(--dt-dur-fade)"
-                  : "duration-(--dt-dur-surface-in) data-[ending-style]:duration-(--dt-dur-surface-out) data-[starting-style]:[transform:translateY(4px)] data-[ending-style]:[transform:translateY(2px)]",
+                  ? "duration-(--bis-dur-fade)"
+                  : "duration-(--bis-dur-surface-in) data-[ending-style]:duration-(--bis-dur-surface-out) data-[starting-style]:[transform:translateY(4px)] data-[ending-style]:[transform:translateY(2px)]",
               )}
             >
               <div className="flex items-center gap-2 border-b border-hairline bg-surface px-2.5 py-2">

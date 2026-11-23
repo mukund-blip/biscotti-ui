@@ -9,7 +9,7 @@ export const mentionIcons = {
 
 export const tokenText = (item: MentionItem) => (item.type === "command" ? "/" : "@") + item.label;
 
-export const tokenClass = "focus-ring mx-px inline-flex min-h-6 max-w-[calc(100%-2px)] select-none items-center gap-1.5 rounded-sm bg-sunken px-1.5 align-baseline text-sm font-medium text-ink shadow-[inset_0_0_0_1px_var(--dt-hairline)] hover:bg-surface";
+export const tokenClass = "focus-ring mx-px inline-flex min-h-6 max-w-[calc(100%-2px)] select-none items-center gap-1.5 rounded-sm bg-sunken px-1.5 align-baseline text-sm font-medium text-ink shadow-[inset_0_0_0_1px_var(--bis-hairline)] hover:bg-surface";
 
 export function replaceDraft(draft: MentionDraft, start: number, end: number, text: string, item?: MentionItem): MentionDraft {
   const delta = text.length - (end - start);

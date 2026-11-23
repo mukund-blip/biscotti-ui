@@ -102,7 +102,7 @@ export function ScoutThread({ ref, mentions, onApproved }: { ref?: Ref<ScoutHand
     <div ref={root} className="flex flex-col gap-4">
       {turn && (
         <div className="flex flex-col gap-4">
-          <div className="ml-8 rounded-md bg-sunken px-3 py-2.5 text-base leading-[21px] text-ink shadow-[inset_0_0_0_1px_var(--dt-hairline)]">
+          <div className="ml-8 rounded-md bg-sunken px-3 py-2.5 text-base leading-[21px] text-ink shadow-[inset_0_0_0_1px_var(--bis-hairline)]">
             <span className="sr-only">You asked: </span>{turn.question}
           </div>
 

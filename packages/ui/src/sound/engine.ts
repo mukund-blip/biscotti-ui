@@ -1,5 +1,5 @@
 /**
- * Detent sound engine — every voice is synthesised with the Web Audio API.
+ * Biscotti UI sound engine — every voice is synthesised with the Web Audio API.
  *
  *   voice envelopes → master gain (volume) → limiter → destination
  *

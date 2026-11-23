@@ -1,4 +1,4 @@
-# Building a Detent component
+# Building a Biscotti UI component
 
 Read `DESIGN.md` first. This file is the practical rulebook. The three reference implementations are
 `precision-toggle`, `thinking-timeline` and `diff-inspector` in `packages/ui/src/components/`. Read at least one fully before you start.
@@ -32,10 +32,10 @@ Exported names must be specific (`CommandPalette`, `CommandPaletteItem`, never `
 
 ## Visual rules
 
-- **Tailwind v4 classes using Detent tokens only.** Use `bg-paper/surface/raised/sunken/well`, `text-ink/ink-2/muted/faint`, `border-hairline/rule/edge`, `pencil`, `pencil-ink`, `pencil-soft`, `pencil-line`, `ok/warn/err` (+`-soft`), `thumb`, `on-ink`. **No raw hex values, and no default Tailwind palette colours** (`gray-500`, `blue-600` etc. are banned).
+- **Tailwind v4 classes using Biscotti UI tokens only.** Use `bg-paper/surface/raised/sunken/well`, `text-ink/ink-2/muted/faint`, `border-hairline/rule/edge`, `pencil`, `pencil-ink`, `pencil-soft`, `pencil-line`, `ok/warn/err` (+`-soft`), `thumb`, `on-ink`. **No raw hex values, and no default Tailwind palette colours** (`gray-500`, `blue-600` etc. are banned).
 - Type sizes come from the token scale: `text-2xs` 11, `text-xs` 12, `text-sm` 13, `text-base` 14 (the default UI size), `text-md` 16, `text-lg` 20. Numbers, timers, paths, IDs and key caps use `font-mono` + `tabular`. `font-serif italic` is reserved for **provenance/rationale/citations** in agent output.
 - Radii: `rounded-xs` 2 (chips, kbd), `rounded-sm` 4 (controls), `rounded-md` 6 (inputs), `rounded-lg` 10 (floating panels/cards), `rounded-xl` 14 (only for large stages). **No `rounded-full` pills** unless the part is physically round (dots, avatars, a knob).
-- Depth: `shadow-1` (resting raised control), `shadow-2` (cards/panels), `shadow-3` (floating popovers/dialogs), `shadow-press` (inset). Draw borders with `shadow-[inset_0_0_0_1px_var(--dt-hairline)]` or `border-hairline`. No glows, no glass, no gradients as decoration.
+- Depth: `shadow-1` (resting raised control), `shadow-2` (cards/panels), `shadow-3` (floating popovers/dialogs), `shadow-press` (inset). Draw borders with `shadow-[inset_0_0_0_1px_var(--bis-hairline)]` or `border-hairline`. No glows, no glass, no gradients as decoration.
 - **Colour meaning:** `pencil` = provisional, live, selected-but-not-committed, focus. `ink` = committed or primary. `ok/warn/err` only for status. At most one moving pencil element per component at a time (the "live mark").
 - Focus: add the `focus-ring` utility to every focusable element (pencil ring with a paper gap). Never remove focus styles.
 - Icons: `<Icon name="…" size={14|16} />`; see `icons/index.tsx` for names. 16 px grid, 1.5 stroke.
@@ -55,7 +55,7 @@ Use `motion/react` with tokens from `motion/tokens.ts`:
 
 ## Sound rules
 
-`const play = usePlay(soundProp)` and call `play(name, { velocity, pitch })` **only** in direct response to a user action or a meaningful outcome the user initiated. Voices: `tick` (detents, steps, small navigation), `tap` (button press), `latch`/`unlatch` (binary commit), `select` (choice change), `confirm` (submit/approve), `complete` (a user-initiated multi-step thing finished), `attention` (needs a human decision; at most once), `error`, `dismiss` (close/remove), `notify` (toast arrival caused by the user), `open`/`close` (palette or popover open/close).
+`const play = usePlay(soundProp)` and call `play(name, { velocity, pitch })` **only** in direct response to a user action or a meaningful outcome the user initiated. Voices: `tick` (notches, steps, small navigation), `tap` (button press), `latch`/`unlatch` (binary commit), `select` (choice change), `confirm` (submit/approve), `complete` (a user-initiated multi-step thing finished), `attention` (needs a human decision; at most once), `error`, `dismiss` (close/remove), `notify` (toast arrival caused by the user), `open`/`close` (palette or popover open/close).
 
 Never play sounds on hover, on focus, for per-token streaming, for timers, or for background updates that the user didn't trigger. Every component accepts `sound?: boolean` (default `true`). Sound is globally off until the user opts in, and the engine handles that.
 

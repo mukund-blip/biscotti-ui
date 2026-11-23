@@ -134,7 +134,7 @@ function Inlines({ nodes, ctx }: { nodes: MdInline[]; ctx: Ctx }) {
           );
         if (n.t === "code")
           return (
-            <code key={`k${n.from}`} className="rounded-xs bg-sunken px-[5px] py-[1px] font-mono text-[0.86em] text-ink shadow-[inset_0_0_0_1px_var(--dt-hairline)]">
+            <code key={`k${n.from}`} className="rounded-xs bg-sunken px-[5px] py-[1px] font-mono text-[0.86em] text-ink shadow-[inset_0_0_0_1px_var(--bis-hairline)]">
               <Txt from={n.from} to={n.to} ctx={ctx} />
             </code>
           );
@@ -166,7 +166,7 @@ function Citation({ n, source }: { n: number; source?: StreamingSource }) {
           aria-label={`Source ${n}: ${source.title}, ${source.domain}`}
           className={cn(
             marker,
-            "focus-ring bg-sunken text-ink-2 no-underline shadow-[inset_0_0_0_1px_var(--dt-hairline)] hover:bg-well hover:text-ink data-[popup-open]:bg-ink data-[popup-open]:text-on-ink data-[popup-open]:shadow-none",
+            "focus-ring bg-sunken text-ink-2 no-underline shadow-[inset_0_0_0_1px_var(--bis-hairline)] hover:bg-well hover:text-ink data-[popup-open]:bg-ink data-[popup-open]:text-on-ink data-[popup-open]:shadow-none",
           )}
         >
           {n}
@@ -194,7 +194,7 @@ function SourceCard({ source }: { source: StreamingSource }) {
   return (
     <div className="grid gap-1.5">
       <div className="flex items-center gap-1.5 font-mono text-2xs text-muted">
-        <span className="tabular grid h-[15px] min-w-[15px] place-items-center rounded-xs bg-sunken px-[3px] text-[10px] text-ink-2 shadow-[inset_0_0_0_1px_var(--dt-hairline)]">{source.n}</span>
+        <span className="tabular grid h-[15px] min-w-[15px] place-items-center rounded-xs bg-sunken px-[3px] text-[10px] text-ink-2 shadow-[inset_0_0_0_1px_var(--bis-hairline)]">{source.n}</span>
         <span className="truncate">{source.domain}</span>
         {source.url && <Icon name="arrowUpRight" size={11} className="ml-auto shrink-0" />}
       </div>
@@ -218,8 +218,8 @@ function CodeBlock({ block, ctx, caret, sound }: { block: Extract<MdBlock, { t: 
     return () => window.clearTimeout(t);
   }, [copied]);
   return (
-    <div className="my-3 overflow-hidden rounded-md bg-sunken shadow-[inset_0_0_0_1px_var(--dt-hairline)]">
-      <div className="flex h-8 items-center justify-between pl-3 pr-1 [box-shadow:inset_0_-1px_0_var(--dt-hairline)]">
+    <div className="my-3 overflow-hidden rounded-md bg-sunken shadow-[inset_0_0_0_1px_var(--bis-hairline)]">
+      <div className="flex h-8 items-center justify-between pl-3 pr-1 [box-shadow:inset_0_-1px_0_var(--bis-hairline)]">
         <span className="font-mono text-2xs text-muted">{block.lang || "text"}</span>
         <button
           type="button"
@@ -285,12 +285,12 @@ function Block({ block, ctx, caret, sound }: { block: MdBlock; ctx: Ctx; caret: 
       const cols = Math.max(block.head.length, ...block.rows.map((r) => r.cells.length));
       const alignCls = (c: number) => (block.align[c] === "right" ? "text-right tabular" : block.align[c] === "center" ? "text-center" : "text-left");
       return (
-        <div className="my-3 overflow-x-auto rounded-md shadow-[inset_0_0_0_1px_var(--dt-hairline)]">
+        <div className="my-3 overflow-x-auto rounded-md shadow-[inset_0_0_0_1px_var(--bis-hairline)]">
           <table className="w-full border-collapse text-sm">
             <thead>
               <tr className="bg-surface">
                 {Array.from({ length: cols }, (_, c) => (
-                  <th key={c} scope="col" className={cn("h-8 px-3 font-mono text-2xs font-normal uppercase tracking-[0.04em] text-muted [box-shadow:inset_0_-1px_0_var(--dt-rule)]", alignCls(c))}>
+                  <th key={c} scope="col" className={cn("h-8 px-3 font-mono text-2xs font-normal uppercase tracking-[0.04em] text-muted [box-shadow:inset_0_-1px_0_var(--bis-rule)]", alignCls(c))}>
                     {block.head[c] && <Inlines nodes={block.head[c]} ctx={ctx} />}
                     {!block.rows.length && c === block.head.length - 1 && caret}
                   </th>
@@ -299,7 +299,7 @@ function Block({ block, ctx, caret, sound }: { block: MdBlock; ctx: Ctx; caret: 
             </thead>
             <tbody>
               {block.rows.map((r, ri) => (
-                <tr key={r.key} className="[&:not(:last-child)]:[box-shadow:inset_0_-1px_0_var(--dt-hairline)]">
+                <tr key={r.key} className="[&:not(:last-child)]:[box-shadow:inset_0_-1px_0_var(--bis-hairline)]">
                   {Array.from({ length: cols }, (_, c) => (
                     <td key={c} className={cn("h-8 px-3 text-ink", alignCls(c), c === 0 && "text-ink-2")}>
                       {r.cells[c] && <Inlines nodes={r.cells[c]} ctx={ctx} />}
@@ -337,7 +337,7 @@ function ActionButton({ label, onClick, children, pressed }: { label: string; on
       onClick={onClick}
       className={cn(
         "focus-ring grid size-7 place-items-center rounded-sm transition-colors duration-[90ms] active:translate-y-px",
-        pressed ? "bg-sunken text-ink shadow-[inset_0_0_0_1px_var(--dt-hairline)]" : "text-muted hover:bg-sunken hover:text-ink",
+        pressed ? "bg-sunken text-ink shadow-[inset_0_0_0_1px_var(--bis-hairline)]" : "text-muted hover:bg-sunken hover:text-ink",
       )}
     >
       {children}
@@ -416,11 +416,11 @@ export function StreamingResponse({
       data-caret=""
       className={cn(
         "relative ml-[1px] inline-block h-[1.05em] w-[2px] translate-y-[0.17em] rounded-[1px] bg-pencil",
-        waiting && "motion-safe:animate-[dt-caret_1.05s_ease-in-out_infinite]",
+        waiting && "motion-safe:animate-[bis-caret_1.05s_ease-in-out_infinite]",
       )}
     />
   ) : status === "stopped" ? (
-    <span className="ml-1.5 inline-flex translate-y-[-1px] items-center gap-1 whitespace-nowrap rounded-xs bg-sunken px-1.5 py-px align-middle font-mono text-2xs text-muted shadow-[inset_0_0_0_1px_var(--dt-hairline)]">
+    <span className="ml-1.5 inline-flex translate-y-[-1px] items-center gap-1 whitespace-nowrap rounded-xs bg-sunken px-1.5 py-px align-middle font-mono text-2xs text-muted shadow-[inset_0_0_0_1px_var(--bis-hairline)]">
       <span aria-hidden className="size-[6px] rounded-[1px] bg-muted" />
       Stopped
     </span>
@@ -580,7 +580,7 @@ export function StreamingResponse({
               animate={{ opacity: 1 }}
               exit={{ opacity: 0, transition: m.fade({ duration: 0.09 }) }}
               transition={m.fade()}
-              className="focus-ring flex h-7 items-center gap-1.5 rounded-sm px-2 text-xs text-ink-2 shadow-[inset_0_0_0_1px_var(--dt-rule)] transition-colors duration-[90ms] hover:bg-sunken hover:text-ink active:translate-y-px"
+              className="focus-ring flex h-7 items-center gap-1.5 rounded-sm px-2 text-xs text-ink-2 shadow-[inset_0_0_0_1px_var(--bis-rule)] transition-colors duration-[90ms] hover:bg-sunken hover:text-ink active:translate-y-px"
             >
               <span aria-hidden className="size-[7px] rounded-[1.5px] bg-current" />
               Stop
@@ -597,7 +597,7 @@ export function StreamingResponse({
                     play("tap", { velocity: 0.5 });
                     regenerate();
                   }}
-                  className="focus-ring flex h-7 items-center gap-1.5 rounded-sm px-2 text-xs text-ink-2 shadow-[inset_0_0_0_1px_var(--dt-rule)] hover:bg-sunken hover:text-ink"
+                  className="focus-ring flex h-7 items-center gap-1.5 rounded-sm px-2 text-xs text-ink-2 shadow-[inset_0_0_0_1px_var(--bis-rule)] hover:bg-sunken hover:text-ink"
                 >
                   <Icon name="refresh" size={12} />
                   Retry
@@ -711,7 +711,7 @@ export function StreamingResponse({
                     target={s.url ? "_blank" : undefined}
                     rel="noreferrer"
                     title={s.title}
-                    className="focus-ring flex h-6 max-w-[240px] items-center gap-1.5 rounded-xs px-1.5 text-xs text-ink-2 shadow-[inset_0_0_0_1px_var(--dt-hairline)] transition-colors duration-[90ms] hover:bg-sunken hover:text-ink"
+                    className="focus-ring flex h-6 max-w-[240px] items-center gap-1.5 rounded-xs px-1.5 text-xs text-ink-2 shadow-[inset_0_0_0_1px_var(--bis-hairline)] transition-colors duration-[90ms] hover:bg-sunken hover:text-ink"
                   >
                     <span className="tabular font-mono text-[10px] text-muted">{s.n}</span>
                     <span className="truncate font-mono text-2xs">{s.domain}</span>
@@ -729,7 +729,7 @@ export function StreamingResponse({
                         play("tap", { velocity: 0.45 });
                         onSuggestion?.(s);
                       }}
-                      className="focus-ring group flex h-7 items-center gap-1.5 rounded-sm px-2 text-sm text-ink-2 shadow-[inset_0_0_0_1px_var(--dt-hairline)] transition-colors duration-[90ms] hover:bg-sunken hover:text-ink active:translate-y-px"
+                      className="focus-ring group flex h-7 items-center gap-1.5 rounded-sm px-2 text-sm text-ink-2 shadow-[inset_0_0_0_1px_var(--bis-hairline)] transition-colors duration-[90ms] hover:bg-sunken hover:text-ink active:translate-y-px"
                     >
                       <Icon name="corner" size={12} className="text-muted group-hover:text-ink-2" />
                       {s}

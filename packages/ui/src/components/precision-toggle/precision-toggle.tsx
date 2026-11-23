@@ -59,7 +59,7 @@ export function PrecisionToggle({
   "aria-label": ariaLabel,
 }: PrecisionToggleProps) {
   const autoId = useId();
-  const id = idProp ?? `dt-toggle-${autoId}`;
+  const id = idProp ?? `bis-toggle-${autoId}`;
   const descId = `${id}-desc`;
   const statusId = `${id}-status`;
   const play = usePlay(soundOn);
@@ -211,10 +211,10 @@ export function PrecisionToggle({
         "transition-[background-color,box-shadow] duration-[120ms] ease-out",
         disabled ? "cursor-not-allowed opacity-45" : "cursor-pointer",
         pending
-          ? "bg-pencil-soft shadow-[inset_0_0_0_1px_var(--dt-pencil-line)]"
+          ? "bg-pencil-soft shadow-[inset_0_0_0_1px_var(--bis-pencil-line)]"
           : shown
-            ? "bg-track-on shadow-[inset_0_0_0_1px_var(--dt-track-on)]"
-            : "bg-sunken shadow-[inset_0_0_0_1px_var(--dt-edge),var(--dt-press)]",
+            ? "bg-track-on shadow-[inset_0_0_0_1px_var(--bis-track-on)]"
+            : "bg-sunken shadow-[inset_0_0_0_1px_var(--bis-edge),var(--bis-press)]",
       )}
       style={{ width: d.w, height: d.h }}
     >
@@ -227,12 +227,12 @@ export function PrecisionToggle({
       <motion.span
         aria-hidden
         style={{ opacity: ioOff, left: d.w - d.pad - thumb / 2 - d.io / 2, width: d.io, height: d.io }}
-        className={cn("absolute top-1/2 -translate-y-1/2 rounded-full", pending ? "shadow-[inset_0_0_0_1.25px_var(--dt-pencil)]" : "shadow-[inset_0_0_0_1.25px_var(--dt-muted)]")}
+        className={cn("absolute top-1/2 -translate-y-1/2 rounded-full", pending ? "shadow-[inset_0_0_0_1.25px_var(--bis-pencil)]" : "shadow-[inset_0_0_0_1.25px_var(--bis-muted)]")}
       />
       <motion.span
         aria-hidden
         style={{ x: thumbX, width, height: thumb, top: d.pad, left: d.pad }}
-        className={cn("absolute rounded-[3px] transition-colors duration-[120ms]", shown && !pending ? "bg-thumb-on" : "bg-thumb", "shadow-[0_0_0_0.5px_var(--dt-thumb-edge),0_1px_2px_rgb(0_0_0/0.2),inset_0_1px_0_rgb(255_255_255/0.14)]")}
+        className={cn("absolute rounded-[3px] transition-colors duration-[120ms]", shown && !pending ? "bg-thumb-on" : "bg-thumb", "shadow-[0_0_0_0.5px_var(--bis-thumb-edge),0_1px_2px_rgb(0_0_0/0.2),inset_0_1px_0_rgb(255_255_255/0.14)]")}
       >
         <span className="absolute inset-0 flex items-center justify-center gap-[2px]">
           <span className={cn("h-[40%] w-px rounded-full transition-colors duration-[120ms]", pending ? "bg-pencil" : "bg-edge/50")} />

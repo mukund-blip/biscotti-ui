@@ -1,8 +1,8 @@
-# Detent — design rationale
+# Biscotti UI — design rationale
 
 > Quiet at rest. Delightful in motion. Precise in use.
 
-A **detent** is the notch a mechanism seats into: the click of a dial, the latch of a switch. That moment is the whole identity of this library. Most AI-era interfaces are full of things that are *not yet true*, such as streamed text, proposed edits, pending approvals and running tools. Detent gives those provisional states one visual language, and gives the moment they become real one consistent feel.
+Biscotti UI is built around **the click**: the notch a mechanism seats into, the click of a dial, the latch of a switch. That moment is the whole identity of this library. Most AI-era interfaces are full of things that are *not yet true*, such as streamed text, proposed edits, pending approvals and running tools. Biscotti UI gives those provisional states one visual language, and gives the moment they become real one consistent feel.
 
 ## How the direction was chosen
 
@@ -50,7 +50,7 @@ Every sound is synthesised at runtime with the Web Audio API, so there are no sa
 
 | Voice | Use | Synthesis |
 |---|---|---|
-| `tick` | detents, slider steps | 3 ms noise burst · bandpass 3.2 kHz Q8 · 18 ms decay |
+| `tick` | notches, slider steps | 3 ms noise burst · bandpass 3.2 kHz Q8 · 18 ms decay |
 | `tap` | button press | 2 ms noise + 180 Hz sine thump, 40 ms |
 | `latch` / `unlatch` | toggle on / off | two transients 26 ms apart (engage, seat); off is pitched 0.8× |
 | `select` | segment or option change | short filtered tick plus a quiet E6 partial |

@@ -271,7 +271,7 @@ export function Workbench() {
         <button
           type="button"
           onClick={() => setPaletteOpen(true)}
-          className="focus-ring inline-flex h-9 items-center gap-2.5 rounded-sm bg-raised pl-3 pr-1.5 text-sm text-ink-2 shadow-[inset_0_0_0_1px_var(--dt-edge)] hover:bg-surface hover:text-ink"
+          className="focus-ring inline-flex h-9 items-center gap-2.5 rounded-sm bg-raised pl-3 pr-1.5 text-sm text-ink-2 shadow-[inset_0_0_0_1px_var(--bis-edge)] hover:bg-surface hover:text-ink"
         >
           <Icon name="command" size={14} />
           Commands

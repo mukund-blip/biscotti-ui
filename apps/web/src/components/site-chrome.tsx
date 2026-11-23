@@ -11,7 +11,7 @@ export function Logo({ className }: { className?: string }) {
   return (
     // eslint-disable-next-line @next/next/no-img-element -- static export serves raw public assets
     <img src={publicPath("/brand/biscotti-tile-64.webp")} srcSet={`${publicPath("/brand/biscotti-tile-64.webp")} 1x, ${publicPath("/brand/biscotti-tile-128.webp")} 2x`}
-      alt="" width={32} height={32} className={cn("rounded-[9px] shadow-[inset_0_0_0_1px_var(--dt-hairline)]", className)} />
+      alt="" width={32} height={32} className={cn("rounded-[9px] shadow-[inset_0_0_0_1px_var(--bis-hairline)]", className)} />
   );
 }
 
@@ -64,7 +64,7 @@ function ThemeSwitch() {
   ] as const;
   const resolved = pref;
   return (
-    <div role="group" aria-label="Theme" className="flex h-8 items-center rounded-md bg-sunken p-0.5 shadow-[inset_0_0_0_1px_var(--dt-hairline)]">
+    <div role="group" aria-label="Theme" className="flex h-8 items-center rounded-md bg-sunken p-0.5 shadow-[inset_0_0_0_1px_var(--bis-hairline)]">
       {opts.map((o) => {
         const on = resolved === o.id;
         return (
@@ -104,7 +104,7 @@ export function SoundControl({ compact = false }: { compact?: boolean }) {
         disabled={prefs.disabledPermanently}
         className={cn(
           "focus-ring group flex h-8 items-center gap-2 rounded-l-md pl-2.5 pr-2 text-sm transition-colors duration-[90ms]",
-          "shadow-[inset_0_0_0_1px_var(--dt-hairline)]",
+          "shadow-[inset_0_0_0_1px_var(--bis-hairline)]",
           on ? "bg-raised text-ink" : "bg-sunken text-muted hover:text-ink",
           prefs.disabledPermanently && "opacity-50",
         )}
@@ -117,7 +117,7 @@ export function SoundControl({ compact = false }: { compact?: boolean }) {
         onClick={() => setOpen((o) => !o)}
         aria-label="Sound settings"
         aria-expanded={open}
-        className="focus-ring grid h-8 w-6 place-items-center rounded-r-md bg-sunken text-muted shadow-[inset_0_0_0_1px_var(--dt-hairline)] hover:text-ink"
+        className="focus-ring grid h-8 w-6 place-items-center rounded-r-md bg-sunken text-muted shadow-[inset_0_0_0_1px_var(--bis-hairline)] hover:text-ink"
       >
         <Icon name="chevronDown" size={12} />
       </button>
@@ -135,7 +135,7 @@ export function SoundControl({ compact = false }: { compact?: boolean }) {
               type="range" min={0} max={1} step={0.05} value={prefs.volume} aria-label="Volume"
               onChange={(e) => prefs.setVolume(Number(e.target.value))}
               onPointerUp={() => sound.play("tick")}
-              className="w-full accent-[var(--dt-pencil)]"
+              className="w-full accent-[var(--bis-pencil)]"
             />
             <p className="mt-2 text-xs text-muted">
               Synthesised in your browser. Sounds play only for deliberate actions — never on hover or background updates.
@@ -164,7 +164,7 @@ export function SiteChrome({ children }: { children: ReactNode }) {
       <a href="#main" className="focus-ring sr-only z-[100] rounded-sm bg-raised px-3 py-2 focus:not-sr-only focus:fixed focus:left-3 focus:top-3">
         Skip to content
       </a>
-      <header className="sticky top-0 z-40 bg-paper/85 backdrop-blur-md [box-shadow:inset_0_-1px_0_var(--dt-hairline)]">
+      <header className="sticky top-0 z-40 bg-paper/85 backdrop-blur-md [box-shadow:inset_0_-1px_0_var(--bis-hairline)]">
         <div className="mx-auto flex h-16 max-w-[1320px] items-center gap-4 px-5 sm:gap-6 md:px-8">
           <Link href="/" className="focus-ring flex shrink-0 items-center gap-2 rounded-sm sm:gap-2.5 text-ink">
             <Logo className="size-7 shrink-0 sm:size-8" />

@@ -8,7 +8,7 @@ import { GalleryTile } from "@/components/gallery-tile";
 export const metadata: Metadata = { ...canonicalMetadata("components"), title: "Components" };
 
 const groupIntro: Record<string, string> = {
-  "Tactile controls": "Small parts with real travel, detents and latches.",
+  "Tactile controls": "Small parts with real travel, notches and latches.",
   "Commands & composition": "Keyboard-first ways to say what you want.",
   "Agent interactions": "Making provisional, long-running work legible.",
   "Information & editing": "Dense data and direct manipulation, without the noise.",

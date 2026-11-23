@@ -1,7 +1,7 @@
 import type { SVGProps } from "react";
 
 /**
- * Detent icons — drawn on a 16px grid, 1.5px stroke, square-ish joins.
+ * Biscotti UI icons — drawn on a 16px grid, 1.5px stroke, square-ish joins.
  * Optical rule: stroke sits on whole/half pixels; glyphs fill a 12px live area.
  */
 const paths = {

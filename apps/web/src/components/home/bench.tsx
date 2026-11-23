@@ -23,8 +23,8 @@ export function HeroBench() {
           <div className="flex items-baseline justify-between"><h2 className="text-[24px] font-medium tracking-[-0.03em]">Shape the signal.</h2><span className="font-mono text-2xs text-muted">120 BPM</span></div>
           <div className="instrument-wave my-5 overflow-hidden rounded-md border border-hairline bg-paper px-4 py-3" aria-hidden>
             <svg viewBox="0 0 360 76" className="h-[76px] w-full" fill="none">
-              <path d="M0 38h360M0 14h360M0 62h360" stroke="var(--dt-hairline)" />
-              {Array.from({ length: 45 }, (_, i) => { const h = enabled ? 8 + Math.abs(Math.sin(i * (mode === "filter" ? 0.41 : mode === "amp" ? 0.22 : 0.67))) * 48 : 2; return <path key={i} d={`M${i * 8 + 4} ${38 - h / 2}v${h}`} stroke={dirty ? "var(--dt-pencil)" : "var(--dt-ink)"} strokeWidth="2" strokeLinecap="round" />; })}
+              <path d="M0 38h360M0 14h360M0 62h360" stroke="var(--bis-hairline)" />
+              {Array.from({ length: 45 }, (_, i) => { const h = enabled ? 8 + Math.abs(Math.sin(i * (mode === "filter" ? 0.41 : mode === "amp" ? 0.22 : 0.67))) * 48 : 2; return <path key={i} d={`M${i * 8 + 4} ${38 - h / 2}v${h}`} stroke={dirty ? "var(--bis-pencil)" : "var(--bis-ink)"} strokeWidth="2" strokeLinecap="round" />; })}
             </svg>
           </div>
           <SegmentedControl aria-label="Signal envelope" value={mode} onValueChange={(v) => { setMode(v); setDirty(true); setSaved(false); }}>

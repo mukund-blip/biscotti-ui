@@ -42,7 +42,7 @@ export default function Home() {
               <Link href="/components" className="focus-ring inline-flex h-11 items-center gap-3 rounded-md bg-ink px-4 text-base font-medium text-on-ink transition-transform duration-[90ms] active:translate-y-px">
                 Browse components <Icon name="arrowRight" size={16} />
               </Link>
-              <Link href="/workbench" className="focus-ring inline-flex h-11 items-center rounded-md bg-raised px-4 text-base text-ink shadow-[inset_0_0_0_1px_var(--dt-edge)] transition-transform duration-[90ms] hover:bg-surface active:translate-y-px">
+              <Link href="/workbench" className="focus-ring inline-flex h-11 items-center rounded-md bg-raised px-4 text-base text-ink shadow-[inset_0_0_0_1px_var(--bis-edge)] transition-transform duration-[90ms] hover:bg-surface active:translate-y-px">
                 Open the workbench
               </Link>
             </div>
@@ -79,7 +79,7 @@ export default function Home() {
             <p className="font-mono text-2xs uppercase tracking-[0.08em] text-pencil-ink">The idea</p>
             <h2 className="mt-3 text-[clamp(28px,3.4vw,40px)] font-semibold leading-[1.05] tracking-[-0.03em]">Pencil, then ink.</h2>
             <p className="mt-5 text-md leading-[26px] text-ink-2">
-              AI-era software is full of things that aren’t true yet — streamed text, proposed edits, pending approvals, running tools. Biscotti UI draws all of them in the same cobalt pencil, and gives the moment they become real one consistent feel: a detent, the click of a part seating into place.
+              AI-era software is full of things that aren’t true yet — streamed text, proposed edits, pending approvals, running tools. Biscotti UI draws all of them in the same cobalt pencil, and gives the moment they become real one consistent feel: a click, the moment a part seats into place.
             </p>
             <p className="mt-4 text-md leading-[26px] text-ink-2">Accept a change on the right. Watch the gap close, the rule ink in, and the text settle into the document.</p>
           </div>

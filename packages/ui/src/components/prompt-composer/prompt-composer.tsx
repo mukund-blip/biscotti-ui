@@ -132,13 +132,13 @@ function AttachmentChip({ attachment, live, disabled, onRemove, onRetry }: {
         initial={false}
         animate={{
           scaleX: failed ? 0 : uploading ? progress : 1,
-          backgroundColor: uploading ? "var(--dt-pencil-soft)" : "transparent",
-          borderColor: uploading ? "var(--dt-pencil)" : "var(--dt-rule)",
+          backgroundColor: uploading ? "var(--bis-pencil-soft)" : "transparent",
+          borderColor: uploading ? "var(--bis-pencil)" : "var(--bis-rule)",
         }}
         transition={{ scaleX: live ? m.move(tween.fade) : { duration: 0 }, backgroundColor: m.fade(tween.drain), borderColor: m.fade(tween.drain) }}
         className="pointer-events-none absolute inset-0 -z-10 origin-left border-b"
       />
-      <span className="relative grid size-7 shrink-0 place-items-center overflow-hidden rounded-sm bg-raised text-muted shadow-[inset_0_0_0_1px_var(--dt-hairline)]">
+      <span className="relative grid size-7 shrink-0 place-items-center overflow-hidden rounded-sm bg-raised text-muted shadow-[inset_0_0_0_1px_var(--bis-hairline)]">
         <Icon name={image ? "image" : "file"} size={14} />
         {preview && <img src={preview} alt="" onError={() => setPreview(undefined)} className="absolute inset-0 size-full object-cover" />}
       </span>
@@ -403,8 +403,8 @@ export function PromptComposer({
           </ul>
         )}
         <div ref={fieldSlot}
-          className={cn("relative", ghost && "[&_[role=combobox]]:min-h-(--dt-prompt-ghost-height)")}
-          style={ghost ? { "--dt-prompt-ghost-height": `${ghost.height}px` } as CSSProperties : undefined}
+          className={cn("relative", ghost && "[&_[role=combobox]]:min-h-(--bis-prompt-ghost-height)")}
+          style={ghost ? { "--bis-prompt-ghost-height": `${ghost.height}px` } as CSSProperties : undefined}
         >
           <MentionInput
             ref={editor} aria-label={label} aria-describedby={`${uid}-instructions`}

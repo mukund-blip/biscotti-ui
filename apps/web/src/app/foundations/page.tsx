@@ -23,7 +23,7 @@ function Swatches({ theme }: { theme: "light" | "dark" }) {
             <div className="flex flex-wrap gap-1.5">
               {g.tokens.map((t) => (
                 <div key={t} className="w-[76px]">
-                  <div className="h-10 rounded-sm shadow-[inset_0_0_0_1px_var(--dt-hairline)]" style={{ background: `var(--dt-${t})` }} />
+                  <div className="h-10 rounded-sm shadow-[inset_0_0_0_1px_var(--bis-hairline)]" style={{ background: `var(--bis-${t})` }} />
                   <p className="mt-1 truncate font-mono text-[10.5px] text-muted">{t}</p>
                 </div>
               ))}
