@@ -1,7 +1,7 @@
 "use client";
 import { useEffect, useState } from "react";
-import { Icon } from "@detent/ui";
-import { Callout, Toaster, toast, type ToastPlacement } from "@detent/ui";
+import { Icon } from "@biscotti/ui";
+import { Callout, Toaster, toast, type ToastPlacement } from "@biscotti/ui";
 import { ControlSegment, Controls, DemoFrame, Readout, Stage } from "@/components/demo-kit";
 
 const T = "notifications-demo";

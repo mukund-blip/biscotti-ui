@@ -1,6 +1,6 @@
 "use client";
 import { useState } from "react";
-import { DiffInspector, type DiffHunk, type HunkDecision } from "@detent/ui";
+import { DiffInspector, type DiffHunk, type HunkDecision } from "@biscotti/ui";
 import { launchNotesHunks } from "@/demos/data";
 import { ControlButton, ControlSegment, Controls, DemoFrame, Readout, Stage } from "@/components/demo-kit";
 

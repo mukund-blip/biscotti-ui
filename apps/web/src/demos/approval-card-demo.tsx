@@ -1,6 +1,6 @@
 "use client";
 import { useEffect, useState, type ReactNode } from "react";
-import { ApprovalCard, ApprovalEmailPreview, LiveMark, type ApprovalCardProps, type ApprovalDecision } from "@detent/ui";
+import { ApprovalCard, ApprovalEmailPreview, LiveMark, type ApprovalCardProps, type ApprovalDecision } from "@biscotti/ui";
 import { ScriptBar, useScript, type Cue } from "@/components/stage/script-player";
 import { ControlButton, ControlCheck, ControlSegment, Controls, DemoFrame, Readout, Stage } from "@/components/demo-kit";
 

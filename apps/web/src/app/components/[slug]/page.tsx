@@ -4,7 +4,7 @@ import type { Metadata } from "next";
 import { bySlug, catalog } from "@/catalog";
 import { StageShell } from "@/components/stage-shell";
 import { Code } from "@/components/code";
-import { Icon, Kbd } from "@detent/ui";
+import { Icon, Kbd } from "@biscotti/ui";
 import { canonicalMetadata, siteUrl, REGISTRY_IS_LOCAL, REGISTRY_URL, componentSourceUrl, originComment } from "@/site";
 
 export function generateStaticParams() {
@@ -170,7 +170,7 @@ export default async function ComponentPage({ params }: { params: Promise<{ slug
               </div>
               <div className="grid gap-2">
                 <h3 className="text-sm font-medium">Or import it inside this monorepo</h3>
-                <Code lang="tsx" title="workspace" code={`import { ${componentImport(e.usage)} } from "@detent/ui";`} />
+                <Code lang="tsx" title="workspace" code={`import { ${componentImport(e.usage)} } from "@biscotti/ui";`} />
               </div>
               <a href={source} className="focus-ring inline-flex w-fit items-center gap-1.5 rounded-xs text-sm text-ink-2 hover:text-ink lg:hidden">
                 <Icon name="code" size={14} /> View source on GitHub <Icon name="external" size={12} className="text-muted" />
@@ -306,8 +306,8 @@ export default async function ComponentPage({ params }: { params: Promise<{ slug
   );
 }
 
-/** The named imports from the usage example's `@detent/ui` line, so the workspace snippet matches it. */
+/** The named imports from the usage example's `@biscotti/ui` line, so the workspace snippet matches it. */
 function componentImport(usage: string) {
-  const m = usage.match(/import\s*\{([^}]+)\}\s*from\s*"@detent\/ui"/);
+  const m = usage.match(/import\s*\{([^}]+)\}\s*from\s*"@biscotti\/ui"/);
   return m ? m[1].trim().replace(/\s+/g, " ") : "";
 }

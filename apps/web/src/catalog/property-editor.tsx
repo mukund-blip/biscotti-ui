@@ -13,7 +13,7 @@ export const entry: CatalogEntry = {
   scale: "l",
   Demo: PropertyEditorDemo,
   Preview: () => <PropertyEditorDemo compact />,
-  usage: `import { PropertyEditor, PropertySection, PropertyRow, PropertyScrub, PropertyColor, PropertyBoxModel } from "@detent/ui";
+  usage: `import { PropertyEditor, PropertySection, PropertyRow, PropertyScrub, PropertyColor, PropertyBoxModel } from "@biscotti/ui";
 
 <PropertyEditor title="Product card" subtitle="OS-1 / card.tsx">
   <PropertySection title="Appearance">

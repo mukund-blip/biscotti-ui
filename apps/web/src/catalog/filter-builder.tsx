@@ -12,7 +12,7 @@ export const entry: CatalogEntry = {
   scale: "l",
   Demo: FilterBuilderDemo,
   usage: `import { useState } from "react";
-import { FilterBuilder, filterBuilderMatches, type FilterBuilderCondition, type FilterBuilderField } from "@detent/ui";
+import { FilterBuilder, filterBuilderMatches, type FilterBuilderCondition, type FilterBuilderField } from "@biscotti/ui";
 
 type Order = { units: number };
 const fields: FilterBuilderField<Order>[] = [

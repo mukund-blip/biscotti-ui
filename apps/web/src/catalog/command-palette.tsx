@@ -13,7 +13,7 @@ export const entry: CatalogEntry = {
   scale: "l",
   Demo: CommandPaletteDemo,
   Preview: CommandPalettePreview,
-  usage: `import { CommandPaletteDialog, type CommandGroupDef } from "@detent/ui";
+  usage: `import { CommandPaletteDialog, type CommandGroupDef } from "@biscotti/ui";
 
 const groups: CommandGroupDef[] = [
   {

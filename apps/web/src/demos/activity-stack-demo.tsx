@@ -1,6 +1,6 @@
 "use client";
 import { useMemo, useState } from "react";
-import { ActivityStack, type ActivityTask } from "@detent/ui";
+import { ActivityStack, type ActivityTask } from "@biscotti/ui";
 import { ScriptBar, useScript, type Cue } from "@/components/stage/script-player";
 import { ControlButton, ControlSegment, Controls, DemoFrame, Readout, Stage } from "@/components/demo-kit";
 

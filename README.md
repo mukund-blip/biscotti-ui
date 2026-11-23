@@ -6,7 +6,7 @@
 
 > Quiet at rest. Delightful in motion. Precise in use.
 
-Biscotti UI is built around one idea: **pencil, then ink**. Anything provisional (streamed text, proposed edits, pending writes, running tools) is drawn in a cobalt *pencil*. The moment it becomes real is a *detent*: a latch you can see, feel and (optionally) hear. See [`DESIGN.md`](./DESIGN.md) for the full rationale. The mascot, Biscotti, is rendered from an editable Blender model; the package and registry names still use `@detent/ui` and `detent-*` so existing installs keep working.
+Biscotti UI is built around one idea: **pencil, then ink**. Anything provisional (streamed text, proposed edits, pending writes, running tools) is drawn in a cobalt *pencil*. The moment it becomes real is a *detent*: a latch you can see, feel and (optionally) hear. See [`DESIGN.md`](./DESIGN.md) for the full rationale. The mascot, Biscotti, is rendered from an editable Blender model. The library package is `@biscotti/ui`; registry item names still use `detent-*`.
 
 ## Run it
 
@@ -44,7 +44,7 @@ Requires Node 20+ and pnpm 10.
 ## Structure
 
 ```
-packages/ui/                  @detent/ui — the library (no showcase code)
+packages/ui/                  @biscotti/ui — the library (no showcase code)
   src/styles/                 tokens.css (CSS vars, light/dark), theme.css (Tailwind v4 mapping)
   src/motion/tokens.ts        springs & tweens per interaction class, reduced‑motion helpers
   src/sound/                  Web Audio synth engine (opt‑in) + usePlay / useSoundPrefs / SoundScope
@@ -77,7 +77,7 @@ Each component pulls in `detent-foundation` (tokens, motion, sound, utilities, i
 
 Set `NEXT_PUBLIC_REGISTRY_URL` / `REGISTRY_URL` to wherever you host `apps/web/public/r` (it defaults to the local dev server).
 
-**Option B: workspace package.** Depend on `@detent/ui` and import from it directly. Peer deps: `react@19`, `motion@12+`.
+**Option B: workspace package.** Depend on `@biscotti/ui` and import from it directly. Peer deps: `react@19`, `motion@12+`.
 
 ### Theming in a host app
 

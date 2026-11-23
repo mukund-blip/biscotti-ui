@@ -1,6 +1,6 @@
 "use client";
 import { useState } from "react";
-import { KineticButton, KineticButtonGroup } from "@detent/ui";
+import { KineticButton, KineticButtonGroup } from "@biscotti/ui";
 import { ControlSegment, Controls, DemoFrame, Readout, Stage } from "@/components/demo-kit";
 
 type Outcome = "succeeds" | "fails";

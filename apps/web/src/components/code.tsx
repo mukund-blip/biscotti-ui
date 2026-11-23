@@ -1,6 +1,6 @@
 "use client";
 import { useState, type ReactNode } from "react";
-import { Icon, cn, usePlay } from "@detent/ui";
+import { Icon, cn, usePlay } from "@biscotti/ui";
 
 /* A deliberately small TSX/shell highlighter — five token classes, token colours only. */
 type Tok = { t: "kw" | "str" | "com" | "tag" | "num" | "attr" | "punc" | "txt"; v: string };

@@ -18,7 +18,7 @@ export const entry: CatalogEntry = {
   scale: "m",
   Demo: ApprovalCardDemo,
   Preview: ApprovalCardPreview,
-  usage: `import { ApprovalCard, ApprovalEmailPreview } from "@detent/ui";
+  usage: `import { ApprovalCard, ApprovalEmailPreview } from "@biscotti/ui";
 
 <ApprovalCard
   agent="Scout"

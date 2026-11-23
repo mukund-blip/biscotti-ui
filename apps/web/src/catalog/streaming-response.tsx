@@ -13,7 +13,7 @@ export const entry: CatalogEntry = {
   scale: "l",
   Demo: StreamingResponseDemo,
   Preview: () => <StreamingResponseDemo compact />,
-  usage: `import { StreamingResponse, useTextStream } from "@detent/ui";
+  usage: `import { StreamingResponse, useTextStream } from "@biscotti/ui";
 
 function Answer({ question }: { question: string }) {
   // A factory, so Regenerate can read the source again.

@@ -12,7 +12,7 @@ export const entry: CatalogEntry = {
   scale: "l",
   Demo: PromptComposerDemo,
   Preview: PromptComposerPreview,
-  usage: `import { PromptComposer } from "@detent/ui";
+  usage: `import { PromptComposer } from "@biscotti/ui";
 
 <PromptComposer
   models={[{ id: "scout", label: "Scout" }]}

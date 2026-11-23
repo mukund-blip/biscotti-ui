@@ -1,5 +1,5 @@
 "use client";
-import { DiffInspector, PrecisionToggle, ThinkingTimeline, type TimelineStep } from "@detent/ui";
+import { DiffInspector, PrecisionToggle, ThinkingTimeline, type TimelineStep } from "@biscotti/ui";
 import { launchNotesHunks } from "@/demos/data";
 import { ScriptBar, useScript, type Cue } from "@/components/stage/script-player";
 

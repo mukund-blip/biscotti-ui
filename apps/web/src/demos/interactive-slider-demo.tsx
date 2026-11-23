@@ -1,6 +1,6 @@
 "use client";
 import { useState } from "react";
-import { InteractiveSlider } from "@detent/ui";
+import { InteractiveSlider } from "@biscotti/ui";
 import { ControlCheck, Controls, DemoFrame, Readout, Stage } from "@/components/demo-kit";
 
 const hz = (v: number) => (v >= 1000 ? `${(v / 1000).toFixed(v >= 10000 ? 1 : 2)} kHz` : `${Math.round(v)} Hz`);

@@ -1,7 +1,7 @@
 "use client";
 import Link from "next/link";
 import { useState } from "react";
-import { Icon, KineticButton, PrecisionToggle, SegmentedControl, SegmentedControlItem } from "@detent/ui";
+import { Icon, KineticButton, PrecisionToggle, SegmentedControl, SegmentedControlItem } from "@biscotti/ui";
 
 /** A working instrument: local adjustments stay in pencil until saved. */
 export function HeroBench() {

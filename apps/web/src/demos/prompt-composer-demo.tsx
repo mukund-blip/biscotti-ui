@@ -1,9 +1,9 @@
 "use client";
 
 import { useState } from "react";
-import { Icon, SoundScope } from "@detent/ui";
-import { PromptComposer, type PromptComposerModel, type PromptComposerUpload } from "@detent/ui/components/prompt-composer/prompt-composer";
-import type { MentionDraft } from "@detent/ui/components/mention-picker/mention-picker";
+import { Icon, SoundScope } from "@biscotti/ui";
+import { PromptComposer, type PromptComposerModel, type PromptComposerUpload } from "@biscotti/ui/components/prompt-composer/prompt-composer";
+import type { MentionDraft } from "@biscotti/ui/components/mention-picker/mention-picker";
 import { ControlButton, ControlSegment, Controls, DemoFrame, Readout, Stage } from "@/components/demo-kit";
 import { ScriptBar, useScript, type Cue } from "@/components/stage/script-player";
 import { ostraMentions } from "./mention-picker-demo";

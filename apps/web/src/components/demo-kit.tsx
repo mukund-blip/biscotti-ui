@@ -4,7 +4,7 @@
  * Not part of the library. Deliberately quiet so the component is the hero.
  */
 import { useId, type ReactNode } from "react";
-import { cn } from "@detent/ui";
+import { cn } from "@biscotti/ui";
 
 /** Stage = the component's presentation surface. Size it to the component, not to a grid. */
 export function Stage({ children, className, tone = "paper", minH = 280, center = true }: { children: ReactNode; className?: string; tone?: "paper" | "sunken" | "surface"; minH?: number; center?: boolean }) {

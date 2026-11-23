@@ -1,6 +1,6 @@
 import Link from "next/link";
 import type { Metadata } from "next";
-import { Icon } from "@detent/ui";
+import { Icon } from "@biscotti/ui";
 import { catalog } from "@/catalog";
 import { publicPath } from "@/site";
 

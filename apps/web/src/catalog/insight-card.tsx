@@ -13,7 +13,7 @@ export const entry: CatalogEntry = {
   scale: "m",
   Demo: InsightCardDemo,
   Preview: InsightCardPreview,
-  usage: `import { InsightCard } from "@detent/ui";
+  usage: `import { InsightCard } from "@biscotti/ui";
 
 <InsightCard
   title="Pre-orders"

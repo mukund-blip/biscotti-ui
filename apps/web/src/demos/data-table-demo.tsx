@@ -2,8 +2,8 @@
 
 import { Dialog } from "@base-ui/react/dialog";
 import { useEffect, useMemo, useRef, useState } from "react";
-import { Icon, PrecisionToggle } from "@detent/ui";
-import { DataTable, type DataTableColumn, type DataTableDensity, type DataTableSort } from "@detent/ui/components/data-table/data-table";
+import { Icon, PrecisionToggle } from "@biscotti/ui";
+import { DataTable, type DataTableColumn, type DataTableDensity, type DataTableSort } from "@biscotti/ui/components/data-table/data-table";
 import { ControlButton, ControlSegment, Controls, DemoFrame, Readout, Stage } from "@/components/demo-kit";
 import { formatOrderTime, orderClock, orderMoney, orderNumber, orderStatuses, orderStatusTone, orderUnitPrice, ostraOrders, type OstraOrder } from "./orders-data";
 

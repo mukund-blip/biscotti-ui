@@ -1,5 +1,5 @@
 import Link from "next/link";
-import { Icon } from "@detent/ui";
+import { Icon } from "@biscotti/ui";
 import { GalleryTile } from "@/components/gallery-tile";
 import { REPO_URL, publicPath, canonicalMetadata } from "@/site";
 import { catalog, groups } from "@/catalog";

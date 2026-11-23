@@ -1,7 +1,7 @@
 "use client";
 import { motion, useAnimate } from "motion/react";
 import { useMemo, useState } from "react";
-import { Icon, iconNames, cn, sound, spring, useSoundPrefs, type SoundName } from "@detent/ui";
+import { Icon, iconNames, cn, sound, spring, useSoundPrefs, type SoundName } from "@biscotti/ui";
 
 /* ── Springs: simulate x'' = −k(x−1) − c x' (mass m) and plot ───────── */
 function simulate({ stiffness, damping, mass }: { stiffness: number; damping: number; mass: number }, ms = 600) {

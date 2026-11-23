@@ -22,8 +22,8 @@ import {
   type FilterBuilderCondition,
   type FilterBuilderField,
   type MentionItem,
-} from "@detent/ui";
-import { DataTable, type DataTableColumn, type DataTableSort } from "@detent/ui/components/data-table/data-table";
+} from "@biscotti/ui";
+import { DataTable, type DataTableColumn, type DataTableSort } from "@biscotti/ui/components/data-table/data-table";
 import { formatOrderTime, orderClock, orderMoney, orderStatuses, orderStatusTone, ostraOrders, type OrderStatus, type OstraOrder } from "@/demos/orders-data";
 import { ostraAnnotations, preorderInsight, preorderSeries } from "@/demos/insight-card-demo";
 import { scoutQuestion } from "@/demos/streaming-response-data";

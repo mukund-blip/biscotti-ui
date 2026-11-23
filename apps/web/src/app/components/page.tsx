@@ -1,7 +1,7 @@
 import { canonicalMetadata } from "@/site";
 import type { Metadata } from "next";
 import Link from "next/link";
-import { Icon } from "@detent/ui";
+import { Icon } from "@biscotti/ui";
 import { catalog, groups } from "@/catalog";
 import { GalleryTile } from "@/components/gallery-tile";
 

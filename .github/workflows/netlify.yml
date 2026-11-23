@@ -69,7 +69,7 @@ jobs:
           # Read from the environment by netlify-cli; never passed as an argument or printed.
           NETLIFY_AUTH_TOKEN: ${{ secrets.NETLIFY_AUTH_TOKEN }}
         run: |
-          # --filter web: this pnpm workspace has two packages (web, @detent/ui) and the
+          # --filter web: this pnpm workspace has two packages (web, @biscotti/ui) and the
           # CLI refuses to pick one in CI. --dir still resolves from the repo root.
           npx -y "netlify-cli@${NETLIFY_CLI_VERSION}" deploy \
             --prod --no-build --filter web \

@@ -1,6 +1,6 @@
 "use client";
 import { useCallback, useEffect, useMemo, useRef, useState } from "react";
-import { StreamingResponse, useTextStream, type StreamingFeedback } from "@detent/ui";
+import { StreamingResponse, useTextStream, type StreamingFeedback } from "@biscotti/ui";
 import { ScriptBar, useScript, type Cue } from "@/components/stage/script-player";
 import { ControlButton, ControlCheck, ControlSegment, Controls, DemoFrame, Readout, Stage } from "@/components/demo-kit";
 import { demoTextStream, scoutAnswer, scoutQuestion, scoutSources, scoutSuggestions, streamTimeline } from "./streaming-response-data";

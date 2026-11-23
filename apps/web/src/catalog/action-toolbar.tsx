@@ -14,7 +14,7 @@ export const entry: CatalogEntry = {
   Demo: ActionToolbarDemo,
   Preview: ActionToolbarPreview,
   usage: `import { useRef } from "react";
-import { ActionToolbar, wrapRange } from "@detent/ui";
+import { ActionToolbar, wrapRange } from "@biscotti/ui";
 
 function LaunchNotes() {
   const ref = useRef<HTMLDivElement>(null);

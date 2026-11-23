@@ -13,7 +13,7 @@ export const entry: CatalogEntry = {
   scale: "m",
   Demo: NotificationsDemo,
   Preview: NotificationsPreview,
-  usage: `import { Toaster, toast } from "@detent/ui";
+  usage: `import { Toaster, toast } from "@biscotti/ui";
 
 // once, near the root
 <Toaster placement="bottom-right" />

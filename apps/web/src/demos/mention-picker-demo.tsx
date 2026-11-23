@@ -1,8 +1,8 @@
 "use client";
 
 import { useCallback, useRef, useState } from "react";
-import { Icon } from "@detent/ui";
-import { MentionInput, type MentionDraft, type MentionInputHandle, type MentionItem } from "@detent/ui/components/mention-picker/mention-picker";
+import { Icon } from "@biscotti/ui";
+import { MentionInput, type MentionDraft, type MentionInputHandle, type MentionItem } from "@biscotti/ui/components/mention-picker/mention-picker";
 import { ControlButton, ControlSegment, Controls, DemoFrame, Readout, Stage } from "@/components/demo-kit";
 
 export const ostraMentions: readonly MentionItem[] = [

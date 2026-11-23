@@ -1,6 +1,6 @@
 "use client";
 import { useState, type ReactNode } from "react";
-import { cn } from "@detent/ui";
+import { cn } from "@biscotti/ui";
 import { SoundControl } from "./site-chrome";
 
 /** The live stage. Its theme can be flipped independently of the page. */

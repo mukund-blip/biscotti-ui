@@ -15,7 +15,7 @@ import {
   toast,
   useTextStream,
   type MentionItem,
-} from "@detent/ui";
+} from "@biscotti/ui";
 import { demoTextStream, scoutSources, scoutSuggestions } from "@/demos/streaming-response-data";
 
 export interface ScoutHandle {

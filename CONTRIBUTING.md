@@ -26,7 +26,7 @@ apps/web/src/
 
 **Only touch files inside your own slugs.** If you need something in a shared file, such as a new icon, token or sound voice, do **not** edit it. Implement it locally (e.g. an inline SVG) and list the request in your final report so the orchestrator can promote it.
 
-Inside the library, import foundation code by relative path (`../../motion/tokens`, `../../sound/react`, `../../lib/utils`, `../../icons`). In the web app, import from `@detent/ui` (or `@detent/ui/components/<slug>/<slug>` for deep imports — no `.js` extensions).
+Inside the library, import foundation code by relative path (`../../motion/tokens`, `../../sound/react`, `../../lib/utils`, `../../icons`). In the web app, import from `@biscotti/ui` (or `@biscotti/ui/components/<slug>/<slug>` for deep imports — no `.js` extensions).
 
 Exported names must be specific (`CommandPalette`, `CommandPaletteItem`, never `Item` or `Props`), because everything is re-exported from one barrel.
 
@@ -79,7 +79,7 @@ Never play sounds on hover, on focus, for per-token streaming, for timers, or fo
 
 ## Tests
 
-`packages/ui/src/components/<slug>/<slug>.test.tsx` with vitest + @testing-library/react (+ user-event). Cover the core behaviour, keyboard operation, controlled/uncontrolled behaviour and ARIA state. Run with `pnpm --filter @detent/ui test -- <slug>`. Also run `npx tsc --noEmit -p packages/ui` and `-p apps/web`.
+`packages/ui/src/components/<slug>/<slug>.test.tsx` with vitest + @testing-library/react (+ user-event). Cover the core behaviour, keyboard operation, controlled/uncontrolled behaviour and ARIA state. Run with `pnpm --filter @biscotti/ui test -- <slug>`. Also run `npx tsc --noEmit -p packages/ui` and `-p apps/web`.
 
 ## Verify visually
 

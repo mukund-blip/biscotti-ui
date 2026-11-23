@@ -1,6 +1,6 @@
 "use client";
 import { useState } from "react";
-import { ThinkingTimeline, type TimelineStep } from "@detent/ui";
+import { ThinkingTimeline, type TimelineStep } from "@biscotti/ui";
 import { ScriptBar, useScript, type Cue } from "@/components/stage/script-player";
 import { ControlCheck, ControlSegment, Controls, DemoFrame, Stage } from "@/components/demo-kit";
 

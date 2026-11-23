@@ -1,6 +1,6 @@
 "use client";
 import { useState } from "react";
-import { PrecisionToggle } from "@detent/ui";
+import { PrecisionToggle } from "@biscotti/ui";
 import { ControlSegment, Controls, DemoFrame, Readout, Stage } from "@/components/demo-kit";
 
 export function PrecisionTogglePreview() {

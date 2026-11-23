@@ -1,6 +1,6 @@
 "use client";
 import { useCallback, useEffect, useMemo, useRef, useState } from "react";
-import { Icon, cn, usePlay } from "@detent/ui";
+import { Icon, cn, usePlay } from "@biscotti/ui";
 
 export interface Cue<S> {
   at: number; // ms

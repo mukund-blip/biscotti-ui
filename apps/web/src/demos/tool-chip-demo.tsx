@@ -1,7 +1,7 @@
 "use client";
 import { useMemo, useState } from "react";
 import { AnimatePresence, motion } from "motion/react";
-import { ToolChip, ToolChipGroup, useMotionTokens, type ToolChipProps } from "@detent/ui";
+import { ToolChip, ToolChipGroup, useMotionTokens, type ToolChipProps } from "@biscotti/ui";
 import { ScriptBar, useScript, type Cue } from "@/components/stage/script-player";
 import { ControlSegment, Controls, DemoFrame, Readout, Stage } from "@/components/demo-kit";
 

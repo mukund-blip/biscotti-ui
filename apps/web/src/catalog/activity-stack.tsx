@@ -13,7 +13,7 @@ export const entry: CatalogEntry = {
   scale: "l",
   Demo: ActivityStackDemo,
   Preview: () => <ActivityStackDemo compact />,
-  usage: `import { ActivityStack } from "@detent/ui";
+  usage: `import { ActivityStack } from "@biscotti/ui";
 
 <ActivityStack
   title="Scout · background work"

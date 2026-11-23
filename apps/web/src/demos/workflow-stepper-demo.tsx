@@ -1,7 +1,7 @@
 "use client";
 import { useMemo, useState } from "react";
-import { WorkflowStepper, type WorkflowStep, type WorkflowStepStatus } from "@detent/ui";
-import { cn } from "@detent/ui";
+import { WorkflowStepper, type WorkflowStep, type WorkflowStepStatus } from "@biscotti/ui";
+import { cn } from "@biscotti/ui";
 import { ScriptBar, useScript, type Cue } from "@/components/stage/script-player";
 import { ControlCheck, ControlSegment, Controls, DemoFrame, Readout, Stage } from "@/components/demo-kit";
 

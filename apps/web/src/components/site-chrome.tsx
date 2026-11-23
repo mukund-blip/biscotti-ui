@@ -4,7 +4,7 @@ import { usePathname } from "next/navigation";
 import { useEffect, useRef, useState, type ReactNode } from "react";
 import { AnimatePresence, motion } from "motion/react";
 import { REPO_URL, publicPath } from "@/site";
-import { Icon, cn, surfaceVariants, useMotionTokens, useSoundPrefs, sound } from "@detent/ui";
+import { Icon, cn, surfaceVariants, useMotionTokens, useSoundPrefs, sound } from "@biscotti/ui";
 
 /** Biscotti, the cream pup, as a rounded tile. Rendered from the editable Blender model. */
 export function Logo({ className }: { className?: string }) {

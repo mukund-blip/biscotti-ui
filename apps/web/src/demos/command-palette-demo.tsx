@@ -1,6 +1,6 @@
 "use client";
 import { useMemo, useState } from "react";
-import { Icon, Kbd, cn } from "@detent/ui";
+import { Icon, Kbd, cn } from "@biscotti/ui";
 import {
   CommandPalette,
   CommandPaletteDialog,
@@ -8,7 +8,7 @@ import {
   type CommandItem,
   type CommandPageDef,
   type CommandSource,
-} from "@detent/ui";
+} from "@biscotti/ui";
 import { ControlButton, ControlSegment, Controls, DemoFrame, Readout, Stage } from "@/components/demo-kit";
 
 /* ── Ostra fixtures ─────────────────────────────────────────── */

@@ -13,7 +13,7 @@ export const entry: CatalogEntry = {
   scale: "s",
   Demo: SegmentedControlDemo,
   Preview: SegmentedControlPreview,
-  usage: `import { SegmentedControl, SegmentedControlItem, SegmentedPanels } from "@detent/ui";
+  usage: `import { SegmentedControl, SegmentedControlItem, SegmentedPanels } from "@biscotti/ui";
 
 const [cat, setCat] = useState("pads");
 

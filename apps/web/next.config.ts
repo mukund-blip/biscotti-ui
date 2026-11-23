@@ -17,7 +17,7 @@ const nextConfig: NextConfig = {
     images: { unoptimized: true },
   } : {}),
   env: { NEXT_PUBLIC_BASE_PATH: basePath },
-  transpilePackages: ["@detent/ui"],
+  transpilePackages: ["@biscotti/ui"],
   turbopack: {
     root,
     rules: {

@@ -13,7 +13,7 @@ export const entry: CatalogEntry = {
   scale: "m",
   Demo: InteractiveSliderDemo,
   Preview: InteractiveSliderPreview,
-  usage: `import { InteractiveSlider } from "@detent/ui";
+  usage: `import { InteractiveSlider } from "@biscotti/ui";
 
 <InteractiveSlider
   label="Filter cutoff"

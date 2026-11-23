@@ -1,6 +1,6 @@
 import Link from "next/link";
 import type { CatalogEntry } from "@/catalog/types";
-import { Icon, cn } from "@detent/ui";
+import { Icon, cn } from "@biscotti/ui";
 
 const span: Record<CatalogEntry["scale"], string> = {
   s: "md:col-span-2",

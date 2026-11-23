@@ -7,7 +7,7 @@
     "build:pages": "node scripts/build-pages.mjs",
     "preview:pages": "node scripts/preview-pages.mjs",
     "build": "node scripts/gen-catalog.mjs && node scripts/build-registry.mjs && pnpm --filter web build",
-    "test": "pnpm --filter @detent/ui test",
+    "test": "pnpm --filter @biscotti/ui test",
     "typecheck": "pnpm -r typecheck",
     "catalog": "node scripts/gen-catalog.mjs",
     "registry": "node scripts/build-registry.mjs",

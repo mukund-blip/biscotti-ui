@@ -1,7 +1,7 @@
 "use client";
 import { motion, useMotionValue, useSpring, useTransform } from "motion/react";
 import { useEffect, useRef, useState } from "react";
-import { spring, useMotionTokens } from "@detent/ui";
+import { spring, useMotionTokens } from "@biscotti/ui";
 
 /**
  * The hero ruler: hairline ticks every 8px, majors every 80px. A pencil

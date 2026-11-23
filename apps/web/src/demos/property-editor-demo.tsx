@@ -11,8 +11,8 @@ import {
   PropertySelect,
   type BoxModelTarget,
   type BoxModelValue,
-} from "@detent/ui";
-import { cn } from "@detent/ui";
+} from "@biscotti/ui";
+import { cn } from "@biscotti/ui";
 import { ControlCheck, Controls, DemoFrame, Readout, Stage } from "@/components/demo-kit";
 
 const FAMILIES = [

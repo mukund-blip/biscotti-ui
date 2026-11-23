@@ -1,13 +1,13 @@
 "use client";
 import { useRef, useState } from "react";
-import { Icon, Kbd, cn } from "@detent/ui";
+import { Icon, Kbd, cn } from "@biscotti/ui";
 import {
   ActionToolbar,
   rangeClosest,
   unwrapElement,
   wrapRange,
   type ToolbarActionContext,
-} from "@detent/ui";
+} from "@biscotti/ui";
 import { ControlButton, ControlSegment, Controls, DemoFrame, Readout, Stage } from "@/components/demo-kit";
 
 const ARTICLE = `

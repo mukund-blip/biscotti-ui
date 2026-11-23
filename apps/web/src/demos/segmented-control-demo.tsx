@@ -1,6 +1,6 @@
 "use client";
 import { useState } from "react";
-import { SegmentedControl, SegmentedControlItem, SegmentedPanels } from "@detent/ui";
+import { SegmentedControl, SegmentedControlItem, SegmentedPanels } from "@biscotti/ui";
 import { ControlCheck, ControlSegment, Controls, DemoFrame, Readout, Stage } from "@/components/demo-kit";
 
 const CATS = ["all", "bass", "pads", "leads", "fx"] as const;

@@ -2,7 +2,7 @@
  * Shared by the paced browser demo and the scripted replay,
  * so both demos stream exactly the same answer with the same token timing.
  */
-import type { StreamingSource } from "@detent/ui";
+import type { StreamingSource } from "@biscotti/ui";
 
 export const scoutQuestion = "We're short on encoders for the OS-1 restock. Which supplier should we order from?";
 

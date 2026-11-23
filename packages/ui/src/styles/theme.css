@@ -1,7 +1,7 @@
 /* Tailwind v4 mapping of Detent tokens.
  * Usage in a host app:   @import "tailwindcss";
- *                        @import "@detent/ui/styles.css";
- *                        @source "../node_modules/@detent/ui/src";  (or your copied path)
+ *                        @import "@biscotti/ui/styles.css";
+ *                        @source "../node_modules/@biscotti/ui/src";  (or your copied path)
  */
 @theme inline {
   --color-paper: var(--dt-paper);
