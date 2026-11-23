@@ -6,9 +6,9 @@ export const entry: CatalogEntry = {
   number: "03",
   name: "Interactive Slider",
   group: "Tactile controls",
-  summary: "A precision fader with a measuring ruler, magnetic notches and fine adjust.",
+  summary: "A precision slider with a ruler, snap points and fine adjustment with Shift.",
   description:
-    "Built as an instrument rather than a styled range input. A ruler of major and minor ticks sits under the track (decades on a log scale), and labelled marks act as magnetic notches that pull the thumb in from 8 px away, with a tick whose brightness follows your speed. While you drag, the value is provisional: the fill and readouts draw in pencil and drain to ink when you let go. Hold Shift for 10× precision. Double-click or press Delete to glide back to the default.",
+    "A slider with a measurement ruler. Major and minor ticks are below the track (decades on a log scale). Labelled marks are notches: the thumb snaps to a mark from 8 px away. A tick sound plays, and its brightness follows the drag speed. While you drag, the fill and readouts are in pencil. When you release, they change to ink. Hold Shift for 10× precision. Double-click or press Delete to return to the default value.",
   useCases: ["Synth, audio and colour parameters", "Settings with a recommended value", "Range selection (two thumbs)"],
   scale: "m",
   Demo: InteractiveSliderDemo,

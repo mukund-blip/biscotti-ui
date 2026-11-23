@@ -3,7 +3,7 @@
   "name": "command-palette",
   "type": "registry:ui",
   "title": "Command Palette",
-  "description": "⌘K search over commands, with fuzzy ranking, nested pages and async results.",
+  "description": "Searches commands with ⌘K. Supports fuzzy ranking, nested pages and async results.",
   "dependencies": [
     "motion"
   ],

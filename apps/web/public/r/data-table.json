@@ -3,7 +3,7 @@
   "name": "data-table",
   "type": "registry:ui",
   "title": "Smart Data Table",
-  "description": "Sort, inspect, and act on live records without losing your place.",
+  "description": "Sorts, selects and updates live records. Keeps focus and selection on the same rows.",
   "dependencies": [
     "motion"
   ],

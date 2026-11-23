@@ -3,7 +3,7 @@
   "name": "activity-stack",
   "type": "registry:ui",
   "title": "Agent Activity Stack",
-  "description": "Concurrent agent tasks that sort by urgency and sink into a deck of finished work.",
+  "description": "Lists concurrent agent tasks by urgency. Collapses finished tasks into a stack.",
   "dependencies": [
     "motion"
   ],

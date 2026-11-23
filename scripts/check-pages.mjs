@@ -11,6 +11,8 @@ const slugs = readdirSync(resolve(import.meta.dirname, "../apps/web/src/catalog"
 assert.ok(slugs.length > 0, "no catalog entries found");
 assert.ok(existsSync(join(root, ".nojekyll")), "missing .nojekyll");
 assert.ok(!existsSync(join(root, "api/stream")), "obsolete API route exported");
+// Mirrors apps/web/src/site.ts REPO_PUBLIC; set NEXT_PUBLIC_REPO_PUBLIC=true for both the build and this check.
+const repoPublic = process.env.NEXT_PUBLIC_REPO_PUBLIC === "true";
 const routes = ["", "foundations", "workbench", ...slugs.map((s) => `components/${s}`)];
 const sitemap = read("sitemap.xml");
 for (const route of routes) {
@@ -25,6 +27,11 @@ for (const route of routes) {
     assert.ok(existsSync(join(root, file)), `missing asset or page ${path} in ${route}`);
   }
   if (route.startsWith("components/")) assert.ok(html.includes(`${siteUrl}/r/${route.split("/")[1]}.json`), `wrong displayed install URL in ${route}`);
+  // The repository stays private until launch: no page may link to it unless the build opts in.
+  const repoLinks = html.match(/href="https:\/\/github\.com\/[^"]*"/g) ?? [];
+  if (repoPublic) assert.ok(repoLinks.length > 0, `public build has no GitHub link in ${route || "/"}`);
+  else assert.deepEqual(repoLinks, [], `private build links to GitHub in ${route || "/"}`);
+  assert.ok(html.includes('href="https://x.com/MukundMohanK"'), `missing X profile link in ${route || "/"}`);
 }
 assert.ok(read("robots.txt").includes(`${siteUrl}/sitemap.xml`));
 // The homepage install command must point at this deployment's registry, never a dev server.
@@ -59,4 +66,4 @@ for (const { name } of registry.items) {
   // Every component (not the shared foundation) ships with a one-line origin comment on its main file.
   if (name !== "biscotti-foundation") assert.ok(item.files.some((f) => f.content.startsWith(`// ${item.title} · Biscotti UI — `)), `${name} is missing its origin comment`);
 }
-console.log(`Validated ${routes.length} public routes, prefixed assets/canonicals, sitemap/robots, ${labPages.length} noindex lab pages and ${registry.items.length} registry items with nested dependencies (${siteUrl}).`);
+console.log(`Validated ${routes.length} public routes (${repoPublic ? "public repo links" : "private: no repo links"}), prefixed assets/canonicals, sitemap/robots, ${labPages.length} noindex lab pages and ${registry.items.length} registry items with nested dependencies (${siteUrl}).`);

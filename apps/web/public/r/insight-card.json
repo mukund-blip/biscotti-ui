@@ -3,7 +3,7 @@
   "name": "insight-card",
   "type": "registry:ui",
   "title": "Insight Card",
-  "description": "A KPI with rolling digits, a scrubbable SVG chart and an insight sentence worth reading.",
+  "description": "Shows one KPI with animated digits, a scrubbable SVG chart and a one-sentence insight.",
   "dependencies": [
     "motion"
   ],

@@ -3,7 +3,7 @@
   "name": "approval-card",
   "type": "registry:ui",
   "title": "Human Approval Card",
-  "description": "An agent asks before it acts. Decide, and the card folds into a receipt you can undo.",
+  "description": "Asks for approval before an agent acts. After a decision, it shows a receipt that you can undo.",
   "dependencies": [
     "motion"
   ],

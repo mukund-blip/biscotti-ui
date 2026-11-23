@@ -3,7 +3,7 @@
   "name": "streaming-response",
   "type": "registry:ui",
   "title": "Streaming Response",
-  "description": "Renders a real text stream as light markdown, with chunk fades, citations and a pencil caret.",
+  "description": "Renders a text stream as Markdown, with chunk fades, citations and a pencil caret.",
   "dependencies": [
     "motion",
     "@base-ui/react"

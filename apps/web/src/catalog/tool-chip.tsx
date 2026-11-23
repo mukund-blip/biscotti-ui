@@ -6,9 +6,9 @@ export const entry: CatalogEntry = {
   number: "12",
   name: "Tool Execution Chip",
   group: "Agent interactions",
-  summary: "One quiet inline chip per tool call that opens in place into its input and output.",
+  summary: "Shows one inline chip per tool call. Opens in place to show the input and output.",
   description:
-    "Records each tool an agent calls as a single line: verb, target in mono, and the one number that matters (+12 −3 with a five-cell diff bar, 7 results, exit 1, 200). While a call runs it is present tense with one pencil spinner; when it lands it settles to quiet past tense, or err for a failure. Clicking a chip widens it into a detail card in place, with the arguments, output (a command's last three lines first) and duration. ToolChipGroup folds a whole run into “7 tool calls · 2 files changed” with one tick per call, and the ticks double as a jump list: click one (or arrow to it) to open the group at that call.",
+    "Shows each agent tool call as one line: the verb, the target in mono, and one key number (+12 −3 with a five-cell diff bar, 7 results, exit 1, 200). A running call uses the present tense and one pencil spinner. A completed call uses the past tense, or the error colour if it failed. Click a chip to expand it in place into a detail card with the arguments, the output (the last three lines of a command first) and the duration. ToolChipGroup collapses a run into one line, for example “7 tool calls · 2 files changed”, with one tick for each call. Click a tick, or move to it with the arrow keys, to open the group at that call.",
   useCases: ["Coding-agent transcripts (reads, searches, edits, test runs)", "Audit trail of what an assistant touched", "Compact tool-use log under a chat reply"],
   scale: "m",
   Demo: ToolChipDemo,

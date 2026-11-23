@@ -6,10 +6,10 @@ export const entry: CatalogEntry = {
   number: "10",
   name: "Streaming Response",
   group: "Agent interactions",
-  summary: "Renders a real text stream as light markdown, with chunk fades, citations and a pencil caret.",
+  summary: "Renders a text stream as Markdown, with chunk fades, citations and a pencil caret.",
   description:
-    "Renders an agent's answer as it streams, from a ReadableStream, an async iterable or a fetch Response, through the useTextStream hook. Markdown is parsed incrementally and half-typed syntax is held back, so markers never flash as literal characters. Each new chunk lifts from 35% opacity instead of typing out character by character, and the pencil caret is the one live mark. Inline [n] citations open a source card with the quoted passage. When the answer settles, an action row, the cited sources and follow-up suggestions fade in. Stop keeps the partial answer and marks it.",
-  useCases: ["Chat and copilot answers", "Agent reports with cited sources", "Any long generated text that should be readable while it arrives"],
+    "Renders an agent answer while it streams. The source can be a ReadableStream, an async iterable or a fetch Response, through the useTextStream hook. Markdown is parsed incrementally. Incomplete syntax is held back, so markers do not show as literal characters. Each new chunk fades in from 35% opacity; text is not typed out character by character. The pencil caret is the only live mark. Inline [n] citations open a source card with the quoted text. When the answer is complete, an action row, the cited sources and follow-up suggestions fade in. Stop keeps the partial answer and marks it as stopped.",
+  useCases: ["Chat and copilot answers", "Agent reports with cited sources", "Long generated text that users read while it streams"],
   scale: "l",
   Demo: StreamingResponseDemo,
   Preview: () => <StreamingResponseDemo compact />,

@@ -3,7 +3,7 @@
   "name": "tool-chip",
   "type": "registry:ui",
   "title": "Tool Execution Chip",
-  "description": "One quiet inline chip per tool call that opens in place into its input and output.",
+  "description": "Shows one inline chip per tool call. Opens in place to show the input and output.",
   "dependencies": [
     "motion"
   ],

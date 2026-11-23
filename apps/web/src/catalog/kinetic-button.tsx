@@ -6,10 +6,10 @@ export const entry: CatalogEntry = {
   number: "01",
   name: "Kinetic Button",
   group: "Tactile controls",
-  summary: "A button family that presses physically and narrates its own async lifecycle.",
+  summary: "A button that shows pending, success and error states. Supports hold to confirm.",
   description:
-    "Press and it sinks a pixel on the input frame, then springs back on release, with no hover lift. Return a Promise from onClick and it runs idle → pending → success | error by itself: a spinner while the present-progressive label shows, a check that draws itself beside the past tense, and a nudge plus an err edge on failure. A button with a lifecycle holds the width of its widest state from the start, so its neighbours never reflow when the spinner or check appears. Destructive actions can require a hold, which fills in pencil, ticks at each quarter and latches before running.",
-  useCases: ["Export, sync and publish actions that take a moment", "Destructive actions that deserve a deliberate hold", "Toolbars of attached actions"],
+    "When you press the button, it moves down 1 px. When you release it, it springs back. It has no hover lift. If onClick returns a Promise, the button changes state by itself: idle, pending, then success or error. Pending shows a spinner and the present-progressive label. Success shows a check and the past-tense label. Error shows a short shake and an error edge. A button with a lifecycle keeps the width of its widest state, so the buttons next to it do not move. Destructive actions can require a hold. The hold fills in pencil, ticks at each quarter and then runs the action.",
+  useCases: ["Export, sync and publish actions that take a moment", "Destructive actions that need a hold to confirm", "Toolbars of attached actions"],
   scale: "s",
   Demo: KineticButtonDemo,
   Preview: KineticButtonPreview,

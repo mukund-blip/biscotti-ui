@@ -6,9 +6,9 @@ export const entry: CatalogEntry = {
   number: "02",
   name: "Precision Toggle",
   group: "Tactile controls",
-  summary: "A latching switch that stays in pencil until the change is actually saved.",
+  summary: "A switch that stays pending in pencil until the save is complete.",
   description:
-    "A rectangular switch with an engraved thumb and I/O glyphs that read without colour. Press and the thumb leans into its travel; release and it seats with the latch spring and a two-stage click. Return a Promise from onCheckedChange and the track is drawn in pencil — provisional — until the write succeeds, then inks in. If it fails, the thumb springs back and the row shakes once.",
+    "A rectangular switch with an engraved thumb and I/O symbols, so the state is clear without colour. When you press, the thumb moves into its travel. When you release, it latches with a two-stage click. If onCheckedChange returns a Promise, the track stays in pencil until the write is complete, then changes to ink. If the write fails, the thumb returns and the row shakes once.",
   useCases: ["Settings that write to a server or device", "Feature flags with confirmation", "Dense preference panels"],
   scale: "s",
   Demo: PrecisionToggleDemo,

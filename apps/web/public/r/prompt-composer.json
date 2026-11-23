@@ -3,7 +3,7 @@
   "name": "prompt-composer",
   "type": "registry:ui",
   "title": "Intelligent Prompt Composer",
-  "description": "Compose a prompt with file uploads, inline references and slash commands.",
+  "description": "A prompt input with file uploads, inline references and slash commands.",
   "dependencies": [
     "motion",
     "@base-ui/react"

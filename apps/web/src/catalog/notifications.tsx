@@ -6,9 +6,9 @@ export const entry: CatalogEntry = {
   number: "20",
   name: "Notification & Feedback System",
   group: "Information & editing",
-  summary: "Stacked toasts with undo countdowns, in-place progress and a persistent Callout.",
+  summary: "Shows stacked toasts with undo countdowns and progress. Callout shows persistent messages.",
   description:
-    "A <Toaster /> plus an imperative toast() API. At rest, up to three toasts layer into a compact stack; hover or focus fans them out into a list. Undoable actions draw a pencil countdown hairline that becomes final when it runs out, and progress toasts update in place before settling into success. Timers pause while the stack is hovered or focused and while the window is in the background. Callout is the inline, persistent sibling for conditions that shouldn't time out.",
+    "A <Toaster /> and an imperative toast() API. At rest, up to three toasts show as a compact stack. Hover or focus the stack to expand it into a list. An undoable action shows a pencil countdown line. When the countdown ends, the action is final. A progress toast updates in place and then shows success. Timers pause while the stack has hover or focus, and while the window is in the background. Use Callout for inline, persistent messages that must not time out.",
   useCases: ["Confirming an action with a chance to undo it", "Upload or sync progress that resolves in place", "Error reporting with a retry action", "Persistent warnings on a page (Callout)"],
   scale: "m",
   Demo: NotificationsDemo,

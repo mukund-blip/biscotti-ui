@@ -3,7 +3,7 @@
   "name": "notifications",
   "type": "registry:ui",
   "title": "Notification & Feedback System",
-  "description": "Stacked toasts with undo countdowns, in-place progress and a persistent Callout.",
+  "description": "Shows stacked toasts with undo countdowns and progress. Callout shows persistent messages.",
   "dependencies": [
     "motion"
   ],

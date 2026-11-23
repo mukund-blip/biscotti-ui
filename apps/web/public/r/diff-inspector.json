@@ -3,7 +3,7 @@
   "name": "diff-inspector",
   "type": "registry:ui",
   "title": "Interactive Diff Inspector",
-  "description": "Review proposed edits hunk by hunk. Accepted changes settle into the document.",
+  "description": "Reviews proposed edits one hunk at a time. Applies accepted changes to the document.",
   "dependencies": [
     "motion"
   ],

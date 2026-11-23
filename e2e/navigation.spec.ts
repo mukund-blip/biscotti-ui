@@ -2,7 +2,7 @@ import { expect, test } from "@playwright/test";
 
 test("the homepage is the component index: headline, featured tile, category sidebar/tabs with hash sync, footer links", async ({ page }, info) => {
   await page.goto("/", { waitUntil: "networkidle" });
-  await expect(page.getByRole("heading", { level: 1, name: "Twenty components, built to be touched." })).toBeVisible();
+  await expect(page.getByRole("heading", { level: 1, name: "Interactive React components." })).toBeVisible();
   // The header carries the brand, sound and theme only.
   await expect(page.locator("header nav")).toHaveCount(0);
   await expect(page.getByRole("button", { name: /Copy to clipboard/ }).first()).toBeVisible();
@@ -107,5 +107,21 @@ test("a hold-to-confirm Kinetic Button keeps its size when it completes", async 
     const now = (await btn.boundingBox())!;
     expect(Math.round(now.width), `width while ${state}`).toBe(Math.round(before.width));
     expect(Math.round(now.x), `x while ${state}`).toBe(Math.round(before.x));
+  }
+});
+
+test("footer: circular X profile link; no GitHub links while the repository is private (default build)", async ({ page }) => {
+  for (const path of ["/", "/components/kinetic-button", "/foundations"]) {
+    await page.goto(path, { waitUntil: "networkidle" });
+    const x = page.getByRole("contentinfo").getByRole("link", { name: "Mukund Mohan on X" });
+    await expect(x).toHaveAttribute("href", "https://x.com/MukundMohanK");
+    const box = (await x.boundingBox())!;
+    expect(Math.round(box.width)).toBe(32);
+    expect(Math.round(box.height)).toBe(32);
+    // rounded-full computes to a very large px radius; anything >= half the size draws a circle.
+    expect(await x.evaluate((el) => parseFloat(getComputedStyle(el).borderRadius))).toBeGreaterThanOrEqual(16);
+    // Private by default: no Source, Star or View source links that would 404 for visitors.
+    await expect(page.locator('a[href^="https://github.com/"]')).toHaveCount(0);
+    await expect(page.getByRole("link", { name: /Star on GitHub|View source|^Source/ })).toHaveCount(0);
   }
 });

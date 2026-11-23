@@ -3,7 +3,7 @@
   "name": "segmented-control",
   "type": "registry:ui",
   "title": "Segmented Control",
-  "description": "A segmented control whose indicator inchworms — lead edge first, trailing edge after.",
+  "description": "Selects one option from a set. The indicator moves its leading edge first.",
   "dependencies": [
     "motion"
   ],

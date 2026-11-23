@@ -6,9 +6,9 @@ export const entry: CatalogEntry = {
   number: "17",
   name: "Interactive Diff Inspector",
   group: "Information & editing",
-  summary: "Review proposed edits hunk by hunk. Accepted changes settle into the document.",
+  summary: "Reviews proposed edits one hunk at a time. Applies accepted changes to the document.",
   description:
-    "A reviewer for AI-proposed edits to prose or code. Each pending hunk carries a pencil rule with a gap; accepting closes the gap, seats the change with a latch, and collapses the removed text so the document reads clean. Word-level highlights show exactly what changed, and the agent's rationale sits beside each hunk as provenance. Decide one change at a time from the keyboard, or use Accept all / Reject all (\"rest\" once you've started); U undoes the most recent decision.",
+    "A reviewer for edits that an AI proposes to prose or code. Each pending hunk has a pencil rule with a gap. Accept a hunk to close the gap and apply the change. The removed text collapses, so the document reads correctly. Word-level highlights show each change. The agent's reason is shown beside each hunk. Decide on one change at a time from the keyboard, or use Accept all and Reject all (“rest” after the first decision). Press U to undo the most recent decision.",
   useCases: ["Reviewing an agent's edits to a document or file", "Partial acceptance of a suggested rewrite", "Copy review before publishing"],
   scale: "l",
   Demo: DiffInspectorDemo,

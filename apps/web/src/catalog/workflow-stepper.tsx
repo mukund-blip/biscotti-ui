@@ -6,9 +6,9 @@ export const entry: CatalogEntry = {
   number: "14",
   name: "Workflow Stepper",
   group: "Agent interactions",
-  summary: "A multi-step run drawn as dependency lanes that split, run in parallel and merge.",
+  summary: "Shows a multi-step run as dependency lanes that split, run in parallel and merge.",
   description:
-    "Steps are laid out by dependency depth, so parallel work (“Order PCBs” ∥ “Order encoders”) runs in its own lane and merges where it's needed. Connectors draw in pencil toward the step that's running and settle to ink when it's done. A failure turns its node red, stops the line, and greys downstream steps into a dashed “blocked” state until Retry. Selecting a step slides its owner, timing and output into a panel below, in the direction you moved. Without dependencies it becomes a linear wizard with working Next and Back.",
+    "Steps are arranged by dependency depth. Parallel steps (“Order PCBs” ∥ “Order encoders”) run in separate lanes and merge where a later step needs both. Connectors draw in pencil toward the running step and change to ink when it is done. A failed step turns red and stops the run. Steps after it show a dashed “blocked” state until you click Retry. Select a step to show its owner, timing and output in a panel below. The panel slides in the direction of your move. Without dependencies, the stepper is a linear wizard with Next and Back.",
   useCases: ["Agent or CI pipelines with parallel stages", "Operations runbooks (procurement, fulfilment, releases)", "Multi-step setup or checkout wizards"],
   scale: "l",
   Demo: WorkflowStepperDemo,

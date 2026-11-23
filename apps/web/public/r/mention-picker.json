@@ -3,7 +3,7 @@
   "name": "mention-picker",
   "type": "registry:ui",
   "title": "Contextual Mention Picker",
-  "description": "Find people, files and tools at the caret, then insert a reference as one token.",
+  "description": "Finds people, files and tools at the caret. Inserts the selection as one token.",
   "dependencies": [
     "motion"
   ],

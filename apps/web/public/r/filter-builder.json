@@ -3,7 +3,7 @@
   "name": "filter-builder",
   "type": "registry:ui",
   "title": "Visual Filter Builder",
-  "description": "Build readable filters with typed editors, editable clauses, and live results.",
+  "description": "Builds filters from typed clauses. Shows the matching results while you edit.",
   "dependencies": [
     "motion",
     "@base-ui/react"

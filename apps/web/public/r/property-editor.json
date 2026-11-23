@@ -3,7 +3,7 @@
   "name": "property-editor",
   "type": "registry:ui",
   "title": "Inline Property Editor",
-  "description": "An inspector with scrubbable numbers, a colour picker and a box model you drag directly.",
+  "description": "An inspector with drag-to-change numbers, a colour picker and an editable box model.",
   "dependencies": [
     "motion"
   ],

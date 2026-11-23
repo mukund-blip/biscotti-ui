@@ -3,7 +3,7 @@
   "name": "precision-toggle",
   "type": "registry:ui",
   "title": "Precision Toggle",
-  "description": "A latching switch that stays in pencil until the change is actually saved.",
+  "description": "A switch that stays pending in pencil until the save is complete.",
   "dependencies": [
     "motion"
   ],

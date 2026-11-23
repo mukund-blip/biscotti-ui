@@ -1,15 +1,14 @@
 import Link from "next/link";
 import type { Metadata } from "next";
 import { Icon } from "@biscotti/ui";
-import { catalog } from "@/catalog";
 import { publicPath } from "@/site";
 
 // Next adds <meta name="robots" content="noindex"> to not-found pages itself.
 export const metadata: Metadata = { title: "Page not found" };
 
 const routes = [
-  { href: "/", label: "Components", detail: `All ${catalog.length}, live`, icon: "layers" },
-  { href: "/workbench", label: "Workbench", detail: "Ten components working together", icon: "activity" },
+  { href: "/", label: "Components", detail: "Live preview of each component", icon: "layers" },
+  { href: "/workbench", label: "Workbench", detail: "One app that uses the components together", icon: "activity" },
   { href: "/foundations", label: "Foundations", detail: "Brand, colour, type, motion, sound", icon: "palette" },
 ] as const;
 
@@ -27,10 +26,10 @@ export default function NotFound() {
         <span>Not found</span>
       </p>
       <h1 className="mt-4 max-w-[720px] text-[clamp(34px,6vw,64px)] font-semibold leading-[1] tracking-[-0.04em]">
-        Still in pencil.
+        Page not found.
       </h1>
       <p className="mt-5 max-w-[560px] text-md leading-[26px] text-ink-2">
-        Nothing has been inked at this address. The page may have moved, or the link was never real. Every component lives under Components.
+        No page exists at this address. The page moved, or the link is incorrect. Go to Components to see all components.
       </p>
 
       {/* The provisional rule from the components: a pencil line with a gap, never closed. */}
@@ -66,7 +65,7 @@ export default function NotFound() {
           alt="Biscotti the pup, close up, smiling with its tongue out"
           className="block h-auto w-full rounded-[14px] shadow-[inset_0_0_0_1px_var(--bis-hairline)]"
         />
-        <figcaption className="mt-3 font-mono text-2xs text-muted">Biscotti looked everywhere. Nothing here yet.</figcaption>
+        <figcaption className="mt-3 font-mono text-2xs text-muted">No page at this address.</figcaption>
       </figure>
     </div>
   );

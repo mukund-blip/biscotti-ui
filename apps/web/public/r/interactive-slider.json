@@ -3,7 +3,7 @@
   "name": "interactive-slider",
   "type": "registry:ui",
   "title": "Interactive Slider",
-  "description": "A precision fader with a measuring ruler, magnetic notches and fine adjust.",
+  "description": "A precision slider with a ruler, snap points and fine adjustment with Shift.",
   "dependencies": [
     "motion"
   ],

@@ -3,7 +3,7 @@
   "name": "thinking-timeline",
   "type": "registry:ui",
   "title": "Thinking Timeline",
-  "description": "An agent's progress as user-facing steps that shrink into a past-tense summary.",
+  "description": "Shows agent progress as steps. Collapses into a past-tense summary when the run ends.",
   "dependencies": [
     "motion"
   ],

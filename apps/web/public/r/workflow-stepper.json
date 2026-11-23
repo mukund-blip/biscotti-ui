@@ -3,7 +3,7 @@
   "name": "workflow-stepper",
   "type": "registry:ui",
   "title": "Workflow Stepper",
-  "description": "A multi-step run drawn as dependency lanes that split, run in parallel and merge.",
+  "description": "Shows a multi-step run as dependency lanes that split, run in parallel and merge.",
   "dependencies": [
     "motion"
   ],

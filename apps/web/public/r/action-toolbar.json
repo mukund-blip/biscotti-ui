@@ -3,7 +3,7 @@
   "name": "action-toolbar",
   "type": "registry:ui",
   "title": "Contextual Action Toolbar",
-  "description": "A floating toolbar that follows the text selection and morphs into an inline input.",
+  "description": "Shows a toolbar at the text selection. Link and Comment open an inline input in the toolbar.",
   "dependencies": [
     "motion"
   ],

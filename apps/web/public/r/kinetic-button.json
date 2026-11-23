@@ -3,7 +3,7 @@
   "name": "kinetic-button",
   "type": "registry:ui",
   "title": "Kinetic Button",
-  "description": "A button family that presses physically and narrates its own async lifecycle.",
+  "description": "A button that shows pending, success and error states. Supports hold to confirm.",
   "dependencies": [
     "motion"
   ],

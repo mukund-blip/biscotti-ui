@@ -6,9 +6,9 @@ export const entry: CatalogEntry = {
   number: "04",
   name: "Segmented Control",
   group: "Tactile controls",
-  summary: "A segmented control whose indicator inchworms — lead edge first, trailing edge after.",
+  summary: "Selects one option from a set. The indicator moves its leading edge first.",
   description:
-    "The selection indicator travels on two springs: the leading edge sets off on the glide spring and the trailing edge follows on a softer one, so the plate stretches toward where it's going and you feel the direction of travel. Labels light up only when the indicator arrives over them, keeping motion and content in step. SegmentedPanels gives the content below the same sense of direction: panels slide ±8 px and crossfade over 150 ms.",
+    "The selection indicator moves on two springs. The leading edge moves first on the glide spring. The trailing edge follows on a softer spring. The indicator stretches in the direction of travel. A label highlights only when the indicator reaches it. Use SegmentedPanels to animate the content below in the same direction: panels slide ±8 px and cross-fade over 150 ms.",
   useCases: ["View switchers and filters with counts", "Compact mode toggles in toolbars (icon-only)", "Tab-like content switching with SegmentedPanels"],
   scale: "s",
   Demo: SegmentedControlDemo,
