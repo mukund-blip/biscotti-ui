@@ -12,6 +12,9 @@
 /* Per theme, so a light sample inside a dark page (and vice versa) gets its own toast. */
 :root, [data-theme="light"] { --brand-toast: #8a6250; }
 [data-theme="dark"] { --brand-toast: #c9a88f; }
+/* Featured tile: biscuit cream by day, toasted crust by night. */
+:root, [data-theme="light"] { --feature-bg: #f1e4cf; --feature-label: #6e4d2e; --feature-text: #5c4a36; --feature-ink: #1a1a18; }
+[data-theme="dark"] { --feature-bg: #2b2118; --feature-label: #d9b88f; --feature-text: #cdb79c; --feature-ink: #f4ebdd; }
 
 html {
   background: var(--bis-paper);

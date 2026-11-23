@@ -22,7 +22,7 @@ Requires Node 20+ and pnpm 10.
 
 ## Tour
 
-- **`/`**: the component index. A short intro with the shadcn install command, then all twenty as live previews, grouped as tactile controls, commands & composition, agent interactions, and information & editing. Group chips jump to each category (`/#agent-interactions`) and an A–Z menu lists every component. `/components` redirects here.
+- **`/`**: the component index. An editorial headline with the shadcn install command, one featured component (Kinetic Button), then all twenty as cards with live previews, grouped as tactile controls, commands & composition, agent interactions, and information & editing. A sticky category sidebar (a compact tab row on phones) filters the grid and is linkable (`/#agent-interactions`). `/components` redirects here.
 - **`/components/<slug>`**: the full demo with state controls, a copyable usage example, props, keyboard map, accessibility notes, a motion spec and a sound map. Components used in the Workbench link to it.
 - **`/workbench`** (footer, hero and component pages): *Ostra Ops: the encoder shortage*, an integrated mini-app where the components drive each other:
   - ⌘K filters the orders table, including a nested "Filter by status" page and live order search.

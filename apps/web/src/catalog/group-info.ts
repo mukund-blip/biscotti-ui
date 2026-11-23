@@ -26,3 +26,11 @@ export const inWorkbench = new Set([
   "command-palette", "data-table", "filter-builder", "insight-card", "notifications",
   "activity-stack", "approval-card", "tool-chip", "prompt-composer", "streaming-response",
 ]);
+
+/** Short labels for the compact category tabs on phones. */
+export const groupShort: Record<Group, string> = {
+  "Tactile controls": "Tactile",
+  "Commands & composition": "Commands",
+  "Agent interactions": "Agents",
+  "Information & editing": "Editing",
+};

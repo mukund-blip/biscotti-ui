@@ -1,0 +1,89 @@
+"use client";
+import { useEffect, useRef, useState, type ReactNode } from "react";
+import { cn } from "@biscotti/ui";
+
+export type CategoryOption = { id: string; label: string; short: string; count: number };
+
+/**
+ * The component index: a sticky category sidebar on desktop, a compact tab row at 768 px and below,
+ * and server-rendered group sections. Sections are hidden, not unmounted, so live previews keep
+ * their state. The choice is mirrored in the URL hash (/#agent-interactions).
+ */
+export function IndexBrowser({ options, total, install, sections }: {
+  options: CategoryOption[]; total: number; install: string; sections: { id: string; node: ReactNode }[];
+}) {
+  const [active, setActive] = useState("all");
+  const top = useRef<HTMLDivElement>(null);
+
+  useEffect(() => {
+    const fromHash = () => {
+      const id = decodeURIComponent(location.hash.slice(1));
+      setActive(options.some((o) => o.id === id) ? id : "all");
+    };
+    fromHash();
+    addEventListener("hashchange", fromHash);
+    return () => removeEventListener("hashchange", fromHash);
+  }, [options]);
+
+  const choose = (id: string) => {
+    setActive(id);
+    history.replaceState(null, "", id === "all" ? location.pathname + location.search : `#${id}`);
+    const el = top.current;
+    if (el && el.getBoundingClientRect().top < 0) el.scrollIntoView({ block: "start" });
+  };
+
+  const all: CategoryOption = { id: "all", label: "All", short: "All", count: total };
+  const items = [all, ...options];
+
+  return (
+    <div ref={top} className="scroll-mt-20 min-[769px]:grid min-[769px]:grid-cols-[200px_minmax(0,1fr)] min-[769px]:gap-8 lg:grid-cols-[220px_minmax(0,1fr)] lg:gap-12">
+      {/* Desktop and tablet: sticky sidebar */}
+      <aside className="hidden min-[769px]:block">
+        <div className="sticky top-24 flex flex-col gap-1">
+          <p className="px-3 pb-2.5 text-[11px] uppercase tracking-[0.08em] text-muted">Categories</p>
+          <nav aria-label="Categories" className="flex flex-col gap-1">
+            {items.map((o) => {
+              const on = active === o.id;
+              return (
+                <button key={o.id} type="button" aria-pressed={on} onClick={() => choose(o.id)}
+                  className={cn("focus-ring flex items-center justify-between gap-3 rounded-[8px] px-3 py-2 text-left text-sm transition-colors duration-[90ms]",
+                    on ? "bg-ink font-medium text-on-ink" : "text-ink hover:bg-surface")}>
+                  <span className="min-w-0">{o.label}</span>
+                  <span className={cn("tabular shrink-0 self-center text-[13px] leading-4", on ? "text-on-ink" : "text-muted")}>{o.count}</span>
+                </button>
+              );
+            })}
+          </nav>
+          <div className="mt-3 flex flex-col gap-2 border-t border-hairline px-3 pt-4">
+            <p className="text-xs text-muted">Install any component</p>
+            <code className="block truncate rounded-[8px] border border-hairline bg-raised px-2.5 py-2 font-mono text-[11px] text-ink" title={install}>
+              npx shadcn add …/r/&lt;name&gt;
+            </code>
+          </div>
+        </div>
+      </aside>
+
+      <div className="min-w-0">
+        {/* 768 px and below: a compact tab row that wraps instead of clipping labels */}
+        <div className="sticky top-16 z-30 -mx-5 mb-6 border-b border-hairline bg-paper/90 px-5 py-2.5 backdrop-blur-md min-[769px]:hidden">
+          <nav aria-label="Categories (compact)" className="flex flex-wrap gap-1.5">
+            {items.map((o) => {
+              const on = active === o.id;
+              return (
+                <button key={o.id} type="button" aria-pressed={on} onClick={() => choose(o.id)} title={o.label}
+                  className={cn("focus-ring inline-flex h-8 items-center gap-1.5 whitespace-nowrap rounded-[8px] px-2.5 text-sm transition-colors duration-[90ms]",
+                    on ? "bg-ink font-medium text-on-ink" : "bg-surface text-ink-2 shadow-[inset_0_0_0_1px_var(--bis-hairline)]")}>
+                  {o.short}
+                  <span className={cn("tabular text-xs", on ? "text-on-ink" : "text-muted")}>{o.count}</span>
+                </button>
+              );
+            })}
+          </nav>
+        </div>
+        {sections.map((s) => (
+          <div key={s.id} hidden={active !== "all" && active !== s.id}>{s.node}</div>
+        ))}
+      </div>
+    </div>
+  );
+}

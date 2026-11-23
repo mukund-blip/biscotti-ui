@@ -22,6 +22,6 @@ test("unknown paths return a real 404 with the Biscotti UI not-found page", asyn
   await nav.getByRole("link", { name: /Components/ }).click();
   // The component index is the homepage.
   await expect(page).toHaveURL(/\/biscotti-ui\/$|\/$/);
-  await expect(page.getByRole("heading", { level: 1, name: "Interactive React components" })).toBeVisible();
+  await expect(page.getByRole("heading", { level: 1, name: "Twenty components, built to be touched." })).toBeVisible();
   expect(errors).toEqual([]);
 });
