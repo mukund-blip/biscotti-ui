@@ -8,7 +8,7 @@ const SRC = join(ROOT, "packages/ui/src");
 const OUT = resolve(ROOT, process.env.REGISTRY_OUTPUT_DIR ?? "apps/web/public/r");
 const BASE = (process.env.REGISTRY_URL ?? process.env.NEXT_PUBLIC_REGISTRY_URL ?? "http://localhost:3410").replace(/\/$/, "");
 // Keep in sync with apps/web/src/site.ts.
-const REPO = (process.env.NEXT_PUBLIC_REPO_URL ?? "https://github.com/mukund-blip/detent").replace(/\/$/, "");
+const REPO = (process.env.NEXT_PUBLIC_REPO_URL ?? "https://github.com/mukund-blip/biscotti-ui").replace(/\/$/, "");
 const BRANCH = process.env.NEXT_PUBLIC_REPO_BRANCH ?? "main";
 /** One quiet line at the top of each copied component, pointing back to its source. No licence terms implied. */
 const origin = (slug, title) => `// ${title} · Biscotti UI — ${REPO.replace(/^https?:\/\//, "")}/tree/${BRANCH}/packages/ui/src/components/${slug}\n`;

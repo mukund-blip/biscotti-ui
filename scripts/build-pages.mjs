@@ -4,7 +4,7 @@ import { writeFileSync } from "node:fs";
 import { resolve } from "node:path";
 
 const root = resolve(import.meta.dirname, "..");
-const url = new URL(process.env.PAGES_SITE_URL ?? "https://mukund-blip.github.io/detent");
+const url = new URL(process.env.PAGES_SITE_URL ?? "https://mukund-blip.github.io/biscotti-ui");
 if (!["http:", "https:"].includes(url.protocol) || url.search || url.hash || url.username || url.password) {
   throw new Error("PAGES_SITE_URL must be an HTTP(S) origin and optional base path, without credentials, query or fragment.");
 }

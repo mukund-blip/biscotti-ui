@@ -105,13 +105,13 @@ MIT.
 `pnpm dev` and `pnpm build` retain the normal root-path Next app. For a static project-site export:
 
 ```bash
-PAGES_SITE_URL=https://mukund-blip.github.io/detent pnpm build:pages
+PAGES_SITE_URL=https://mukund-blip.github.io/biscotti-ui pnpm build:pages
 node scripts/check-pages.mjs
-pnpm preview:pages  # exact apps/web/out files at http://127.0.0.1:3418/detent/
+pnpm preview:pages  # exact apps/web/out files at http://127.0.0.1:3418/biscotti-ui/
 ```
 
 The URL above is a **proposed target**, not a claim that a site is live. The build sets
-`output: export`, `/detent` as the base path, trailing slashes, canonical metadata,
+`output: export`, `/biscotti-ui` as the base path, trailing slashes, canonical metadata,
 sitemap and registry dependency URLs from the same `PAGES_SITE_URL`. It emits
 `.nojekyll` and a `pages-build.json` revision manifest. For a custom domain or fork,
 pass its full origin and optional base path instead. The preview command is a
@@ -121,7 +121,7 @@ not Next dev or a fallback SPA. It needs no extra packages.
 `PAGES_SITE_URL` also controls the install commands on detail pages. The Pages
 build regenerates registry JSON directly in `out/r`, leaving the checked-in local
 registry unchanged. For clean-consumer testing against the loopback preview,
-build with `PAGES_SITE_URL=http://127.0.0.1:3418/detent`; rebuild for the intended
+build with `PAGES_SITE_URL=http://127.0.0.1:3418/biscotti-ui`; rebuild for the intended
 public origin before uploading. A local preview of a public-origin build still
 displays that public origin in install commands; it does not make that host live.
 
@@ -130,18 +130,18 @@ simulation. Speed, partial-answer cancellation, simulated failure and retry stay
 interactive on a static host. Library consumers can still supply `fetch` Responses,
 ReadableStreams or async iterables to `useTextStream`.
 
-Production is https://detent.netlify.app, served from the domain root.
+Production is https://biscotti-ui.netlify.app, served from the domain root.
 `.github/workflows/netlify.yml` deploys it on every push to `main` (or a manual run
-on `main`): `PAGES_SITE_URL=https://detent.netlify.app pnpm build:pages`, then
+on `main`): `PAGES_SITE_URL=https://biscotti-ui.netlify.app pnpm build:pages`, then
 `check-pages` and `test:pages` on that exact export, then `netlify deploy --prod`
 using the `NETLIFY_AUTH_TOKEN` repository secret. Netlify's own Git builds are
 stopped for the site. `.github/workflows/pages.yml` is the pull-request check: it
-builds the export under the `/detent` sub-path and runs the same validation and
+builds the export under the `/biscotti-ui` sub-path and runs the same validation and
 tests, without deploying. GitHub Pages isn't used.
 
-A project site's `/detent/robots.txt` is emitted for completeness, but crawlers
+A project site's `/biscotti-ui/robots.txt` is emitted for completeness, but crawlers
 normally consult `/robots.txt` at the hostname root. That root policy must be
 managed by the account's user/organization site if needed; this project cannot
-set it from the `/detent` subpath. The sitemap includes only public showcase routes,
+set it from the `/biscotti-ui` subpath. The sitemap includes only public showcase routes,
 not the internal `/lab/` harness pages; those are still exported, but hosted builds
 mark every one `noindex, nofollow`, and `check-pages` enforces it.

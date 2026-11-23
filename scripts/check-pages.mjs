@@ -27,7 +27,7 @@ for (const route of routes) {
   if (route.startsWith("components/")) assert.ok(html.includes(`${siteUrl}/r/${route.split("/")[1]}.json`), `wrong displayed install URL in ${route}`);
 }
 assert.ok(read("robots.txt").includes(`${siteUrl}/sitemap.xml`));
-// /detent/robots.txt can't hide anything, so every exported lab harness must carry noindex itself.
+// /biscotti-ui/robots.txt can't hide anything, so every exported lab harness must carry noindex itself.
 // Expected lab pages come from the source routes, so a missing export fails instead of passing with nothing checked.
 const labSrc = resolve(import.meta.dirname, "../apps/web/src/app/lab");
 const labPages = existsSync(labSrc) ? ["", ...readdirSync(labSrc, { withFileTypes: true }).filter((d) => d.isDirectory()).map((d) => d.name)]

@@ -1,12 +1,12 @@
 name: Netlify production deploy
 
-# Builds the static export for https://detent.netlify.app (served from the domain
+# Builds the static export for https://biscotti-ui.netlify.app (served from the domain
 # root), validates and tests exactly that artifact, then publishes it to Netlify.
 # Netlify's own Git builds are stopped for this site (build_settings.stop_builds):
 # they can't build this private repo on the Free plan ("Unrecognized Git
 # contributor"), so this workflow is the only production deploy path.
 # pages.yml is the pull-request check (same build, validation and tests under a
-# /detent sub-path); this workflow only runs on main.
+# /biscotti-ui sub-path); this workflow only runs on main.
 
 on:
   push:
@@ -25,7 +25,7 @@ concurrency:
   cancel-in-progress: true
 
 env:
-  PAGES_SITE_URL: https://detent.netlify.app
+  PAGES_SITE_URL: https://biscotti-ui.netlify.app
   NETLIFY_SITE_ID: d72b2ca2-49f5-4083-a77a-70f142673db1
   NETLIFY_CLI_VERSION: 27.20.1
 

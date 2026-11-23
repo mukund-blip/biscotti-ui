@@ -5,7 +5,7 @@
  */
 
 /** Source repository. Override with NEXT_PUBLIC_REPO_URL for forks. */
-export const REPO_URL = (process.env.NEXT_PUBLIC_REPO_URL ?? "https://github.com/mukund-blip/detent").replace(/\/$/, "");
+export const REPO_URL = (process.env.NEXT_PUBLIC_REPO_URL ?? "https://github.com/mukund-blip/biscotti-ui").replace(/\/$/, "");
 
 /** Branch used for "view source" links. */
 export const REPO_BRANCH = process.env.NEXT_PUBLIC_REPO_BRANCH ?? "main";
