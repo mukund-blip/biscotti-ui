@@ -20,7 +20,7 @@ export async function generateMetadata({ params }: { params: Promise<{ slug: str
     ...canonicalMetadata(`components/${slug}`),
     title: e.name,
     description: e.summary,
-    openGraph: { url: siteUrl(`components/${slug}`), title, description: e.summary, type: "article" },
+    openGraph: { url: siteUrl(`components/${slug}`), title, description: e.summary, type: "article", siteName: "Biscotti UI" },
     twitter: { card: "summary", title, description: e.summary },
   };
 }

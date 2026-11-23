@@ -1,44 +1,31 @@
 import Link from "next/link";
 import { Icon } from "@biscotti/ui";
-import { GalleryTile } from "@/components/gallery-tile";
-import { REPO_URL, publicPath, canonicalMetadata } from "@/site";
+import { REPO_URL, REGISTRY_URL, publicPath, canonicalMetadata } from "@/site";
 import { catalog, groups } from "@/catalog";
-import { HeroRuler } from "@/components/home/ruler";
-import { HeroBench } from "@/components/home/bench";
-import { SoundBoard } from "./foundations/foundations-client";
-import { DiffInspectorDemo } from "@/demos/diff-inspector-demo";
-
-const principles = [
-  ["Pencil, then ink.", "Provisional state is drawn in cobalt pencil; committed state is ink. Colour never decorates."],
-  ["One live mark.", "At most one pencil element moves at a time — the caret, the active step, the latching thumb."],
-  ["Respond instantly, settle physically.", "State changes on the input frame. Springs only settle what already happened. Only latches overshoot."],
-  ["Finished work shrinks.", "Completed traces, tools and steps collapse into quiet, past-tense summaries."],
-  ["Sound marks outcomes.", "Never hover, never per-token, never background. Synthesised, tuned, and off until you choose."],
-];
-
-const featured = ["command-palette", "streaming-response", "data-table", "insight-card"];
+import { groupId, groupIntro } from "@/catalog/group-info";
+import { CopyButton } from "@/components/code";
+import { TactileTray } from "@/components/home/tactile-tray";
+import { DiffInspector } from "@biscotti/ui";
+import { launchNotesHunks } from "@/demos/data";
 
 export const metadata = canonicalMetadata();
 
+const install = `npx shadcn@latest add ${REGISTRY_URL}/r/precision-toggle.json`;
+
 export default function Home() {
-  const feat = featured.map((s) => catalog.find((e) => e.slug === s)).filter(Boolean) as typeof catalog;
   return (
     <div>
-      {/* Hero */}
+      {/* Hero: what it is, the two ways in, and real controls at natural size. */}
       <section className="mx-auto max-w-[1320px] px-5 md:px-8">
-        <div className="hidden pt-6 md:block"><HeroRuler /></div>
-        <div className="grid items-center gap-12 pb-14 pt-12 md:pb-20 md:pt-16 lg:grid-cols-[1.15fr_1fr] lg:gap-16">
-          <div>
-            <p className="mb-6 flex flex-wrap items-center gap-x-3 gap-y-1 font-mono text-2xs uppercase tracking-[0.08em] text-muted">
-              <span>Biscotti UI 0.1</span><span aria-hidden className="h-px w-6 bg-rule" /><span>{catalog.length} components</span><span aria-hidden className="h-px w-6 bg-rule" /><span>React · Tailwind v4 · Motion</span>
-            </p>
-            <h1 className="max-w-[760px] text-[clamp(46px,6.6vw,84px)] font-semibold leading-[0.94] tracking-[-0.045em]">
-              Interfaces that<br className="hidden lg:block" /> click into place.
+        <div className="grid gap-10 pb-16 pt-12 md:pt-16 lg:grid-cols-[minmax(0,1fr)_minmax(0,560px)] lg:items-center lg:gap-16 lg:pb-24 lg:pt-20">
+          <div className="min-w-0">
+            <h1 className="max-w-[640px] text-[clamp(34px,5.4vw,64px)] font-semibold leading-[1.02] tracking-[-0.04em]">
+              Interactive React components
             </h1>
-            <p className="mt-7 max-w-[560px] text-[17px] leading-[27px] text-ink-2">
-              {catalog.length} interactive React components for productivity, creative and AI-native software. Quiet at rest. Delightful in motion. Precise in use.
+            <p className="mt-5 max-w-[480px] text-md leading-[26px] text-ink-2">
+              Try controls, editors and agent workflows, then copy the source into your app.
             </p>
-            <div className="mt-9 flex flex-wrap items-center gap-3">
+            <div className="mt-8 flex flex-wrap items-center gap-3">
               <Link href="/components" className="focus-ring inline-flex h-11 items-center gap-3 rounded-md bg-ink px-4 text-base font-medium text-on-ink transition-transform duration-[90ms] active:translate-y-px">
                 Browse components <Icon name="arrowRight" size={16} />
               </Link>
@@ -46,104 +33,78 @@ export default function Home() {
                 Open the workbench
               </Link>
             </div>
-            <p className="mt-5 flex items-center gap-2 font-mono text-2xs text-muted"><Icon name="code" size={13} /> Source you copy into your app, not a black-box package</p>
+            <div className="mt-8 max-w-[540px]">
+              <p className="text-sm text-muted">Install any component with the shadcn CLI:</p>
+              <div className="mt-2 flex min-w-0 items-center gap-2 rounded-md bg-surface py-1 pl-3 pr-1 shadow-[inset_0_0_0_1px_var(--bis-hairline)]">
+                <code className="min-w-0 flex-1 truncate font-mono text-xs text-ink-2" title={install}>{install}</code>
+                <CopyButton text={install} />
+              </div>
+            </div>
           </div>
-          <div className="flex flex-col items-center lg:items-end">
-            {/* Biscotti stands on the bench: rendered from the editable Blender model. */}
-            <div className="hero-pup -mb-3 w-[min(62vw,240px)] self-center sm:w-[260px] lg:mr-12 lg:self-end">
+          <div className="flex min-w-0 flex-col">
+            {/* Biscotti stands on the tray: rendered from the editable Blender model. */}
+            <div className="hero-pup -mb-2 w-[min(46vw,190px)] self-end mr-4 sm:w-[210px] lg:mr-8">
               {/* eslint-disable-next-line @next/next/no-img-element -- static export serves raw public assets */}
               <img
-                src={publicPath("/brand/biscotti-hero-960.webp")}
+                src={publicPath("/brand/biscotti-hero-480.webp")}
                 srcSet={`${publicPath("/brand/biscotti-hero-480.webp")} 480w, ${publicPath("/brand/biscotti-hero-960.webp")} 960w`}
-                sizes="(min-width: 640px) 260px, 62vw"
+                sizes="(min-width: 640px) 210px, 46vw"
                 width={963} height={1152} fetchPriority="high"
                 alt="Biscotti, the Biscotti UI mascot: a cream, velvety Spitz pup standing with a happy smile and its tongue out"
                 className="block h-auto w-full select-none"
                 draggable={false}
               />
             </div>
-            <HeroBench />
+            <TactileTray />
           </div>
         </div>
       </section>
 
-      <div className="border-y border-hairline bg-surface">
-        <div className="mx-auto grid max-w-[1320px] gap-4 px-5 py-5 text-sm text-ink-2 md:grid-cols-3 md:px-8">
-          {[["01", "Try the real thing", "Every preview is the shipped component, with its pending, error and undo states."], ["02", "Copy the source", "One shadcn command puts it in components/biscotti/, ready to edit."], ["03", "Keep one state language", "Pencil while provisional, ink once committed, across all twenty."]].map(([n, title, detail]) => <div key={n} className="flex gap-3"><span className="pt-0.5 font-mono text-2xs text-pencil-ink">{n}</span><p><span className="font-medium text-ink">{title}</span><span className="mt-0.5 block text-xs text-muted">{detail}</span></p></div>)}
-        </div>
-      </div>
-      {/* Pencil, then ink */}
-      <section className="border-b border-hairline bg-surface">
-        <div className="mx-auto grid max-w-[1320px] gap-10 px-5 py-20 md:px-8 lg:grid-cols-[380px_1fr]">
-          <div>
-            <p className="font-mono text-2xs uppercase tracking-[0.08em] text-pencil-ink">The idea</p>
-            <h2 className="mt-3 text-[clamp(28px,3.4vw,40px)] font-semibold leading-[1.05] tracking-[-0.03em]">Pencil, then ink.</h2>
-            <p className="mt-5 text-md leading-[26px] text-ink-2">
-              AI-era software is full of things that aren’t true yet — streamed text, proposed edits, pending approvals, running tools. Biscotti UI draws all of them in the same cobalt pencil, and gives the moment they become real one consistent feel: a click, the moment a part seats into place.
+      {/* One substantive example with room to use it. */}
+      <section aria-labelledby="example-h" className="border-y border-hairline bg-surface">
+        <div className="mx-auto grid max-w-[1320px] gap-8 px-5 py-14 md:px-8 md:py-20 lg:grid-cols-[minmax(0,340px)_minmax(0,1fr)] lg:gap-16">
+          <div className="min-w-0 lg:pt-2">
+            <h2 id="example-h" className="text-[clamp(24px,3vw,34px)] font-semibold leading-[1.1] tracking-[-0.025em]">Review an agent’s edits</h2>
+            <p className="mt-4 text-base leading-[24px] text-ink-2">
+              Scout proposed four changes to a launch note. Accept or reject each one, or all of them at once.
             </p>
-            <p className="mt-4 text-md leading-[26px] text-ink-2">Accept a change on the right. Watch the gap close, the rule ink in, and the text settle into the document.</p>
+            <p className="mt-3 text-base leading-[24px] text-ink-2">
+              From the keyboard, J and K move between changes, A accepts, R rejects and U undoes the last decision.
+            </p>
+            <Link href="/components/diff-inspector" className="focus-ring mt-6 inline-flex items-center gap-1.5 rounded-xs text-sm text-ink-2 hover:text-ink">
+              Diff Inspector docs <Icon name="arrowRight" size={14} />
+            </Link>
           </div>
-          <div className="overflow-hidden rounded-xl border border-hairline">
-            <DiffInspectorDemo />
-          </div>
+          <DiffInspector
+            className="w-full min-w-0 max-w-[720px]"
+            title="Launch notes, edits from Scout"
+            path="press/os-1-launch.md"
+            hunks={launchNotesHunks}
+          />
         </div>
       </section>
 
-      {/* Featured */}
-      {feat.length > 0 && (
-        <section className="mx-auto max-w-[1320px] px-5 py-20 md:px-8">
-          <div className="mb-8 flex items-end justify-between gap-6">
-            <div><p className="mb-3 font-mono text-2xs uppercase tracking-[0.08em] text-muted">A few from the collection</p><h2 className="text-[clamp(28px,3.4vw,40px)] font-semibold leading-[1.05] tracking-[-0.03em]">Every control works.</h2></div>
-            <Link href="/components" className="focus-ring inline-flex shrink-0 items-center gap-2 rounded-xs text-sm text-ink-2 hover:text-ink">View all {catalog.length} <Icon name="arrowRight" size={15} /></Link>
-          </div>
-          <div className="grid grid-cols-1 gap-5 md:grid-cols-6">
-            {feat.map((e) => <GalleryTile key={e.slug} e={e} cols={3} />)}
-          </div>
-        </section>
-      )}
-
-      {/* Principles */}
-      <section className="border-t border-hairline">
-        <div className="mx-auto max-w-[1320px] px-5 py-20 md:px-8">
-          <p className="mb-10 font-mono text-2xs uppercase tracking-[0.08em] text-muted">Five principles</p>
-          <ol className="grid gap-x-10 gap-y-10 md:grid-cols-2 lg:grid-cols-5">
-            {principles.map(([t, d], i) => (
-              <li key={t} className="border-t border-rule pt-4">
-                <span className="tabular font-mono text-2xs text-muted">0{i + 1}</span>
-                <h3 className="mt-2 text-lg font-medium leading-[24px] tracking-[-0.015em]">{t}</h3>
-                <p className="mt-2 text-sm leading-[20px] text-ink-2">{d}</p>
-              </li>
-            ))}
-          </ol>
+      {/* Everything else, by what you're building. */}
+      <section aria-labelledby="groups-h" className="mx-auto max-w-[1320px] px-5 py-14 md:px-8 md:py-20">
+        <div className="mb-8 flex flex-wrap items-end justify-between gap-x-8 gap-y-3">
+          <h2 id="groups-h" className="text-[clamp(24px,3vw,34px)] font-semibold leading-[1.1] tracking-[-0.025em]">All {catalog.length} components</h2>
+          <Link href="/components" className="focus-ring inline-flex items-center gap-1.5 rounded-xs text-sm text-ink-2 hover:text-ink">
+            Live previews of each <Icon name="arrowRight" size={14} />
+          </Link>
         </div>
-      </section>
-
-      {/* Sound */}
-      <section className="border-t border-hairline bg-surface">
-        <div className="mx-auto grid max-w-[1320px] gap-10 px-5 py-20 md:px-8 lg:grid-cols-[380px_1fr]">
-          <div>
-            <p className="font-mono text-2xs uppercase tracking-[0.08em] text-muted">Sound</p>
-            <h2 className="mt-3 text-[clamp(28px,3.4vw,40px)] font-semibold leading-[1.05] tracking-[-0.03em]">Heard, not noticed.</h2>
-            <p className="mt-5 text-md leading-[26px] text-ink-2">Thirteen tiny voices synthesised in your browser and tuned to one pentatonic scale, so they never clash. Off by default, adjustable, and permanently mutable.</p>
-          </div>
-          <SoundBoard />
-        </div>
-      </section>
-
-      {/* Index */}
-      <section className="mx-auto max-w-[1320px] px-5 py-20 md:px-8">
-        <p className="mb-8 font-mono text-2xs uppercase tracking-[0.08em] text-muted">Index</p>
-        <div className="grid gap-10 md:grid-cols-2 lg:grid-cols-4">
+        <div className="grid gap-x-10 gap-y-10 sm:grid-cols-2 lg:grid-cols-4">
           {groups.map((g) => (
-            <div key={g}>
-              <h3 className="border-b border-rule pb-2 text-sm font-medium">{g}</h3>
-              <ul>
+            <div key={g} className="min-w-0">
+              <h3 className="text-base font-medium">
+                <Link href={`/components#${groupId(g)}`} className="focus-ring rounded-xs hover:text-pencil-ink">{g}</Link>
+              </h3>
+              <p className="mt-1.5 text-sm leading-[20px] text-muted">{groupIntro[g]}</p>
+              <ul className="mt-4 border-t border-hairline">
                 {catalog.filter((e) => e.group === g).map((e) => (
                   <li key={e.slug}>
-                    <Link href={`/components/${e.slug}`} className="focus-ring group flex items-baseline gap-3 border-b border-hairline py-2 text-sm hover:text-ink">
-                      <span className="tabular font-mono text-2xs text-muted">{e.number}</span>
-                      <span className="text-ink-2 group-hover:text-ink">{e.name}</span>
-                      <span aria-hidden className="ml-auto text-muted transition-colors group-hover:text-ink"><Icon name="arrowRight" size={14} /></span>
+                    <Link href={`/components/${e.slug}`} className="focus-ring group flex items-center justify-between gap-3 border-b border-hairline py-2.5 text-sm text-ink-2 hover:text-ink">
+                      {e.name}
+                      <Icon name="chevronRight" size={13} className="shrink-0 text-faint transition-colors group-hover:text-ink" />
                     </Link>
                   </li>
                 ))}
@@ -154,12 +115,11 @@ export default function Home() {
       </section>
 
       <footer className="border-t border-hairline">
-        <div className="mx-auto flex max-w-[1320px] flex-wrap items-center gap-x-6 gap-y-2 px-5 py-8 font-mono text-2xs text-muted md:px-8">
-          <span>Biscotti UI 0.1 — MIT</span>
+        <div className="mx-auto flex max-w-[1320px] flex-wrap items-center gap-x-6 gap-y-2 px-5 py-8 text-xs text-muted md:px-8">
+          <span>MIT licence</span>
           <Link href="/foundations" className="hover:text-ink">Foundations</Link>
           <a href={publicPath("/r/registry.json")} className="hover:text-ink">Registry</a>
-          <a href={REPO_URL} className="inline-flex items-center gap-1.5 hover:text-ink">Source on GitHub <Icon name="arrowUpRight" size={13} /></a>
-          <span className="ml-auto">Respects prefers-reduced-motion · Sound off by default</span>
+          <a href={REPO_URL} className="inline-flex items-center gap-1 hover:text-ink">Source <Icon name="arrowUpRight" size={12} /></a>
         </div>
       </footer>
     </div>

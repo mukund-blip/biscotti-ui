@@ -13,8 +13,8 @@ const serif = Newsreader({ subsets: ["latin"], style: ["italic"], weight: ["400"
 
 export const metadata: Metadata = {
   metadataBase: SITE_URL ? new URL(`${SITE_URL}/`) : undefined,
-  title: { default: "Biscotti UI — interactive components for precise software", template: "%s · Biscotti UI" },
-  description: "Twenty components for productivity, creative and AI-native tools. Quiet at rest. Delightful in motion. Precise in use.",
+  title: { default: "Biscotti UI: interactive React components", template: "%s · Biscotti UI" },
+  description: "Twenty interactive React components. Try controls, editors and agent workflows, then copy the source into your app.",
   applicationName: "Biscotti UI",
   openGraph: { siteName: "Biscotti UI", type: "website" },
   twitter: { card: "summary_large_image" },

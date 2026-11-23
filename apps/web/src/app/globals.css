@@ -28,18 +28,7 @@ body { min-height: 100dvh; }
 /* Site surfaces use the same paper, rules and pencil as the components. */
 html { scroll-padding-top: 6rem; }
 body { margin: 0; }
-.hero-instrument { position: relative; }
-.hero-instrument::before {
-  content: "";
-  position: absolute;
-  z-index: -1;
-  inset: -28px -16px -24px;
-  background-image: radial-gradient(var(--bis-rule) 0.65px, transparent 0.65px);
-  background-size: 12px 12px;
-  mask-image: linear-gradient(transparent, black 25%, black 75%, transparent);
-  opacity: 0.6;
-}
-/* Biscotti stands on the bench: a warm pool of light behind the pup, never a card. */
+/* Biscotti stands on the tactile tray: a warm pool of light behind the pup, never a card. */
 .hero-pup { position: relative; isolation: isolate; }
 .hero-pup::before {
   content: "";
