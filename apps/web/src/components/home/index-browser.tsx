@@ -21,11 +21,28 @@ export function IndexBrowser({ options, total, install, sections }: {
 }) {
   const [active, setActive] = useState("all");
   const top = useRef<HTMLDivElement>(null);
+  // The category last applied, and whether the index should be scrolled into place once it renders.
+  const applied = useRef("all");
+  const scrollPending = useRef(false);
+
+  // Hiding the groups above a deep-linked section moves it up. Chrome and Firefox hide that jump with
+  // scroll anchoring; Safari has none, so re-align explicitly after the hidden groups are committed.
+  useEffect(() => {
+    if (!scrollPending.current) return;
+    scrollPending.current = false;
+    const frame = requestAnimationFrame(() => top.current?.scrollIntoView({ block: "start" }));
+    return () => cancelAnimationFrame(frame);
+  }, [active]);
 
   useEffect(() => {
     const apply = (hash: string) => {
       const id = decodeURIComponent(hash.replace(/^#/, ""));
-      setActive(options.some((o) => o.id === id) ? id : "all");
+      const next = options.some((o) => o.id === id) ? id : "all";
+      // Only a navigation that lands on a different category needs re-aligning (deep links, breadcrumbs,
+      // back/forward). choose() updates `applied` first, so its own URL update never scrolls.
+      if (next !== applied.current && next !== "all") scrollPending.current = true;
+      applied.current = next;
+      setActive(next);
     };
     const fromLocation = () => apply(location.hash);
     // In-app links announce where they are going; their click runs before Next updates the URL.
@@ -47,6 +64,7 @@ export function IndexBrowser({ options, total, install, sections }: {
   }, [options]);
 
   const choose = (id: string) => {
+    applied.current = id;
     setActive(id);
     history.replaceState(null, "", id === "all" ? location.pathname + location.search : `#${id}`);
     const el = top.current;

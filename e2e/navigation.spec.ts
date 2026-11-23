@@ -45,6 +45,27 @@ test("the homepage is the component index: headline, featured tile, category sid
   void info;
 });
 
+test("deep links land on their section even without scroll anchoring (Safari)", async ({ page }) => {
+  // Safari has no CSS scroll anchoring; switching it off in Chromium reproduces that behaviour.
+  await page.addInitScript(() => {
+    const css = "*{overflow-anchor:none !important}";
+    addEventListener("DOMContentLoaded", () => { const s = document.createElement("style"); s.textContent = css; document.head.append(s); });
+  });
+  for (const path of ["/#information-editing", "/#commands-composition"]) {
+    await page.goto(path, { waitUntil: "networkidle" });
+    const id = path.split("#")[1];
+    const heading = page.locator(`main section#${id} h2`);
+    await expect(heading).toBeInViewport();
+    // Lands at the index, not past it: the section heading sits near the top of the viewport.
+    await expect.poll(() => heading.evaluate((el) => Math.round(el.getBoundingClientRect().top))).toBeLessThan(320);
+  }
+  // The breadcrumb route (a Next navigation from another page) lands the same way.
+  await page.goto("/components/command-palette", { waitUntil: "networkidle" });
+  await page.getByRole("navigation", { name: "Breadcrumb" }).getByRole("link", { name: "Commands & composition" }).click();
+  await expect(page).toHaveURL(/\/#commands-composition$/);
+  await expect(page.locator("main section#commands-composition h2")).toBeInViewport();
+});
+
 for (const width of [320, 390]) {
   test(`phone category tabs never clip a label at ${width}px`, async ({ page }) => {
     await page.setViewportSize({ width, height: 800 });
