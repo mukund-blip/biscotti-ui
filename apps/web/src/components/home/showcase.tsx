@@ -1,6 +1,6 @@
 "use client";
 import Link from "next/link";
-import { useEffect, useState, type ReactNode } from "react";
+import { useEffect, useRef, useState, type ReactNode } from "react";
 import {
   Icon, InteractiveSlider, KineticButton, PrecisionToggle, SegmentedControl, SegmentedControlItem, ToolChip, cn, useTextStream,
 } from "@biscotti/ui";
@@ -157,6 +157,19 @@ function StepsDemo() {
 /** A compact approval: decide, see the receipt, undo. Pinned to the light theme so it reads on the dark tile. */
 function ApprovalDemo() {
   const [decision, setDecision] = useState<"approved" | "denied" | null>(null);
+  // The control that had focus unmounts on each decision, so hand focus on explicitly
+  // (as ApprovalCard does): to Undo after a decision, back to Approve after Undo.
+  const approveRef = useRef<HTMLButtonElement>(null);
+  const undoRef = useRef<HTMLButtonElement>(null);
+  const pendingFocus = useRef<"undo" | "approve" | null>(null);
+  useEffect(() => {
+    const target = pendingFocus.current;
+    pendingFocus.current = null;
+    if (target === "undo") undoRef.current?.focus();
+    else if (target === "approve") approveRef.current?.focus();
+  }, [decision]);
+  const decide = (d: "approved" | "denied") => { pendingFocus.current = "undo"; setDecision(d); };
+  const undo = () => { pendingFocus.current = "approve"; setDecision(null); };
   return (
     <div data-theme="light" className="flex w-full max-w-[300px] flex-col gap-3 rounded-[12px] bg-raised p-4 text-ink shadow-2">
       <p className="text-[15px] font-medium leading-[18px]">Send 3 emails to the beta list?</p>
@@ -165,12 +178,12 @@ function ApprovalDemo() {
           <span className="flex items-center gap-1.5 text-ink-2">
             <Icon name={decision === "approved" ? "check" : "x"} size={14} /> {decision === "approved" ? "Approved" : "Denied"} · 3 emails
           </span>
-          <button type="button" onClick={() => setDecision(null)} className="focus-ring rounded-sm px-1.5 py-0.5 text-ink-2 underline-offset-2 hover:text-ink hover:underline">Undo</button>
+          <button ref={undoRef} type="button" onClick={undo} className="focus-ring rounded-sm px-1.5 py-0.5 text-ink-2 underline-offset-2 hover:text-ink hover:underline">Undo</button>
         </div>
       ) : (
         <div className="flex gap-2">
-          <KineticButton size="sm" sound={false} onClick={() => setDecision("approved")}>Approve</KineticButton>
-          <KineticButton size="sm" variant="secondary" sound={false} onClick={() => setDecision("denied")}>Deny</KineticButton>
+          <KineticButton ref={approveRef} size="sm" sound={false} onClick={() => decide("approved")}>Approve</KineticButton>
+          <KineticButton size="sm" variant="secondary" sound={false} onClick={() => decide("denied")}>Deny</KineticButton>
         </div>
       )}
     </div>

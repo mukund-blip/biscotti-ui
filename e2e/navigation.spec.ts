@@ -142,11 +142,21 @@ test("homepage showcase: live demos, links to component pages and group links; n
 
   // The approval demo works from the keyboard: Approve, receipt, Undo.
   const lead = page.getByRole("region", { name: "Human Approval Card" });
+  // Focus moves to Undo after a decision and back to Approve after Undo (never dropped to <body>).
   await lead.getByRole("button", { name: "Approve" }).focus();
   await page.keyboard.press("Enter");
   await expect(lead.getByRole("status")).toContainText("Approved");
-  await lead.getByRole("button", { name: "Undo" }).click();
-  await expect(lead.getByRole("button", { name: "Approve" })).toBeVisible();
+  await expect(lead.getByRole("button", { name: "Undo" })).toBeFocused();
+  await page.keyboard.press("Enter");
+  await expect(lead.getByRole("button", { name: "Approve" })).toBeFocused();
+  // Same for Deny, using Space.
+  await page.keyboard.press("Tab");
+  await expect(lead.getByRole("button", { name: "Deny" })).toBeFocused();
+  await page.keyboard.press("Space");
+  await expect(lead.getByRole("status")).toContainText("Denied");
+  await expect(lead.getByRole("button", { name: "Undo" })).toBeFocused();
+  await page.keyboard.press("Enter");
+  await expect(lead.getByRole("button", { name: "Approve" })).toBeFocused();
 
   // The segmented control is live and keyboard-operable.
   const seg = page.getByRole("radiogroup", { name: "Range" });
