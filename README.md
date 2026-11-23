@@ -1,5 +1,9 @@
 # Biscotti UI
 
+[![Live site](https://img.shields.io/badge/Live_site-biscotti--ui.netlify.app-8a6250?style=for-the-badge)](https://biscotti-ui.netlify.app/)
+
+**[Open the live site →](https://biscotti-ui.netlify.app/)** Try every component, then install it with the shadcn CLI.
+
 <img src="apps/web/public/brand/biscotti-hero-480.webp" alt="Biscotti, the cream pup mascot" width="180" align="right">
 
 **Interfaces that click into place.** Twenty interactive React components for productivity, creative and AI‑native software.
@@ -7,6 +11,50 @@
 > Quiet at rest. Delightful in motion. Precise in use.
 
 Biscotti UI is built around one idea: **pencil, then ink**. Anything provisional (streamed text, proposed edits, pending writes, running tools) is drawn in a cobalt *pencil*. The moment it becomes real is a *click*: a latch you can see, feel and (optionally) hear. See [`DESIGN.md`](./DESIGN.md) for the full rationale. The mascot, Biscotti, is rendered from an editable Blender model. The library package is `@biscotti/ui` and its registry items are `biscotti-*`.
+
+## UI sections overview
+
+Every component has a live page on [the live site](https://biscotti-ui.netlify.app/). They are grouped by what you're building:
+
+### Tactile controls
+
+Buttons, switches, segments and sliders with real travel and full keyboard support.
+
+- [**Kinetic Button**](https://biscotti-ui.netlify.app/components/kinetic-button/): A button family that presses physically and narrates its own async lifecycle.
+- [**Precision Toggle**](https://biscotti-ui.netlify.app/components/precision-toggle/): A latching switch that stays in pencil until the change is actually saved.
+- [**Interactive Slider**](https://biscotti-ui.netlify.app/components/interactive-slider/): A precision fader with a measuring ruler, magnetic notches and fine adjust.
+- [**Segmented Control**](https://biscotti-ui.netlify.app/components/segmented-control/): A segmented control whose indicator inchworms — lead edge first, trailing edge after.
+
+### Commands & composition
+
+A command palette, @-mentions, a prompt input and a selection toolbar.
+
+- [**Command Palette**](https://biscotti-ui.netlify.app/components/command-palette/): ⌘K search over commands, with fuzzy ranking, nested pages and async results.
+- [**Intelligent Prompt Composer**](https://biscotti-ui.netlify.app/components/prompt-composer/): Compose a prompt with file uploads, inline references and slash commands.
+- [**Contextual Mention Picker**](https://biscotti-ui.netlify.app/components/mention-picker/): Find people, files and tools at the caret, then insert a reference as one token.
+- [**Contextual Action Toolbar**](https://biscotti-ui.netlify.app/components/action-toolbar/): A floating toolbar that follows the text selection and morphs into an inline input.
+
+### Agent interactions
+
+Streamed answers, tool calls, approvals with undo, progress traces and multi-step runs.
+
+- [**Thinking Timeline**](https://biscotti-ui.netlify.app/components/thinking-timeline/): An agent's progress as user-facing steps that shrink into a past-tense summary.
+- [**Streaming Response**](https://biscotti-ui.netlify.app/components/streaming-response/): Renders a real text stream as light markdown, with chunk fades, citations and a pencil caret.
+- [**Agent Activity Stack**](https://biscotti-ui.netlify.app/components/activity-stack/): Concurrent agent tasks that sort by urgency and sink into a deck of finished work.
+- [**Tool Execution Chip**](https://biscotti-ui.netlify.app/components/tool-chip/): One quiet inline chip per tool call that opens in place into its input and output.
+- [**Human Approval Card**](https://biscotti-ui.netlify.app/components/approval-card/): An agent asks before it acts. Decide, and the card folds into a receipt you can undo.
+- [**Workflow Stepper**](https://biscotti-ui.netlify.app/components/workflow-stepper/): A multi-step run drawn as dependency lanes that split, run in parallel and merge.
+
+### Information & editing
+
+A data table, filters, a chart card, a diff reviewer, toasts and a property inspector.
+
+- [**Smart Data Table**](https://biscotti-ui.netlify.app/components/data-table/): Sort, inspect, and act on live records without losing your place.
+- [**Visual Filter Builder**](https://biscotti-ui.netlify.app/components/filter-builder/): Build readable filters with typed editors, editable clauses, and live results.
+- [**Interactive Diff Inspector**](https://biscotti-ui.netlify.app/components/diff-inspector/): Review proposed edits hunk by hunk. Accepted changes settle into the document.
+- [**Inline Property Editor**](https://biscotti-ui.netlify.app/components/property-editor/): An inspector with scrubbable numbers, a colour picker and a box model you drag directly.
+- [**Insight Card**](https://biscotti-ui.netlify.app/components/insight-card/): A KPI with rolling digits, a scrubbable SVG chart and an insight sentence worth reading.
+- [**Notification & Feedback System**](https://biscotti-ui.netlify.app/components/notifications/): Stacked toasts with undo countdowns, in-place progress and a persistent Callout.
 
 ## Run it
 
