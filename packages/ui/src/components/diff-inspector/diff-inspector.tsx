@@ -215,7 +215,8 @@ export function DiffInspector({
     >
       {/* header */}
       <header className="flex flex-wrap items-center gap-x-3 gap-y-2 px-4 pb-3 pt-3.5 [box-shadow:inset_0_-1px_0_var(--bis-hairline)]">
-        <div className="min-w-0 flex-1">
+        {/* A ~224 px preferred width lets the bulk actions wrap below on narrow cards rather than truncating the title. */}
+        <div className="min-w-0 flex-1 basis-56">
           <h3 id={`${uid}-title`} className="truncate text-base font-medium text-ink">{title}</h3>
           {path && <p className="truncate font-mono text-2xs text-muted">{path}</p>}
         </div>
@@ -226,7 +227,7 @@ export function DiffInspector({
               Applied {counts.accepted} · Rejected {counts.rejected}
             </motion.p>
           ) : (
-            <motion.div key="actions" initial={{ opacity: 0 }} animate={{ opacity: 1 }} exit={{ opacity: 0 }} transition={m.fade()} className="flex items-center gap-1.5">
+            <motion.div key="actions" initial={{ opacity: 0 }} animate={{ opacity: 1 }} exit={{ opacity: 0 }} transition={m.fade()} className="ml-auto flex shrink-0 items-center gap-1.5">
               <button type="button" onClick={() => bulk("rejected")}
                 className="focus-ring h-7 rounded-sm px-2.5 text-sm text-ink-2 hover:bg-sunken hover:text-ink">
                 Reject {counts.pending === total ? "all" : "rest"}
@@ -349,13 +350,14 @@ function Hunk({ hunk, index, total, decision, focused, onFocus, onDecide, onKeyD
         })()}
       </span>
 
-      <div className="mb-1 flex min-h-6 items-center gap-2">
+      {/* Wraps on narrow cards: the decision buttons move under the label instead of being clipped. */}
+      <div className="mb-1 flex min-h-6 flex-wrap items-center gap-x-2 gap-y-1">
         {hunk.location && <span className="font-mono text-2xs text-muted">{hunk.location}</span>}
         <span className={cn("font-mono text-2xs transition-colors duration-200",
           decision === "accepted" ? "text-ink-2" : decision === "rejected" ? "text-muted" : "text-pencil-ink")}>
           {decision === "pending" ? "proposed" : decision}
         </span>
-        <div className="ml-auto flex items-center gap-1">
+        <div className="ml-auto flex shrink-0 items-center gap-1">
           {pending ? (
             <>
               <HunkButton tab={focused} label={`Reject change ${index + 1}${hunk.location ? `, ${hunk.location}` : ""}`} onClick={() => onDecide("rejected")} icon="x">Reject</HunkButton>
