@@ -167,7 +167,7 @@ export function SiteChrome({ children }: { children: ReactNode }) {
             <span className="sr-only">, home</span>
           </Link>
           <div className="ml-auto flex items-center gap-2">
-            {REPO_PUBLIC && <a href={REPO_URL} className="focus-ring mr-2 hidden items-center gap-1.5 rounded-sm text-xs text-muted hover:text-ink lg:inline-flex">Source<Icon name="arrowUpRight" size={13} /></a>}
+            {REPO_PUBLIC && <a href={REPO_URL} className="focus-ring mr-2 hidden items-center gap-1.5 rounded-sm text-xs text-muted hover:text-ink lg:inline-flex"><StarMark /> Star on GitHub</a>}
             {/* The labelled control fits from 400 px; narrower phones get the icon-only version so the header never overflows. */}
             <div className="hidden min-[400px]:block"><SoundControl /></div>
             <div className="min-[400px]:hidden"><SoundControl compact /></div>
