@@ -28,7 +28,7 @@ type ThemePref = "light" | "dark" | "system";
 
 function readThemePref(): ThemePref {
   try {
-    const v = localStorage.getItem("detent.theme");
+    const v = localStorage.getItem("biscotti.theme");
     if (v === "light" || v === "dark" || v === "system") return v;
   } catch {}
   return "system";
@@ -54,7 +54,7 @@ function ThemeSwitch() {
   }, []);
   const apply = (p: ThemePref) => {
     setPref(p);
-    try { localStorage.setItem("detent.theme", p); } catch {}
+    try { localStorage.setItem("biscotti.theme", p); } catch {}
     paintTheme(p);
   };
   const opts = [

@@ -43,7 +43,7 @@ assert.equal(registry.homepage, siteUrl);
 // Every catalog page advertises an install URL, so each needs an item, alongside the shared foundation.
 const names = registry.items.map((i) => i.name);
 assert.equal(new Set(names).size, names.length, "duplicate registry item names");
-const missing = ["detent-foundation", ...slugs].filter((n) => !names.includes(n));
+const missing = ["biscotti-foundation", ...slugs].filter((n) => !names.includes(n));
 assert.deepEqual(missing, [], `registry is missing ${missing.join(", ")}`);
 for (const { name } of registry.items) {
   const item = JSON.parse(read(`r/${name}.json`));
@@ -51,6 +51,6 @@ for (const { name } of registry.items) {
     assert.ok(dependency.startsWith(`${siteUrl}/r/`), `wrong dependency origin ${dependency}`);
     assert.ok(existsSync(join(root, dependency.slice(`${siteUrl}/`.length))), `missing dependency ${dependency}`);
   }
-  for (const file of item.files) assert.ok(file.target.startsWith("components/detent/"));
+  for (const file of item.files) assert.ok(file.target.startsWith("components/biscotti/"));
 }
 console.log(`Validated ${routes.length} public routes, prefixed assets/canonicals, sitemap/robots, ${labPages.length} noindex lab pages and ${registry.items.length} registry items with nested dependencies (${siteUrl}).`);

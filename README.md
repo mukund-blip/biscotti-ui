@@ -67,12 +67,12 @@ e2e/                          Playwright suites
 npx shadcn@latest add <registry-url>/r/diff-inspector.json
 ```
 
-Each component pulls in `detent-foundation` (tokens, motion, sound, utilities, icons) under `components/detent/`. Then add the styles after Tailwind:
+Each component pulls in `biscotti-foundation` (tokens, motion, sound, utilities, icons) under `components/biscotti/`. Then add the styles after Tailwind:
 
 ```css
 @import "tailwindcss";
-@import "./components/detent/styles/index.css";
-@source "./components/detent";
+@import "./components/biscotti/styles/index.css";
+@source "./components/biscotti";
 ```
 
 Set `NEXT_PUBLIC_REGISTRY_URL` / `REGISTRY_URL` to wherever you host `apps/web/public/r` (it defaults to the local dev server).

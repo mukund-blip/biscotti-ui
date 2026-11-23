@@ -14,7 +14,7 @@ for (const theme of ["light", "dark"] as const) {
       const errors: string[] = [];
       page.on("console", (m) => m.type() === "error" && errors.push(m.text()));
       page.on("pageerror", (e) => errors.push(e.message));
-      await page.addInitScript((t) => localStorage.setItem("detent.theme", t), theme);
+      await page.addInitScript((t) => localStorage.setItem("biscotti.theme", t), theme);
       await page.goto(route, { waitUntil: "networkidle" });
       await expect(page.locator("main")).toBeVisible();
       expect(errors, errors.join("\n")).toEqual([]);

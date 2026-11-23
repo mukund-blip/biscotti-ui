@@ -1,10 +1,10 @@
 {
   "$schema": "https://ui.shadcn.com/schema/registry.json",
-  "name": "detent",
+  "name": "biscotti",
   "homepage": "http://localhost:3410",
   "items": [
     {
-      "name": "detent-foundation",
+      "name": "biscotti-foundation",
       "type": "registry:lib",
       "title": "Biscotti UI foundation",
       "description": "Tokens (CSS variables + Tailwind v4 theme), motion springs, the synthesised sound engine, utilities, primitives and icons."

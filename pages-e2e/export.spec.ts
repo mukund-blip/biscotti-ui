@@ -8,7 +8,7 @@ for (const theme of ["light", "dark"] as const) {
       const errors: string[] = [];
       page.on("pageerror", (e) => errors.push(e.message));
       page.on("console", (m) => { if (m.type() === "error") errors.push(m.text()); });
-      await page.addInitScript((t) => localStorage.setItem("detent.theme", t), theme);
+      await page.addInitScript((t) => localStorage.setItem("biscotti.theme", t), theme);
       const response = await page.goto(route || "./");
       expect(response?.status()).toBe(200);
       await expect(page.locator("main")).toBeVisible();

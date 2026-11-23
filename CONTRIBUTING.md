@@ -83,4 +83,4 @@ Never play sounds on hover, on focus, for per-token streaming, for timers, or fo
 
 ## Verify visually
 
-A dev server runs at `http://localhost:3410`. Open `/lab/<slug>`. Use Playwright (`node .scratch/<you>-*.mjs`, importing `playwright`) to screenshot rest/hover/active/error states in **both themes** (set `localStorage["detent.theme"]` via `addInitScript`) and with `reducedMotion: "reduce"`. Take frame sequences of key transitions. Look at the images yourself and fix what you see. Check the console for errors and hydration warnings.
+A dev server runs at `http://localhost:3410`. Open `/lab/<slug>`. Use Playwright (`node .scratch/<you>-*.mjs`, importing `playwright`) to screenshot rest/hover/active/error states in **both themes** (set `localStorage["biscotti.theme"]` via `addInitScript`) and with `reducedMotion: "reduce"`. Take frame sequences of key transitions. Look at the images yourself and fix what you see. Check the console for errors and hydration warnings.

@@ -11,7 +11,7 @@ import { useRef } from "react";
  *    hydrate fine and are left alone; React itself never renders whitespace in <head>.
  * 2. Apply the saved theme before first paint.
  */
-const js = `try{for(var h=document.head,n=h&&h.firstChild,x;n;n=x){x=n.nextSibling;if(n.nodeType===3&&!/\\S/.test(n.nodeValue))h.removeChild(n)}}catch(e){}try{var t=localStorage.getItem('detent.theme')||'system';var d=t==='dark'||(t==='system'&&matchMedia('(prefers-color-scheme: dark)').matches);document.documentElement.dataset.theme=d?'dark':'light';document.documentElement.dataset.themePref=t}catch(e){}`;
+const js = `try{for(var h=document.head,n=h&&h.firstChild,x;n;n=x){x=n.nextSibling;if(n.nodeType===3&&!/\\S/.test(n.nodeValue))h.removeChild(n)}}catch(e){}try{var t=localStorage.getItem('biscotti.theme')||'system';var d=t==='dark'||(t==='system'&&matchMedia('(prefers-color-scheme: dark)').matches);document.documentElement.dataset.theme=d?'dark':'light';document.documentElement.dataset.themePref=t}catch(e){}`;
 
 /** Inserted once into the server HTML; see `js` above. */
 export function ThemeScript() {

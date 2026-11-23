@@ -69,7 +69,7 @@ export default function Home() {
 
       <div className="border-y border-hairline bg-surface">
         <div className="mx-auto grid max-w-[1320px] gap-4 px-5 py-5 text-sm text-ink-2 md:grid-cols-3 md:px-8">
-          {[["01", "Try the real thing", "Every preview is the shipped component, with its pending, error and undo states."], ["02", "Copy the source", "One shadcn command puts it in components/detent/, ready to edit."], ["03", "Keep one state language", "Pencil while provisional, ink once committed, across all twenty."]].map(([n, title, detail]) => <div key={n} className="flex gap-3"><span className="pt-0.5 font-mono text-2xs text-pencil-ink">{n}</span><p><span className="font-medium text-ink">{title}</span><span className="mt-0.5 block text-xs text-muted">{detail}</span></p></div>)}
+          {[["01", "Try the real thing", "Every preview is the shipped component, with its pending, error and undo states."], ["02", "Copy the source", "One shadcn command puts it in components/biscotti/, ready to edit."], ["03", "Keep one state language", "Pencil while provisional, ink once committed, across all twenty."]].map(([n, title, detail]) => <div key={n} className="flex gap-3"><span className="pt-0.5 font-mono text-2xs text-pencil-ink">{n}</span><p><span className="font-medium text-ink">{title}</span><span className="mt-0.5 block text-xs text-muted">{detail}</span></p></div>)}
         </div>
       </div>
       {/* Pencil, then ink */}

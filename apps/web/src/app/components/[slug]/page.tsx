@@ -158,8 +158,8 @@ export default async function ComponentPage({ params }: { params: Promise<{ slug
                 <h3 className="text-sm font-medium">Copy the source with the shadcn CLI</h3>
                 <Code lang="sh" title="Terminal" code={install} />
                 <p className="max-w-[680px] text-sm text-muted [overflow-wrap:anywhere]">
-                  Adds the component and the shared <span className="font-mono text-ink-2">detent-foundation</span> (tokens, springs, sound engine, icons) under <span className="font-mono text-ink-2">components/detent/</span>
-                  {e.dependencies.length > 0 && <>, and installs <span className="font-mono text-ink-2">{e.dependencies.join(" ")}</span></>}. Then import the styles after Tailwind in your global CSS: <span className="font-mono text-ink-2">@import &quot;./components/detent/styles/index.css&quot;;</span>
+                  Adds the component and the shared <span className="font-mono text-ink-2">biscotti-foundation</span> (tokens, springs, sound engine, icons) under <span className="font-mono text-ink-2">components/biscotti/</span>
+                  {e.dependencies.length > 0 && <>, and installs <span className="font-mono text-ink-2">{e.dependencies.join(" ")}</span></>}. Then import the styles after Tailwind in your global CSS: <span className="font-mono text-ink-2">@import &quot;./components/biscotti/styles/index.css&quot;;</span>
                 </p>
                 {REGISTRY_IS_LOCAL && (
                   <p className="flex max-w-[680px] gap-2 rounded-md bg-pencil-soft px-3 py-2 text-sm text-ink-2">
