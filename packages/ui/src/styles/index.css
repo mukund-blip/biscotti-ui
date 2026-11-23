@@ -1,36 +1,36 @@
 @import "./tokens.css";
 @import "./theme.css";
 
-@keyframes dt-caret {
+@keyframes bis-caret {
   0%, 45% { opacity: 1; }
   55%, 100% { opacity: 0; }
 }
-@keyframes dt-sweep {
+@keyframes bis-sweep {
   from { background-position: 150% 0; }
   to { background-position: -50% 0; }
 }
-@keyframes dt-spin {
+@keyframes bis-spin {
   to { transform: rotate(360deg); }
 }
-@keyframes dt-breathe {
+@keyframes bis-breathe {
   0%, 100% { opacity: 0.45; }
   50% { opacity: 1; }
 }
 
 /* Live text sweep for in-progress labels (pencil passes across ink). */
-.dt-live-text {
-  background: linear-gradient(90deg, var(--dt-ink-2) 0%, var(--dt-ink-2) 40%, var(--dt-ink) 50%, var(--dt-ink-2) 60%, var(--dt-ink-2) 100%);
+.bis-live-text {
+  background: linear-gradient(90deg, var(--bis-ink-2) 0%, var(--bis-ink-2) 40%, var(--bis-ink) 50%, var(--bis-ink-2) 60%, var(--bis-ink-2) 100%);
   background-size: 250% 100%;
   -webkit-background-clip: text;
   background-clip: text;
   color: transparent;
-  animation: dt-sweep 1.8s linear infinite;
+  animation: bis-sweep 1.8s linear infinite;
 }
 
 @media (prefers-reduced-motion: reduce) {
-  .dt-live-text {
+  .bis-live-text {
     animation: none;
-    color: var(--dt-ink-2);
+    color: var(--bis-ink-2);
     background: none;
   }
 }

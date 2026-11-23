@@ -472,7 +472,7 @@ export function ToolChip(props: ToolChipProps) {
         "transition-[background-color,box-shadow] duration-[140ms] ease-out motion-reduce:duration-[120ms]",
         open ? "bg-raised shadow-1" : "bg-surface",
         // The focus ring is drawn on the chip's outer edge (the face is clipped by the morph), and appears instantly.
-        "has-[>[data-chip-face]:focus-visible]:[box-shadow:var(--dt-focus)] has-[>[data-chip-face]:focus-visible]:transition-[background-color]",
+        "has-[>[data-chip-face]:focus-visible]:[box-shadow:var(--bis-focus)] has-[>[data-chip-face]:focus-visible]:transition-[background-color]",
         className,
       )}
     >
@@ -482,10 +482,10 @@ export function ToolChip(props: ToolChipProps) {
         className={cn(
           "pointer-events-none absolute inset-0 z-10 rounded-[inherit] transition-[box-shadow] duration-[240ms] ease-out",
           pending && !open
-            ? "shadow-[inset_0_0_0_1px_var(--dt-rule)]"
+            ? "shadow-[inset_0_0_0_1px_var(--bis-rule)]"
             : open
-              ? "shadow-[inset_0_0_0_1px_var(--dt-hairline)]"
-              : "shadow-[inset_0_0_0_1px_var(--dt-hairline)] group-hover/chip:shadow-[inset_0_0_0_1px_var(--dt-rule)]",
+              ? "shadow-[inset_0_0_0_1px_var(--bis-hairline)]"
+              : "shadow-[inset_0_0_0_1px_var(--bis-hairline)] group-hover/chip:shadow-[inset_0_0_0_1px_var(--bis-rule)]",
         )}
       />
       <motion.button
@@ -718,7 +718,7 @@ function ChipDetail({ kind, status, target, args, output, error, onCopy }: ToolC
   const label = "font-mono text-[10.5px] uppercase tracking-[0.06em] text-muted";
 
   return (
-    <div className="grid gap-3 px-2.5 pb-2.5 pt-2 [box-shadow:inset_0_1px_0_var(--dt-hairline)]">
+    <div className="grid gap-3 px-2.5 pb-2.5 pt-2 [box-shadow:inset_0_1px_0_var(--bis-hairline)]">
       {(entries.length > 0 || showFullTarget) && (
         <section>
           <h4 className={cn(label, "mb-1.5")}>Input</h4>
@@ -763,7 +763,7 @@ function ChipDetail({ kind, status, target, args, output, error, onCopy }: ToolC
               </button>
             )}
           </div>
-          <div className="mt-1 overflow-hidden rounded-sm bg-sunken px-2 py-1.5 font-mono text-2xs leading-[18px] shadow-[inset_0_0_0_1px_var(--dt-hairline)]">
+          <div className="mt-1 overflow-hidden rounded-sm bg-sunken px-2 py-1.5 font-mono text-2xs leading-[18px] shadow-[inset_0_0_0_1px_var(--bis-hairline)]">
             {hidden > 0 && kind === "command" && <MoreLines n={hidden} onClick={() => setAll(true)} where="earlier" />}
             {visible.length === 0 && pending ? (
               <span className="text-muted">Waiting for output…</span>
@@ -981,7 +981,7 @@ export function ToolChipGroup({ children, open: openProp, defaultOpen = false, o
             aria-controls={bodyId}
             aria-label={headLabel}
             onClick={() => setOpen(!open)}
-            className="flex min-w-0 items-center gap-2 text-left outline-none after:absolute after:inset-0 after:rounded-sm focus-visible:after:[box-shadow:var(--dt-focus)]"
+            className="flex min-w-0 items-center gap-2 text-left outline-none after:absolute after:inset-0 after:rounded-sm focus-visible:after:[box-shadow:var(--bis-focus)]"
           >
             <span aria-hidden className="relative grid size-4 shrink-0 place-items-center">
               {running && !open ? (
@@ -1185,7 +1185,7 @@ function ToolChipRuler({
               animate={{ opacity: 1 }}
               exit={{ opacity: 0 }}
               transition={m.fade({ duration: 0.1 })}
-              className="group/tick flex h-full w-1 items-center justify-center rounded-[1px] outline-none focus-visible:[box-shadow:var(--dt-focus)]"
+              className="group/tick flex h-full w-1 items-center justify-center rounded-[1px] outline-none focus-visible:[box-shadow:var(--bis-focus)]"
             >
               <motion.span
                 aria-hidden

@@ -1,6 +1,6 @@
 import { expect, test } from "@playwright/test";
 
-test("unknown paths return a real 404 with the Detent not-found page", async ({ page }) => {
+test("unknown paths return a real 404 with the Biscotti UI not-found page", async ({ page }) => {
   const errors: string[] = [];
   page.on("pageerror", (e) => errors.push(e.message));
   page.on("console", (m) => {
@@ -21,6 +21,6 @@ test("unknown paths return a real 404 with the Detent not-found page", async ({ 
   const nav = page.getByRole("navigation", { name: "Where to go instead" });
   await nav.getByRole("link", { name: /Components/ }).click();
   await expect(page).toHaveURL(/\/components\/$/);
-  await expect(page.getByRole("heading", { level: 1, name: /components, all live/i })).toBeVisible();
+  await expect(page.getByRole("heading", { level: 1, name: "Components", exact: true })).toBeVisible();
   expect(errors).toEqual([]);
 });

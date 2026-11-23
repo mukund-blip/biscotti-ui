@@ -13,7 +13,7 @@ export const entry: CatalogEntry = {
   scale: "l",
   Demo: WorkflowStepperDemo,
   Preview: () => <WorkflowStepperDemo compact />,
-  usage: `import { WorkflowStepper } from "@detent/ui";
+  usage: `import { WorkflowStepper } from "@biscotti/ui";
 
 // Dependency graph, status driven by your run
 <WorkflowStepper

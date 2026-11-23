@@ -411,7 +411,7 @@ export function WorkflowStepper({
       </Panel>
 
       {wizard && (
-        <footer className="flex items-center gap-2 px-4 py-3 [box-shadow:inset_0_1px_0_var(--dt-hairline)]">
+        <footer className="flex items-center gap-2 px-4 py-3 [box-shadow:inset_0_1px_0_var(--bis-hairline)]">
           {finished ? (
             <button
               type="button"
@@ -474,11 +474,11 @@ function Edge({ d, from, to }: { d: string; from: WorkflowStepState; to: Workflo
   const m = useMotionTokens();
   const blocked = to === "blocked" || from === "failed" || from === "blocked";
   const kind = blocked ? "blocked" : to === "active" ? "live" : to === "done" ? "done" : to === "failed" ? "failed" : to === "skipped" ? "done" : "idle";
-  const color = kind === "live" ? "var(--dt-pencil)" : kind === "failed" ? "var(--dt-err)" : "var(--dt-muted)";
+  const color = kind === "live" ? "var(--bis-pencil)" : kind === "failed" ? "var(--bis-err)" : "var(--bis-muted)";
   const filled = kind === "live" || kind === "done" || kind === "failed";
   return (
     <g fill="none" strokeLinecap="round">
-      <path d={d} stroke={blocked ? "var(--dt-edge)" : "var(--dt-rule)"} strokeWidth={1.25} strokeDasharray={blocked ? "1.5 4" : undefined} />
+      <path d={d} stroke={blocked ? "var(--bis-edge)" : "var(--bis-rule)"} strokeWidth={1.25} strokeDasharray={blocked ? "1.5 4" : undefined} />
       <motion.path
         d={d}
         strokeWidth={1.5}
@@ -564,10 +564,10 @@ function StepNode({
           <motion.span
             layoutId={ringId}
             transition={m.move(spring.glide)}
-            className="absolute inset-[3px] rounded-full shadow-[inset_0_0_0_1.25px_var(--dt-ink)]"
+            className="absolute inset-[3px] rounded-full shadow-[inset_0_0_0_1.25px_var(--bis-ink)]"
           />
         )}
-        {!selected && !disabled && <span className="absolute inset-[3px] rounded-full opacity-0 shadow-[inset_0_0_0_1px_var(--dt-rule)] group-hover:opacity-100" />}
+        {!selected && !disabled && <span className="absolute inset-[3px] rounded-full opacity-0 shadow-[inset_0_0_0_1px_var(--bis-rule)] group-hover:opacity-100" />}
         <NodeMark state={s} />
       </span>
       <span
@@ -607,11 +607,11 @@ function NodeMark({ state }: { state: WorkflowStepState }) {
         transition={m.reduced ? { duration: 0.12 } : { scale: state === "done" ? spring.latch : spring.control, opacity: { duration: 0.1 } }}
         className={cn(
           "relative block rounded-full",
-          state === "active" && "size-[9px] bg-pencil shadow-[0_0_0_3px_var(--dt-pencil-soft)]",
+          state === "active" && "size-[9px] bg-pencil shadow-[0_0_0_3px_var(--bis-pencil-soft)]",
           state === "done" && "size-[7px] bg-ink-2",
-          state === "failed" && "size-[9px] bg-err shadow-[0_0_0_3px_var(--dt-err-soft)]",
-          state === "pending" && "size-[7px] shadow-[inset_0_0_0_1.25px_var(--dt-faint)]",
-          state === "blocked" && "size-[7px] shadow-[inset_0_0_0_1.25px_var(--dt-edge)]",
+          state === "failed" && "size-[9px] bg-err shadow-[0_0_0_3px_var(--bis-err-soft)]",
+          state === "pending" && "size-[7px] shadow-[inset_0_0_0_1.25px_var(--bis-faint)]",
+          state === "blocked" && "size-[7px] shadow-[inset_0_0_0_1.25px_var(--bis-edge)]",
           state === "skipped" && "h-px w-[7px] rounded-none bg-faint",
         )}
       >
@@ -644,7 +644,7 @@ function Panel({ id, labelledBy, dir, reduced, panelKey, children }: { id: strin
       initial={false}
       animate={{ height: h }}
       transition={reduced ? { duration: 0 } : spring.layout}
-      className="relative overflow-hidden bg-surface [box-shadow:inset_0_1px_0_var(--dt-hairline)]"
+      className="relative overflow-hidden bg-surface [box-shadow:inset_0_1px_0_var(--bis-hairline)]"
     >
       <div ref={inner} className="relative">
         <AnimatePresence initial={false} mode="popLayout" custom={d}>
@@ -694,7 +694,7 @@ function StepDetail({ p, g, wizard, onRetry, onSelect }: { p: Placed; g: ReturnT
         <Field label="Owner">
           {step.owner ? (
             <span className="flex items-center gap-1.5 text-ink-2">
-              <span aria-hidden className="grid size-[18px] place-items-center rounded-full bg-sunken font-mono text-[9px] text-ink-2 shadow-[inset_0_0_0_1px_var(--dt-hairline)]">
+              <span aria-hidden className="grid size-[18px] place-items-center rounded-full bg-sunken font-mono text-[9px] text-ink-2 shadow-[inset_0_0_0_1px_var(--bis-hairline)]">
                 {initials(step.owner)}
               </span>
               {step.owner}
@@ -717,7 +717,7 @@ function StepDetail({ p, g, wizard, onRetry, onSelect }: { p: Placed; g: ReturnT
                     type="button"
                     onClick={() => onSelect(d)}
                     className={cn(
-                      "focus-ring flex h-5 items-center gap-1 rounded-xs px-1.5 text-xs shadow-[inset_0_0_0_1px_var(--dt-hairline)] hover:bg-sunken hover:text-ink",
+                      "focus-ring flex h-5 items-center gap-1 rounded-xs px-1.5 text-xs shadow-[inset_0_0_0_1px_var(--bis-hairline)] hover:bg-sunken hover:text-ink",
                       q.state === "failed" ? "text-err" : "text-ink-2",
                     )}
                   >
@@ -739,7 +739,7 @@ function StepDetail({ p, g, wizard, onRetry, onSelect }: { p: Placed; g: ReturnT
             <button
               type="button"
               onClick={() => onRetry(step.id)}
-              className="focus-ring flex h-7 shrink-0 items-center gap-1.5 rounded-sm bg-raised px-2.5 text-sm text-ink shadow-[inset_0_0_0_1px_var(--dt-edge)] transition-transform duration-[90ms] hover:bg-sunken active:translate-y-px"
+              className="focus-ring flex h-7 shrink-0 items-center gap-1.5 rounded-sm bg-raised px-2.5 text-sm text-ink shadow-[inset_0_0_0_1px_var(--bis-edge)] transition-transform duration-[90ms] hover:bg-sunken active:translate-y-px"
             >
               <Icon name="refresh" size={13} />
               Retry step

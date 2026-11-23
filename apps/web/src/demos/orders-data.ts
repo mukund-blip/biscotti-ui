@@ -1,4 +1,4 @@
-import type { DataTableStatusTone } from "@detent/ui/components/data-table/data-table";
+import type { DataTableStatusTone } from "@biscotti/ui/components/data-table/data-table";
 
 export const orderStatuses = ["Packed", "In transit", "Shipped", "Awaiting stock"] as const;
 export type OrderStatus = (typeof orderStatuses)[number];

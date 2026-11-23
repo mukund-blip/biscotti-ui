@@ -12,7 +12,7 @@ export const entry: CatalogEntry = {
   scale: "m",
   Demo: MentionPickerDemo,
   Preview: MentionPickerPreview,
-  usage: `import { MentionInput } from "@detent/ui";
+  usage: `import { MentionInput } from "@biscotti/ui";
 
 <MentionInput
   aria-label="Note to Scout"

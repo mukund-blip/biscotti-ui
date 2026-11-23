@@ -2,8 +2,8 @@
 
 import { Dialog } from "@base-ui/react/dialog";
 import { useEffect, useMemo, useRef, useState } from "react";
-import { Icon, PrecisionToggle } from "@detent/ui";
-import { DataTable, type DataTableColumn, type DataTableDensity, type DataTableSort } from "@detent/ui/components/data-table/data-table";
+import { Icon, PrecisionToggle } from "@biscotti/ui";
+import { DataTable, type DataTableColumn, type DataTableDensity, type DataTableSort } from "@biscotti/ui/components/data-table/data-table";
 import { ControlButton, ControlSegment, Controls, DemoFrame, Readout, Stage } from "@/components/demo-kit";
 import { formatOrderTime, orderClock, orderMoney, orderNumber, orderStatuses, orderStatusTone, orderUnitPrice, ostraOrders, type OstraOrder } from "./orders-data";
 
@@ -144,10 +144,10 @@ export function DataTableDemo() {
       />
       <Dialog.Root open={detailsOpen} onOpenChange={setDetailsOpen}>
         <Dialog.Portal>
-          <Dialog.Backdrop className="fixed inset-0 z-40 bg-[var(--dt-scrim)] transition-opacity duration-(--dt-dur-fade) data-[starting-style]:opacity-0 data-[ending-style]:opacity-0" />
+          <Dialog.Backdrop className="fixed inset-0 z-40 bg-[var(--bis-scrim)] transition-opacity duration-(--bis-dur-fade) data-[starting-style]:opacity-0 data-[ending-style]:opacity-0" />
           <Dialog.Popup
             finalFocus={detailTrigger}
-            className="fixed left-1/2 top-1/2 z-50 w-88 max-w-[calc(100vw-2rem)] -translate-1/2 rounded-lg border border-hairline bg-raised p-5 text-ink shadow-3 transition-opacity duration-(--dt-dur-fade) data-[starting-style]:opacity-0 data-[ending-style]:opacity-0"
+            className="fixed left-1/2 top-1/2 z-50 w-88 max-w-[calc(100vw-2rem)] -translate-1/2 rounded-lg border border-hairline bg-raised p-5 text-ink shadow-3 transition-opacity duration-(--bis-dur-fade) data-[starting-style]:opacity-0 data-[ending-style]:opacity-0"
           >
             {opened && <>
               <div className="flex items-start justify-between gap-3">

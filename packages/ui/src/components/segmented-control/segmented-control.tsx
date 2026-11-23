@@ -220,7 +220,7 @@ export function SegmentedControl({
           if (v) setFocused(v);
         }}
         className={cn(
-          "relative isolate items-stretch rounded-sm bg-sunken p-0.5 shadow-[inset_0_0_0_1px_var(--dt-hairline),var(--dt-press)]",
+          "relative isolate items-stretch rounded-sm bg-sunken p-0.5 shadow-[inset_0_0_0_1px_var(--bis-hairline),var(--bis-press)]",
           fullWidth ? "flex w-full" : "inline-flex",
           disabled && "opacity-45",
           className,
@@ -242,7 +242,7 @@ export function SegmentedControl({
           aria-hidden
           className={cn(
             "pointer-events-none absolute inset-y-0.5 left-0 z-[1] rounded-[3px] bg-raised",
-            "shadow-[0_0_0_0.5px_var(--dt-thumb-edge),0_1px_2px_rgb(0_0_0/0.08),inset_0_1px_0_var(--dt-highlight)]",
+            "shadow-[0_0_0_0.5px_var(--bis-thumb-edge),0_1px_2px_rgb(0_0_0/0.08),inset_0_1px_0_var(--bis-highlight)]",
             ready && value !== undefined ? "opacity-100" : "opacity-0",
           )}
           style={{ x: left, width }}

@@ -1,5 +1,5 @@
 // Builds a shadcn-compatible registry into apps/web/public/r/.
-// Every file keeps its path under components/detent/, so relative imports survive.
+// Every file keeps its path under components/biscotti/, so relative imports survive.
 import { readdirSync, readFileSync, writeFileSync, mkdirSync, statSync, existsSync } from "node:fs";
 import { join, relative, resolve } from "node:path";
 
@@ -8,10 +8,10 @@ const SRC = join(ROOT, "packages/ui/src");
 const OUT = resolve(ROOT, process.env.REGISTRY_OUTPUT_DIR ?? "apps/web/public/r");
 const BASE = (process.env.REGISTRY_URL ?? process.env.NEXT_PUBLIC_REGISTRY_URL ?? "http://localhost:3410").replace(/\/$/, "");
 // Keep in sync with apps/web/src/site.ts.
-const REPO = (process.env.NEXT_PUBLIC_REPO_URL ?? "https://github.com/mukund-blip/detent").replace(/\/$/, "");
+const REPO = (process.env.NEXT_PUBLIC_REPO_URL ?? "https://github.com/mukund-blip/biscotti-ui").replace(/\/$/, "");
 const BRANCH = process.env.NEXT_PUBLIC_REPO_BRANCH ?? "main";
 /** One quiet line at the top of each copied component, pointing back to its source. No licence terms implied. */
-const origin = (slug, title) => `// ${title} · Detent — ${REPO.replace(/^https?:\/\//, "")}/tree/${BRANCH}/packages/ui/src/components/${slug}\n`;
+const origin = (slug, title) => `// ${title} · Biscotti UI — ${REPO.replace(/^https?:\/\//, "")}/tree/${BRANCH}/packages/ui/src/components/${slug}\n`;
 mkdirSync(OUT, { recursive: true });
 
 const walk = (d) => readdirSync(d).flatMap((f) => (statSync(join(d, f)).isDirectory() ? walk(join(d, f)) : [join(d, f)]));
@@ -19,7 +19,7 @@ const NPM = ["motion", "@base-ui/react"];
 const fileType = (p) => (p.endsWith(".css") ? "registry:style" : p.includes("/components/") ? "registry:component" : "registry:lib");
 const toFile = (abs) => {
   const rel = relative(SRC, abs);
-  return { path: `detent/${rel}`, type: fileType(abs), target: `components/detent/${rel}`, content: readFileSync(abs, "utf8") };
+  return { path: `biscotti/${rel}`, type: fileType(abs), target: `components/biscotti/${rel}`, content: readFileSync(abs, "utf8") };
 };
 const depsOf = (files) => [...new Set(files.flatMap((f) => NPM.filter((n) => f.content.includes(`from "${n}`))))];
 
@@ -27,14 +27,14 @@ const depsOf = (files) => [...new Set(files.flatMap((f) => NPM.filter((n) => f.c
 const foundationFiles = ["styles", "motion", "sound", "lib", "icons"].flatMap((d) => walk(join(SRC, d))).filter((f) => !/\.test\./.test(f)).map(toFile);
 const foundation = {
   $schema: "https://ui.shadcn.com/schema/registry-item.json",
-  name: "detent-foundation",
+  name: "biscotti-foundation",
   type: "registry:lib",
-  title: "Detent foundation",
+  title: "Biscotti UI foundation",
   description: "Tokens (CSS variables + Tailwind v4 theme), motion springs, the synthesised sound engine, utilities, primitives and icons.",
   dependencies: depsOf(foundationFiles),
   files: foundationFiles,
 };
-writeFileSync(join(OUT, "detent-foundation.json"), JSON.stringify(foundation, null, 2));
+writeFileSync(join(OUT, "biscotti-foundation.json"), JSON.stringify(foundation, null, 2));
 
 // Catalog metadata (names/descriptions) from catalog sources, best-effort.
 const catDir = join(ROOT, "apps/web/src/catalog");
@@ -53,8 +53,10 @@ for (const slug of readdirSync(join(SRC, "components"))) {
   if (!files.some((f) => f.content.length > 40 && !/^export \{\};\s*$/.test(f.content))) continue; // empty slot
   const crossDeps = [...new Set(files.flatMap((f) => [...f.content.matchAll(/from "\.\.\/([a-z-]+)(?:\/[^"]*)?"/g)].map((m) => m[1])))].filter((d) => d !== slug && existsSync(join(SRC, "components", d)));
   const m = meta(slug);
-  const main = files.find((f) => f.path === `detent/components/${slug}/${slug}.tsx`);
-  if (main) main.content = origin(slug, m.title ?? slug) + main.content;
+  // Derive the prefix from toFile so the origin comment can't silently drop if install paths change.
+  const main = files.find((f) => f.path === toFile(join(dir, `${slug}.tsx`)).path);
+  if (!main) throw new Error(`registry: ${slug} has no ${slug}.tsx to carry the origin comment`);
+  main.content = origin(slug, m.title ?? slug) + main.content;
   const item = {
     $schema: "https://ui.shadcn.com/schema/registry-item.json",
     name: slug,
@@ -62,7 +64,7 @@ for (const slug of readdirSync(join(SRC, "components"))) {
     title: m.title ?? slug,
     description: m.description ?? "",
     dependencies: depsOf(files),
-    registryDependencies: [`${BASE}/r/detent-foundation.json`, ...crossDeps.map((d) => `${BASE}/r/${d}.json`)],
+    registryDependencies: [`${BASE}/r/biscotti-foundation.json`, ...crossDeps.map((d) => `${BASE}/r/${d}.json`)],
     files,
   };
   writeFileSync(join(OUT, `${slug}.json`), JSON.stringify(item, null, 2));
@@ -70,6 +72,6 @@ for (const slug of readdirSync(join(SRC, "components"))) {
 }
 writeFileSync(
   join(OUT, "registry.json"),
-  JSON.stringify({ $schema: "https://ui.shadcn.com/schema/registry.json", name: "detent", homepage: BASE, items }, null, 2),
+  JSON.stringify({ $schema: "https://ui.shadcn.com/schema/registry.json", name: "biscotti", homepage: BASE, items }, null, 2),
 );
 console.log(`registry: ${items.length} items → ${relative(ROOT, OUT)} (base ${BASE})`);

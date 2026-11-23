@@ -23,7 +23,7 @@ function Swatches({ theme }: { theme: "light" | "dark" }) {
             <div className="flex flex-wrap gap-1.5">
               {g.tokens.map((t) => (
                 <div key={t} className="w-[76px]">
-                  <div className="h-10 rounded-sm shadow-[inset_0_0_0_1px_var(--dt-hairline)]" style={{ background: `var(--dt-${t})` }} />
+                  <div className="h-10 rounded-sm shadow-[inset_0_0_0_1px_var(--bis-hairline)]" style={{ background: `var(--bis-${t})` }} />
                   <p className="mt-1 truncate font-mono text-[10.5px] text-muted">{t}</p>
                 </div>
               ))}
@@ -69,7 +69,7 @@ export default function Foundations() {
         <p className="mb-3 font-mono text-2xs uppercase tracking-[0.08em] text-muted">Foundations</p>
         <h1 className="max-w-[820px] text-[clamp(34px,5.5vw,56px)] font-semibold leading-[1] tracking-[-0.04em]">Pencil, then ink.</h1>
         <p className="mt-5 max-w-[640px] text-md text-ink-2">
-          One rule explains every colour in Detent: anything provisional — streaming, proposed, pending, live — is drawn in pencil. When it becomes true, it’s inked. Everything else is paper, graphite and hairlines.
+          One rule explains every colour in Biscotti UI: anything provisional — streaming, proposed, pending, live — is drawn in pencil. When it becomes true, it’s inked. Everything else is paper, graphite and hairlines.
         </p>
       </header>
 

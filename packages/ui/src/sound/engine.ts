@@ -1,5 +1,5 @@
 /**
- * Detent sound engine — every voice is synthesised with the Web Audio API.
+ * Biscotti UI sound engine — every voice is synthesised with the Web Audio API.
  *
  *   voice envelopes → master gain (volume) → limiter → destination
  *
@@ -40,7 +40,7 @@ export interface SoundPrefs {
   disabledPermanently: boolean;
 }
 
-const STORAGE_KEY = "detent.sound.v1";
+const STORAGE_KEY = "biscotti.sound.v1";
 const DEFAULT_PREFS: SoundPrefs = { enabled: false, volume: 0.6, disabledPermanently: false };
 
 // A‑pentatonic reference pitches

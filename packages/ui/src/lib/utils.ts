@@ -38,4 +38,4 @@ export const fmt = {
 export const isMac = () => typeof navigator !== "undefined" && /Mac|iPhone|iPad/.test(navigator.platform || navigator.userAgent);
 
 let idCounter = 0;
-export const uid = (p = "dt") => `${p}-${++idCounter}`;
+export const uid = (p = "bis") => `${p}-${++idCounter}`;

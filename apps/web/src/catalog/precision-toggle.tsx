@@ -13,7 +13,7 @@ export const entry: CatalogEntry = {
   scale: "s",
   Demo: PrecisionToggleDemo,
   Preview: PrecisionTogglePreview,
-  usage: `import { PrecisionToggle } from "@detent/ui";
+  usage: `import { PrecisionToggle } from "@biscotti/ui";
 
 <PrecisionToggle
   label="Beta firmware channel"

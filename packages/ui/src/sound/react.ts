@@ -17,7 +17,7 @@ export function useSoundPrefs() {
 
 const MuteContext = createContext(false);
 
-/** Silence every Detent component inside this subtree (e.g. a host app's own sound system). */
+/** Silence every Biscotti UI component inside this subtree (e.g. a host app's own sound system). */
 export function SoundScope({ muted, children }: { muted: boolean; children: ReactNode }) {
   return createElement(MuteContext.Provider, { value: muted }, children);
 }

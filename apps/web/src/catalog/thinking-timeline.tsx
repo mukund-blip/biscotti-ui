@@ -13,7 +13,7 @@ export const entry: CatalogEntry = {
   scale: "m",
   Demo: ThinkingTimelineDemo,
   Preview: () => <ThinkingTimelineDemo compact />,
-  usage: `import { ThinkingTimeline } from "@detent/ui";
+  usage: `import { ThinkingTimeline } from "@biscotti/ui";
 
 <ThinkingTimeline
   state={run.status}           // "running" | "done" | "error" | ...

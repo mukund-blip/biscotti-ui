@@ -4,13 +4,13 @@ import { writeFileSync } from "node:fs";
 import { resolve } from "node:path";
 
 const root = resolve(import.meta.dirname, "..");
-const url = new URL(process.env.PAGES_SITE_URL ?? "https://mukund-blip.github.io/detent");
+const url = new URL(process.env.PAGES_SITE_URL ?? "https://mukund-blip.github.io/biscotti-ui");
 if (!["http:", "https:"].includes(url.protocol) || url.search || url.hash || url.username || url.password) {
   throw new Error("PAGES_SITE_URL must be an HTTP(S) origin and optional base path, without credentials, query or fragment.");
 }
 const basePath = url.pathname.replace(/\/$/, "");
 const siteUrl = `${url.origin}${basePath}`;
-const env = { ...process.env, DETENT_STATIC_EXPORT: "1", NEXT_PUBLIC_BASE_PATH: basePath,
+const env = { ...process.env, BISCOTTI_STATIC_EXPORT: "1", NEXT_PUBLIC_BASE_PATH: basePath,
   NEXT_PUBLIC_SITE_URL: siteUrl, NEXT_PUBLIC_REGISTRY_URL: siteUrl, REGISTRY_URL: siteUrl };
 function run(command, args, extraEnv = {}) {
   const result = spawnSync(command, args, { cwd: root, env: { ...env, ...extraEnv }, stdio: "inherit" });

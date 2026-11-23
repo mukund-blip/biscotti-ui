@@ -1,7 +1,7 @@
 "use client";
 
 /**
- * Ostra Ops — the integrated demo. Every panel is a Detent component and they drive each other:
+ * Ostra Ops — the integrated demo. Every panel is a Biscotti UI component and they drive each other:
  * the palette filters the table, Scout's approval spawns an activity task, bulk actions are undoable.
  */
 import { useCallback, useEffect, useMemo, useRef, useState, type ReactNode } from "react";
@@ -22,8 +22,8 @@ import {
   type FilterBuilderCondition,
   type FilterBuilderField,
   type MentionItem,
-} from "@detent/ui";
-import { DataTable, type DataTableColumn, type DataTableSort } from "@detent/ui/components/data-table/data-table";
+} from "@biscotti/ui";
+import { DataTable, type DataTableColumn, type DataTableSort } from "@biscotti/ui/components/data-table/data-table";
 import { formatOrderTime, orderClock, orderMoney, orderStatuses, orderStatusTone, ostraOrders, type OrderStatus, type OstraOrder } from "@/demos/orders-data";
 import { ostraAnnotations, preorderInsight, preorderSeries } from "@/demos/insight-card-demo";
 import { scoutQuestion } from "@/demos/streaming-response-data";
@@ -265,13 +265,13 @@ export function Workbench() {
           <p className="font-mono text-2xs uppercase tracking-[0.08em] text-muted">Workbench · Ostra Ops</p>
           <h1 className="mt-2 text-[clamp(28px,3.6vw,40px)] font-semibold leading-[1.05] tracking-[-0.03em]">The encoder shortage</h1>
           <p className="mt-2 max-w-[640px] text-base leading-[22px] text-ink-2">
-            {counts.awaiting} retailer orders ({counts.awaitingUnits} units) are waiting on PEC11R encoders. Ask Scout for a plan, approve the order, and ship what you can. Every panel is a Detent component, and they drive each other.
+            {counts.awaiting} retailer orders ({counts.awaitingUnits} units) are waiting on PEC11R encoders. Ask Scout for a plan, approve the order, and ship what you can. Every panel is a Biscotti UI component, and they drive each other.
           </p>
         </div>
         <button
           type="button"
           onClick={() => setPaletteOpen(true)}
-          className="focus-ring inline-flex h-9 items-center gap-2.5 rounded-sm bg-raised pl-3 pr-1.5 text-sm text-ink-2 shadow-[inset_0_0_0_1px_var(--dt-edge)] hover:bg-surface hover:text-ink"
+          className="focus-ring inline-flex h-9 items-center gap-2.5 rounded-sm bg-raised pl-3 pr-1.5 text-sm text-ink-2 shadow-[inset_0_0_0_1px_var(--bis-edge)] hover:bg-surface hover:text-ink"
         >
           <Icon name="command" size={14} />
           Commands

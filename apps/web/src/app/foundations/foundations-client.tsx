@@ -1,7 +1,7 @@
 "use client";
 import { motion, useAnimate } from "motion/react";
 import { useMemo, useState } from "react";
-import { Icon, iconNames, cn, sound, spring, useSoundPrefs, type SoundName } from "@detent/ui";
+import { Icon, iconNames, cn, sound, spring, useSoundPrefs, type SoundName } from "@biscotti/ui";
 
 /* ── Springs: simulate x'' = −k(x−1) − c x' (mass m) and plot ───────── */
 function simulate({ stiffness, damping, mass }: { stiffness: number; damping: number; mass: number }, ms = 600) {
@@ -40,10 +40,10 @@ function SpringRow({ name, use, s }: (typeof springRows)[number]) {
         <p className="text-xs text-muted">{use}</p>
       </div>
       <svg width={W} height={H} viewBox={`0 0 ${W} ${H}`} aria-label={`${name} spring curve`} className="overflow-visible">
-        <line x1={0} x2={W} y1={H - (1 / max) * (H - 6)} y2={H - (1 / max) * (H - 6)} stroke="var(--dt-hairline)" strokeDasharray="2 3" />
-        <path d={d} fill="none" stroke={name === "latch" ? "var(--dt-pencil)" : "var(--dt-ink)"} strokeWidth="1.5" />
+        <line x1={0} x2={W} y1={H - (1 / max) * (H - 6)} y2={H - (1 / max) * (H - 6)} stroke="var(--bis-hairline)" strokeDasharray="2 3" />
+        <path d={d} fill="none" stroke={name === "latch" ? "var(--bis-pencil)" : "var(--bis-ink)"} strokeWidth="1.5" />
       </svg>
-      <div className="relative h-8 rounded-sm bg-sunken shadow-[inset_0_0_0_1px_var(--dt-hairline)]" ref={scope}>
+      <div className="relative h-8 rounded-sm bg-sunken shadow-[inset_0_0_0_1px_var(--bis-hairline)]" ref={scope}>
         <span data-dot className="absolute left-1 top-1 size-6 rounded-[3px] bg-thumb shadow-1" />
       </div>
       <div className="flex items-center gap-3">
@@ -55,7 +55,7 @@ function SpringRow({ name, use, s }: (typeof springRows)[number]) {
             await animate("[data-dot]", { x: w }, s);
             await animate("[data-dot]", { x: 0 }, { ...s });
           }}
-          className="focus-ring h-7 rounded-sm px-2.5 text-xs text-ink-2 shadow-[inset_0_0_0_1px_var(--dt-edge)] hover:bg-sunken hover:text-ink"
+          className="focus-ring h-7 rounded-sm px-2.5 text-xs text-ink-2 shadow-[inset_0_0_0_1px_var(--bis-edge)] hover:bg-sunken hover:text-ink"
         >
           Run
         </button>
@@ -70,7 +70,7 @@ export function Springs() {
 
 /* ── Sound board ───────────────────────────────────────────────────── */
 const voices: { name: SoundName; use: string }[] = [
-  { name: "tick", use: "Detents, steps" },
+  { name: "tick", use: "Notches, steps" },
   { name: "tap", use: "Button press" },
   { name: "latch", use: "Switch on, accept" },
   { name: "unlatch", use: "Switch off, undo" },
@@ -108,14 +108,14 @@ export function SoundBoard() {
             onKeyDown={(e) => { if (e.key === "Enter" || e.key === " ") { e.preventDefault(); sound.play(v.name); setLast(v.name); } }}
             className={cn(
               "focus-ring group flex items-center gap-3 rounded-md bg-raised p-3 text-left shadow-1 transition-[transform,box-shadow] duration-[90ms] active:translate-y-px active:shadow-press",
-              "shadow-[inset_0_0_0_1px_var(--dt-hairline)]",
+              "shadow-[inset_0_0_0_1px_var(--bis-hairline)]",
             )}
           >
             <span className="relative grid size-8 shrink-0 place-items-center rounded-sm bg-sunken">
               <Icon name="play" size={12} className="text-ink-2" />
               {last === v.name && (
                 <motion.span key={Date.now()} initial={{ opacity: 0.6, scale: 1 }} animate={{ opacity: 0, scale: 1.6 }} transition={{ duration: 0.4 }}
-                  className="absolute inset-0 rounded-sm shadow-[inset_0_0_0_1.5px_var(--dt-pencil)]" />
+                  className="absolute inset-0 rounded-sm shadow-[inset_0_0_0_1.5px_var(--bis-pencil)]" />
               )}
             </span>
             <span className="min-w-0">

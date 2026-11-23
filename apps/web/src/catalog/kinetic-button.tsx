@@ -13,7 +13,7 @@ export const entry: CatalogEntry = {
   scale: "s",
   Demo: KineticButtonDemo,
   Preview: KineticButtonPreview,
-  usage: `import { KineticButton, KineticButtonGroup } from "@detent/ui";
+  usage: `import { KineticButton, KineticButtonGroup } from "@biscotti/ui";
 
 <KineticButton
   icon="arrowDown"

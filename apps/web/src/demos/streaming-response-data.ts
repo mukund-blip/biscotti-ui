@@ -2,11 +2,11 @@
  * Shared by the paced browser demo and the scripted replay,
  * so both demos stream exactly the same answer with the same token timing.
  */
-import type { StreamingSource } from "@detent/ui";
+import type { StreamingSource } from "@biscotti/ui";
 
 export const scoutQuestion = "We're short on encoders for the OS-1 restock. Which supplier should we order from?";
 
-export const scoutAnswer = `Short answer: **order the PEC11R from Digi-Key this week** and plan around a nine-week lead time. It's the only option that keeps the March pre-order date without changing the firmware's detent table twice.[1]
+export const scoutAnswer = `Short answer: **order the PEC11R from Digi-Key this week** and plan around a nine-week lead time. It's the only option that keeps the March pre-order date without changing the firmware's click table twice.[1]
 
 Here's how the three quotes compare:
 
@@ -19,14 +19,14 @@ Here's how the three quotes compare:
 What to do next:
 
 1. Place the Digi-Key order for **1,200 units**, enough for the first two production runs.[2]
-2. Ask Ines to merge the debounce patch: the PEC11R has *24 detents* per turn, not 20.
+2. Ask Ines to merge the debounce patch: the PEC11R has *24 clicks* per turn, not 20.
 3. Keep the LCSC parts as a fallback only. Beta testers flagged a gritty feel on the clone.[3]
 
 The firmware change is small:
 
 \`\`\`ts
 // firmware/src/input/encoder.ts
-export const DETENTS = 24;
+export const CLICKS_PER_TURN = 24;
 const raw = debounce(adc.read(pin), 2);
 \`\`\`
 
@@ -35,7 +35,7 @@ If Digi-Key slips past week 10, move first shipments to \`14 April\` and tell re
 export const scoutSources: StreamingSource[] = [
   { n: 1, title: "PEC11R-4220F-S0024 — stock and lead time", domain: "digikey.com", url: "https://www.digikey.com/", quote: "Factory lead time 9 weeks. Non-cancellable and non-returnable once scheduled." },
   { n: 2, title: "OS-1 production plan, Q1", domain: "ops.ostra.studio", quote: "Run A: 600 units, mid-March. Run B: 600 units, early April. Same encoder BOM for both." },
-  { n: 3, title: "Beta forum — “Encoder feel on the B4 units”", domain: "forum.ostra.studio", quote: "The clone encoders feel gritty past the third detent. Not a dealbreaker, but you notice it on long sweeps." },
+  { n: 3, title: "Beta forum — “Encoder feel on the B4 units”", domain: "forum.ostra.studio", quote: "The clone encoders feel gritty past the third click. Not a dealbreaker, but you notice it on long sweeps." },
 ];
 
 export const scoutSuggestions = ["Draft the Digi-Key PO", "What if Digi-Key slips?", "Summarise for Mara"];

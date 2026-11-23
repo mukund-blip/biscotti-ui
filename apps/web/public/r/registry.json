@@ -1,12 +1,12 @@
 {
   "$schema": "https://ui.shadcn.com/schema/registry.json",
-  "name": "detent",
+  "name": "biscotti",
   "homepage": "http://localhost:3410",
   "items": [
     {
-      "name": "detent-foundation",
+      "name": "biscotti-foundation",
       "type": "registry:lib",
-      "title": "Detent foundation",
+      "title": "Biscotti UI foundation",
       "description": "Tokens (CSS variables + Tailwind v4 theme), motion springs, the synthesised sound engine, utilities, primitives and icons."
     },
     {
@@ -61,7 +61,7 @@
       "name": "interactive-slider",
       "type": "registry:ui",
       "title": "Interactive Slider",
-      "description": "A precision fader with a measuring ruler, magnetic detents and fine adjust."
+      "description": "A precision fader with a measuring ruler, magnetic notches and fine adjust."
     },
     {
       "name": "kinetic-button",

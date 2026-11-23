@@ -1,6 +1,6 @@
 "use client";
 import { useCallback, useEffect, useMemo, useRef, useState } from "react";
-import { Icon, cn, usePlay } from "@detent/ui";
+import { Icon, cn, usePlay } from "@biscotti/ui";
 
 export interface Cue<S> {
   at: number; // ms
@@ -153,7 +153,7 @@ export function ScriptBar({ script, className }: { script: Script; className?: s
       <button
         onClick={() => { play("select", { velocity: 0.4 }); setSpeed(speed === 1 ? 0.25 : speed === 0.25 ? 0.5 : speed === 0.5 ? 2 : 1); }}
         aria-label={`Playback speed ${speed}×`}
-        className="focus-ring tabular h-7 w-11 shrink-0 rounded-sm font-mono text-2xs text-ink-2 shadow-[inset_0_0_0_1px_var(--dt-hairline)] hover:text-ink"
+        className="focus-ring tabular h-7 w-11 shrink-0 rounded-sm font-mono text-2xs text-ink-2 shadow-[inset_0_0_0_1px_var(--bis-hairline)] hover:text-ink"
       >
         {speed}×
       </button>

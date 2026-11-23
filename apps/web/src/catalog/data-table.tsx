@@ -11,7 +11,7 @@ export const entry: CatalogEntry = {
   useCases: ["Retailer orders and fulfillment queues", "Reviewing and exporting selected records", "Monitoring live inventory or operational data"],
   scale: "xl",
   Demo: DataTableDemo,
-  usage: `import { DataTable, type DataTableColumn } from "@detent/ui";
+  usage: `import { DataTable, type DataTableColumn } from "@biscotti/ui";
 
 type Order = { id: string; retailer: string; units: number };
 const columns: DataTableColumn<Order>[] = [

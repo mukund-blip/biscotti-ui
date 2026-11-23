@@ -13,7 +13,7 @@ export const entry: CatalogEntry = {
   scale: "m",
   Demo: ToolChipDemo,
   Preview: () => <ToolChipDemo compact />,
-  usage: `import { ToolChip, ToolChipGroup } from "@detent/ui";
+  usage: `import { ToolChip, ToolChipGroup } from "@biscotti/ui";
 
 <ToolChipGroup defaultOpen>
   <ToolChip kind="read" target="firmware/src/input/encoder.ts" lines={[1, 184]} />

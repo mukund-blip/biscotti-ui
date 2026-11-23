@@ -214,8 +214,9 @@ export function DiffInspector({
       className={cn("overflow-hidden rounded-lg bg-raised shadow-2", className)}
     >
       {/* header */}
-      <header className="flex flex-wrap items-center gap-x-3 gap-y-2 px-4 pb-3 pt-3.5 [box-shadow:inset_0_-1px_0_var(--dt-hairline)]">
-        <div className="min-w-0 flex-1">
+      <header className="flex flex-wrap items-center gap-x-3 gap-y-2 px-4 pb-3 pt-3.5 [box-shadow:inset_0_-1px_0_var(--bis-hairline)]">
+        {/* A ~224 px preferred width lets the bulk actions wrap below on narrow cards rather than truncating the title. */}
+        <div className="min-w-0 flex-1 basis-56">
           <h3 id={`${uid}-title`} className="truncate text-base font-medium text-ink">{title}</h3>
           {path && <p className="truncate font-mono text-2xs text-muted">{path}</p>}
         </div>
@@ -226,7 +227,7 @@ export function DiffInspector({
               Applied {counts.accepted} · Rejected {counts.rejected}
             </motion.p>
           ) : (
-            <motion.div key="actions" initial={{ opacity: 0 }} animate={{ opacity: 1 }} exit={{ opacity: 0 }} transition={m.fade()} className="flex items-center gap-1.5">
+            <motion.div key="actions" initial={{ opacity: 0 }} animate={{ opacity: 1 }} exit={{ opacity: 0 }} transition={m.fade()} className="ml-auto flex shrink-0 items-center gap-1.5">
               <button type="button" onClick={() => bulk("rejected")}
                 className="focus-ring h-7 rounded-sm px-2.5 text-sm text-ink-2 hover:bg-sunken hover:text-ink">
                 Reject {counts.pending === total ? "all" : "rest"}
@@ -283,7 +284,7 @@ export function DiffInspector({
         ))}
       </div>
 
-      <footer className="flex items-center gap-3 px-4 py-2 text-2xs text-muted [box-shadow:inset_0_1px_0_var(--dt-hairline)]">
+      <footer className="flex items-center gap-3 px-4 py-2 text-2xs text-muted [box-shadow:inset_0_1px_0_var(--bis-hairline)]">
         <span className="flex items-center gap-1"><Kbd>J</Kbd><Kbd>K</Kbd> move</span>
         <span className="flex items-center gap-1"><Kbd>A</Kbd> accept</span>
         <span className="flex items-center gap-1"><Kbd>R</Kbd> reject</span>
@@ -320,7 +321,7 @@ function Hunk({ hunk, index, total, decision, focused, onFocus, onDecide, onKeyD
       onFocus={onFocus}
       onKeyDown={onKeyDown}
       aria-label={`Change ${index + 1} of ${total}${hunk.location ? `, ${hunk.location}` : ""}, ${decision}`}
-      className="group/hunk relative px-4 py-2 outline-none transition-colors duration-[90ms] focus-visible:bg-pencil-soft focus-visible:shadow-[inset_0_0_0_1px_var(--dt-pencil-line)]"
+      className="group/hunk relative px-4 py-2 outline-none transition-colors duration-[90ms] focus-visible:bg-pencil-soft focus-visible:shadow-[inset_0_0_0_1px_var(--bis-pencil-line)]"
     >
       {/* The signature rule: pencil with a gap while pending; the gap closes on accept. */}
       <span aria-hidden className="absolute bottom-2 left-[7px] top-2 w-[2px]">
@@ -328,8 +329,8 @@ function Hunk({ hunk, index, total, decision, focused, onFocus, onDecide, onKeyD
           // Accept: pencil → ink at the latch, then recede to a hairline ("finished work shrinks").
           const color =
             decision === "accepted"
-              ? m.reduced ? "var(--dt-rule)" : ["var(--dt-pencil)", "var(--dt-ink)", "var(--dt-ink)", "var(--dt-rule)"]
-              : decision === "rejected" ? "var(--dt-hairline)" : "var(--dt-pencil)";
+              ? m.reduced ? "var(--bis-rule)" : ["var(--bis-pencil)", "var(--bis-ink)", "var(--bis-ink)", "var(--bis-rule)"]
+              : decision === "rejected" ? "var(--bis-hairline)" : "var(--bis-pencil)";
           const colorT = m.reduced
             ? { duration: 0.12 }
             : decision === "accepted"
@@ -349,13 +350,14 @@ function Hunk({ hunk, index, total, decision, focused, onFocus, onDecide, onKeyD
         })()}
       </span>
 
-      <div className="mb-1 flex min-h-6 items-center gap-2">
+      {/* Wraps on narrow cards: the decision buttons move under the label instead of being clipped. */}
+      <div className="mb-1 flex min-h-6 flex-wrap items-center gap-x-2 gap-y-1">
         {hunk.location && <span className="font-mono text-2xs text-muted">{hunk.location}</span>}
         <span className={cn("font-mono text-2xs transition-colors duration-200",
           decision === "accepted" ? "text-ink-2" : decision === "rejected" ? "text-muted" : "text-pencil-ink")}>
           {decision === "pending" ? "proposed" : decision}
         </span>
-        <div className="ml-auto flex items-center gap-1">
+        <div className="ml-auto flex shrink-0 items-center gap-1">
           {pending ? (
             <>
               <HunkButton tab={focused} label={`Reject change ${index + 1}${hunk.location ? `, ${hunk.location}` : ""}`} onClick={() => onDecide("rejected")} icon="x">Reject</HunkButton>
@@ -401,14 +403,14 @@ function Hunk({ hunk, index, total, decision, focused, onFocus, onDecide, onKeyD
                       ? segs.map((s, si) => (
                           <Fragment key={si}>
                             {s.changed ? (
-                              <span className={cn(line.type === "add" ? "rounded-[2px] bg-ok-soft shadow-[0_1px_0_var(--dt-ok)]" : "line-through decoration-err decoration-1")}>{s.text}</span>
+                              <span className={cn(line.type === "add" ? "rounded-[2px] bg-ok-soft shadow-[0_1px_0_var(--bis-ok)]" : "line-through decoration-err decoration-1")}>{s.text}</span>
                             ) : (
                               s.text
                             )}
                           </Fragment>
                         ))
                       : marked
-                        ? <span className={cn(line.type === "add" ? "rounded-[2px] bg-ok-soft shadow-[0_1px_0_var(--dt-ok)]" : "line-through decoration-err decoration-1")}>{line.text}</span>
+                        ? <span className={cn(line.type === "add" ? "rounded-[2px] bg-ok-soft shadow-[0_1px_0_var(--bis-ok)]" : "line-through decoration-err decoration-1")}>{line.text}</span>
                         : line.text || "\u00a0"}
                   </div>
                 </motion.div>
@@ -445,10 +447,10 @@ function HunkButton({ children, onClick, icon, label, strong, quiet, tab }: { ch
       className={cn(
         "focus-ring flex h-6 items-center gap-1 rounded-sm px-2 font-sans text-xs transition-[background-color,color,transform] duration-[90ms] active:translate-y-px",
         strong
-          ? "bg-ink text-on-ink shadow-[inset_0_0_0_1px_var(--dt-ink)] hover:opacity-90"
+          ? "bg-ink text-on-ink shadow-[inset_0_0_0_1px_var(--bis-ink)] hover:opacity-90"
           : quiet
             ? "text-muted hover:bg-sunken hover:text-ink"
-            : "text-ink-2 shadow-[inset_0_0_0_1px_var(--dt-edge)] hover:bg-sunken hover:text-ink",
+            : "text-ink-2 shadow-[inset_0_0_0_1px_var(--bis-edge)] hover:bg-sunken hover:text-ink",
       )}
     >
       <Icon name={icon} size={12} />

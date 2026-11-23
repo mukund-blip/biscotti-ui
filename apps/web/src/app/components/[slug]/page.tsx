@@ -4,7 +4,7 @@ import type { Metadata } from "next";
 import { bySlug, catalog } from "@/catalog";
 import { StageShell } from "@/components/stage-shell";
 import { Code } from "@/components/code";
-import { Icon, Kbd } from "@detent/ui";
+import { Icon, Kbd } from "@biscotti/ui";
 import { canonicalMetadata, siteUrl, REGISTRY_IS_LOCAL, REGISTRY_URL, componentSourceUrl, originComment } from "@/site";
 
 export function generateStaticParams() {
@@ -20,7 +20,7 @@ export async function generateMetadata({ params }: { params: Promise<{ slug: str
     ...canonicalMetadata(`components/${slug}`),
     title: e.name,
     description: e.summary,
-    openGraph: { url: siteUrl(`components/${slug}`), title, description: e.summary, type: "article" },
+    openGraph: { url: siteUrl(`components/${slug}`), title, description: e.summary, type: "article", siteName: "Biscotti UI" },
     twitter: { card: "summary", title, description: e.summary },
   };
 }
@@ -91,7 +91,7 @@ export default async function ComponentPage({ params }: { params: Promise<{ slug
           <h1 className="text-[clamp(32px,5vw,52px)] font-semibold leading-[1.02] tracking-[-0.035em]">{e.name}</h1>
           <p className="mt-4 max-w-[640px] text-md leading-[26px] text-ink-2">{e.summary}</p>
         </div>
-        <dl className="grid grid-cols-2 gap-px overflow-hidden rounded-lg bg-hairline text-sm shadow-[inset_0_0_0_1px_var(--dt-hairline)] sm:grid-cols-4 lg:grid-cols-2">
+        <dl className="grid grid-cols-2 gap-px overflow-hidden rounded-lg bg-hairline text-sm shadow-[inset_0_0_0_1px_var(--bis-hairline)] sm:grid-cols-4 lg:grid-cols-2">
           {[
             ["Props", String(e.props.length)],
             ["Shortcuts", e.keyboard ? String(e.keyboard.length) : "—"],
@@ -114,7 +114,7 @@ export default async function ComponentPage({ params }: { params: Promise<{ slug
         <div className="mt-4 flex flex-wrap items-center gap-x-2 gap-y-2">
           <span className="mr-1 font-mono text-2xs uppercase tracking-[0.06em] text-muted">Covers</span>
           {states.map((s) => (
-            <a key={s} href="#motion" className="focus-ring rounded-xs bg-sunken px-2 py-[3px] text-xs text-ink-2 shadow-[inset_0_0_0_1px_var(--dt-hairline)] hover:text-ink">
+            <a key={s} href="#motion" className="focus-ring rounded-xs bg-sunken px-2 py-[3px] text-xs text-ink-2 shadow-[inset_0_0_0_1px_var(--bis-hairline)] hover:text-ink">
               {s}
             </a>
           ))}
@@ -158,19 +158,19 @@ export default async function ComponentPage({ params }: { params: Promise<{ slug
                 <h3 className="text-sm font-medium">Copy the source with the shadcn CLI</h3>
                 <Code lang="sh" title="Terminal" code={install} />
                 <p className="max-w-[680px] text-sm text-muted [overflow-wrap:anywhere]">
-                  Adds the component and the shared <span className="font-mono text-ink-2">detent-foundation</span> (tokens, springs, sound engine, icons) under <span className="font-mono text-ink-2">components/detent/</span>
-                  {e.dependencies.length > 0 && <>, and installs <span className="font-mono text-ink-2">{e.dependencies.join(" ")}</span></>}. Then import the styles after Tailwind in your global CSS: <span className="font-mono text-ink-2">@import &quot;./components/detent/styles/index.css&quot;;</span>
+                  Adds the component and the shared <span className="font-mono text-ink-2">biscotti-foundation</span> (tokens, springs, sound engine, icons) under <span className="font-mono text-ink-2">components/biscotti/</span>
+                  {e.dependencies.length > 0 && <>, and installs <span className="font-mono text-ink-2">{e.dependencies.join(" ")}</span></>}. Then import the styles after Tailwind in your global CSS: <span className="font-mono text-ink-2">@import &quot;./components/biscotti/styles/index.css&quot;;</span>
                 </p>
                 {REGISTRY_IS_LOCAL && (
                   <p className="flex max-w-[680px] gap-2 rounded-md bg-pencil-soft px-3 py-2 text-sm text-ink-2">
                     <Icon name="info" size={14} className="mt-[3px] shrink-0 text-pencil-ink" />
-                    <span>This command points at the local registry, so it works while <span className="font-mono">pnpm dev</span> is running in the Detent repo. Set <span className="font-mono">NEXT_PUBLIC_REGISTRY_URL</span> when you host <span className="font-mono">public/r</span> elsewhere.</span>
+                    <span>This command points at the local registry, so it works while <span className="font-mono">pnpm dev</span> is running in the Biscotti UI repo. Set <span className="font-mono">NEXT_PUBLIC_REGISTRY_URL</span> when you host <span className="font-mono">public/r</span> elsewhere.</span>
                   </p>
                 )}
               </div>
               <div className="grid gap-2">
                 <h3 className="text-sm font-medium">Or import it inside this monorepo</h3>
-                <Code lang="tsx" title="workspace" code={`import { ${componentImport(e.usage)} } from "@detent/ui";`} />
+                <Code lang="tsx" title="workspace" code={`import { ${componentImport(e.usage)} } from "@biscotti/ui";`} />
               </div>
               <a href={source} className="focus-ring inline-flex w-fit items-center gap-1.5 rounded-xs text-sm text-ink-2 hover:text-ink lg:hidden">
                 <Icon name="code" size={14} /> View source on GitHub <Icon name="external" size={12} className="text-muted" />
@@ -306,8 +306,8 @@ export default async function ComponentPage({ params }: { params: Promise<{ slug
   );
 }
 
-/** The named imports from the usage example's `@detent/ui` line, so the workspace snippet matches it. */
+/** The named imports from the usage example's `@biscotti/ui` line, so the workspace snippet matches it. */
 function componentImport(usage: string) {
-  const m = usage.match(/import\s*\{([^}]+)\}\s*from\s*"@detent\/ui"/);
+  const m = usage.match(/import\s*\{([^}]+)\}\s*from\s*"@biscotti\/ui"/);
   return m ? m[1].trim().replace(/\s+/g, " ") : "";
 }

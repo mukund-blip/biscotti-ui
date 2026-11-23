@@ -2,8 +2,8 @@
 
 import { animate, motion, useMotionValue, useTransform } from "motion/react";
 import { useEffect, useMemo, useState } from "react";
-import { Icon, tween, useMotionTokens, VisuallyHidden } from "@detent/ui";
-import { FilterBuilder, filterBuilderMatches, type FilterBuilderCondition, type FilterBuilderField } from "@detent/ui/components/filter-builder/filter-builder";
+import { Icon, tween, useMotionTokens, VisuallyHidden } from "@biscotti/ui";
+import { FilterBuilder, filterBuilderMatches, type FilterBuilderCondition, type FilterBuilderField } from "@biscotti/ui/components/filter-builder/filter-builder";
 import { ControlButton, Controls, DemoFrame, Readout, Stage } from "@/components/demo-kit";
 import { orderClock, orderNumber, orderStatusDot, orderStatuses, ostraOrders, type OstraOrder } from "./orders-data";
 

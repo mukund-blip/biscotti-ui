@@ -1,4 +1,4 @@
-import type { DiffHunk } from "@detent/ui";
+import type { DiffHunk } from "@biscotti/ui";
 
 /** Shared narrative: Ostra, a small studio that makes the OS-1 desktop synthesizer. */
 export const launchNotesHunks: DiffHunk[] = [

@@ -1,13 +1,13 @@
 "use client";
 import { useRef, useState } from "react";
-import { Icon, Kbd, cn } from "@detent/ui";
+import { Icon, Kbd, cn } from "@biscotti/ui";
 import {
   ActionToolbar,
   rangeClosest,
   unwrapElement,
   wrapRange,
   type ToolbarActionContext,
-} from "@detent/ui";
+} from "@biscotti/ui";
 import { ControlButton, ControlSegment, Controls, DemoFrame, Readout, Stage } from "@/components/demo-kit";
 
 const ARTICLE = `
@@ -20,7 +20,7 @@ const ARTICLE = `
 type Note = { id: number; kind: "comment" | "scout"; quote: string; body: string };
 
 const proseClass =
-  "max-w-[60ch] text-[15px] leading-[26px] text-ink-2 outline-none [&_h3]:mb-3 [&_h3]:text-md [&_h3]:font-medium [&_h3]:text-ink [&_p+p]:mt-3.5 [&_strong]:font-semibold [&_strong]:text-ink [&_em]:italic [&_a]:text-ink [&_a]:underline [&_a]:decoration-edge [&_a]:underline-offset-[3px] [&_mark]:rounded-[2px] [&_mark]:bg-warn-soft [&_mark]:text-ink [&_mark]:shadow-[0_1.5px_0_var(--dt-warn)]";
+  "max-w-[60ch] text-[15px] leading-[26px] text-ink-2 outline-none [&_h3]:mb-3 [&_h3]:text-md [&_h3]:font-medium [&_h3]:text-ink [&_p+p]:mt-3.5 [&_strong]:font-semibold [&_strong]:text-ink [&_em]:italic [&_a]:text-ink [&_a]:underline [&_a]:decoration-edge [&_a]:underline-offset-[3px] [&_mark]:rounded-[2px] [&_mark]:bg-warn-soft [&_mark]:text-ink [&_mark]:shadow-[0_1.5px_0_var(--bis-warn)]";
 
 function useTextActions(onNote: (n: Note) => void, setLast: (s: string) => void) {
   const n = useRef(0);
@@ -54,7 +54,7 @@ function useTextActions(onNote: (n: Note) => void, setLast: (s: string) => void)
       }
       case "ask": {
         const body = /encoder/i.test(text)
-          ? "The restock quote from the supplier says 9 weeks; 9–10 matches. Worth naming the part (EC11, 24 detents) for retailers."
+          ? "The restock quote from the supplier says 9 weeks; 9–10 matches. Worth naming the part (EC11, 24 clicks) for retailers."
           : /arpeggiator|ratchet|swing/i.test(text)
             ? "Swing tops out at 75% in the 2.4.0-beta.3 build Ines shipped on Friday. Ratchet is per-step, not global."
             : "This reads clearly. Consider leading with what owners can do now, then the dates.";
@@ -100,7 +100,7 @@ export function ActionToolbarDemo() {
             <p className="font-mono text-2xs uppercase tracking-[0.06em] text-muted">Notes</p>
             {notes.length === 0 && <p className="text-sm text-muted">Comments and Scout replies appear here.</p>}
             {notes.map((n) => (
-              <div key={n.id} className="rounded-md bg-surface p-2.5 text-sm shadow-[inset_0_0_0_1px_var(--dt-hairline)]">
+              <div key={n.id} className="rounded-md bg-surface p-2.5 text-sm shadow-[inset_0_0_0_1px_var(--bis-hairline)]">
                 <p className="mb-1 flex items-center gap-1.5 text-2xs text-muted">
                   <Icon name={n.kind === "scout" ? "sparkle" : "comment"} size={12} />
                   {n.kind === "scout" ? "Scout" : "Mara Lind"}

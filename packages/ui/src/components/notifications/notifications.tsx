@@ -243,7 +243,7 @@ export function Toaster({
       tabIndex={-1}
       className={cn(contained ? "absolute" : "fixed", "z-[85] outline-none", visible.length === 0 && "pointer-events-none", className)}
       style={pos}
-      data-detent="toaster"
+      data-biscotti="toaster"
     >
       <ol
         ref={listRef}
@@ -472,7 +472,7 @@ function ToastItem({ toast: t, index, layout, bottom, side, paused, interactive,
                           initial={false}
                           animate={{
                             scaleX: completing ? 1 : Math.max(0, Math.min(1, t.progress ?? 0)),
-                            backgroundColor: completing ? "var(--dt-ink)" : "var(--dt-pencil)",
+                            backgroundColor: completing ? "var(--bis-ink)" : "var(--bis-pencil)",
                           }}
                           transition={{ scaleX: m.move(spring.control), backgroundColor: m.fade(tween.drain) }}
                         />
@@ -498,7 +498,7 @@ function ToastItem({ toast: t, index, layout, bottom, side, paused, interactive,
                 )}
                 {t.undo && (
                   <button type="button" onClick={onUndo} aria-keyshortcuts={isMac() ? "Meta+Z" : "Control+Z"}
-                    className="focus-ring flex h-7 items-center gap-1.5 rounded-sm px-2 text-sm font-medium text-ink shadow-[inset_0_0_0_1px_var(--dt-rule)] transition-colors duration-[90ms] hover:bg-sunken hover:duration-0 active:translate-y-px">
+                    className="focus-ring flex h-7 items-center gap-1.5 rounded-sm px-2 text-sm font-medium text-ink shadow-[inset_0_0_0_1px_var(--bis-rule)] transition-colors duration-[90ms] hover:bg-sunken hover:duration-0 active:translate-y-px">
                     <Icon name="undo" size={14} className="text-ink-2" />
                     {t.undo.label ?? "Undo"}
                     <Kbd aria-hidden className="ml-0.5 hidden h-4 min-w-4 bg-transparent text-[10px] shadow-none sm:inline-flex">⌘Z</Kbd>
@@ -552,11 +552,11 @@ export interface CalloutProps {
 }
 
 const calloutTone: Record<Tone, string> = {
-  neutral: "bg-surface shadow-[inset_0_0_0_1px_var(--dt-hairline)]",
-  info: "bg-surface shadow-[inset_0_0_0_1px_var(--dt-hairline)]",
-  success: "bg-ok-soft shadow-[inset_0_0_0_1px_color-mix(in_srgb,var(--dt-ok)_22%,transparent)]",
-  warning: "bg-warn-soft shadow-[inset_0_0_0_1px_color-mix(in_srgb,var(--dt-warn)_24%,transparent)]",
-  error: "bg-err-soft shadow-[inset_0_0_0_1px_color-mix(in_srgb,var(--dt-err)_22%,transparent)]",
+  neutral: "bg-surface shadow-[inset_0_0_0_1px_var(--bis-hairline)]",
+  info: "bg-surface shadow-[inset_0_0_0_1px_var(--bis-hairline)]",
+  success: "bg-ok-soft shadow-[inset_0_0_0_1px_color-mix(in_srgb,var(--bis-ok)_22%,transparent)]",
+  warning: "bg-warn-soft shadow-[inset_0_0_0_1px_color-mix(in_srgb,var(--bis-warn)_24%,transparent)]",
+  error: "bg-err-soft shadow-[inset_0_0_0_1px_color-mix(in_srgb,var(--bis-err)_22%,transparent)]",
 };
 
 /** An inline banner for persistent conditions. Shares the toast's icon set and type. */
@@ -567,7 +567,7 @@ export function Callout({ tone = "info", title, children, action, onDismiss, ico
     <div
       role={live ? (tone === "error" ? "alert" : "status") : "note"}
       className={cn("flex flex-wrap items-start gap-x-3 gap-y-2 rounded-md py-3 pl-3.5 pr-2.5", calloutTone[tone], className)}
-      data-detent="callout"
+      data-biscotti="callout"
       data-tone={tone}
     >
       {glyph && <span className="flex size-5 shrink-0 items-center justify-center">{glyph}</span>}

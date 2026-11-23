@@ -456,7 +456,7 @@ export function InsightCard({
           <svg width={W} height={H} className="absolute inset-0 block overflow-visible" aria-hidden>
             <motion.g key={scale.top} initial={{ opacity: 0 }} animate={{ opacity: 1 }} transition={m.fade()}>
               {scale.ticks.map((t) => (
-                <line key={t} x1={GUTTER - 6} x2={W} y1={Math.round(yAt(t)) + 0.5} y2={Math.round(yAt(t)) + 0.5} stroke={t === 0 ? "var(--dt-rule)" : "var(--dt-hairline)"} strokeWidth={1} />
+                <line key={t} x1={GUTTER - 6} x2={W} y1={Math.round(yAt(t)) + 0.5} y2={Math.round(yAt(t)) + 0.5} stroke={t === 0 ? "var(--bis-rule)" : "var(--bis-hairline)"} strokeWidth={1} />
               ))}
             </motion.g>
             {/* annotation guides */}
@@ -467,32 +467,32 @@ export function InsightCard({
                 x2={Math.round(xAt(mk.i)) + 0.5}
                 y1={TOP}
                 y2={base}
-                stroke="var(--dt-rule)"
+                stroke="var(--bis-rule)"
                 strokeWidth={1}
                 opacity={activeMark?.date === mk.date ? 1 : 0.7}
               />
             ))}
             <g>
-              <path ref={areaRef} d={initialPaths.area} fill="var(--dt-ink)" fillOpacity={0.055} />
+              <path ref={areaRef} d={initialPaths.area} fill="var(--bis-ink)" fillOpacity={0.055} />
               <path
                 ref={prevRef}
                 d={initialPaths.prev}
                 fill="none"
-                stroke="var(--dt-edge)"
+                stroke="var(--bis-edge)"
                 strokeWidth={1.5}
                 strokeDasharray="3 3"
                 strokeLinecap="round"
                 strokeLinejoin="round"
                 style={{ opacity: showPrev ? 1 : 0, transition: "opacity 140ms ease-out" }}
               />
-              <path ref={lineRef} d={initialPaths.line} fill="none" stroke="var(--dt-ink)" strokeWidth={2} strokeLinecap="round" strokeLinejoin="round" />
+              <path ref={lineRef} d={initialPaths.line} fill="none" stroke="var(--bis-ink)" strokeWidth={2} strokeLinecap="round" strokeLinejoin="round" />
               <circle
                 ref={endRef}
                 cx={initialPaths.end[0]}
                 cy={initialPaths.end[1]}
                 r={4}
-                fill="var(--dt-ink)"
-                stroke="var(--dt-raised)"
+                fill="var(--bis-ink)"
+                stroke="var(--bis-raised)"
                 strokeWidth={2}
                 style={{ opacity: active ? 0 : 1, transition: "opacity 90ms ease-out" }}
               />
@@ -500,9 +500,9 @@ export function InsightCard({
             {/* crosshair: the one live mark */}
             {active && activeIdx != null && (
               <g>
-                <line x1={Math.round(ax) + 0.5} x2={Math.round(ax) + 0.5} y1={0} y2={base} stroke="var(--dt-pencil)" strokeWidth={1} />
-                {showPrev && activePrev && <circle cx={ax} cy={yAt(activePrev.value)} r={3.5} fill="var(--dt-raised)" stroke="var(--dt-edge)" strokeWidth={1.5} />}
-                <circle cx={ax} cy={yAt(active.value)} r={4} fill="var(--dt-pencil)" stroke="var(--dt-raised)" strokeWidth={2} />
+                <line x1={Math.round(ax) + 0.5} x2={Math.round(ax) + 0.5} y1={0} y2={base} stroke="var(--bis-pencil)" strokeWidth={1} />
+                {showPrev && activePrev && <circle cx={ax} cy={yAt(activePrev.value)} r={3.5} fill="var(--bis-raised)" stroke="var(--bis-edge)" strokeWidth={1.5} />}
+                <circle cx={ax} cy={yAt(active.value)} r={4} fill="var(--bis-pencil)" stroke="var(--bis-raised)" strokeWidth={2} />
               </g>
             )}
           </svg>
@@ -531,7 +531,7 @@ export function InsightCard({
               {showPrev && activePrev && (
                 <div className="mt-1 flex items-center gap-1.5">
                   <svg width="12" height="2" aria-hidden className="shrink-0">
-                    <line x1="0" x2="12" y1="1" y2="1" stroke="var(--dt-edge)" strokeWidth="1.5" strokeDasharray="3 2" />
+                    <line x1="0" x2="12" y1="1" y2="1" stroke="var(--bis-edge)" strokeWidth="1.5" strokeDasharray="3 2" />
                   </svg>
                   <span className="font-mono text-2xs tabular text-ink-2">{nf.format(activePrev.value)}</span>
                   <span className="text-2xs whitespace-nowrap text-muted">{fmtDay(activePrev.date)}</span>
@@ -565,7 +565,7 @@ export function InsightCard({
               <span
                 aria-hidden
                 className={cn(
-                  "size-[7px] rotate-45 rounded-[1px] shadow-[0_0_0_2px_var(--dt-raised)]",
+                  "size-[7px] rotate-45 rounded-[1px] shadow-[0_0_0_2px_var(--bis-raised)]",
                   annotFocus === k ? "bg-pencil" : "bg-ink-2 group-hover/mk:bg-ink",
                 )}
               />
@@ -594,19 +594,19 @@ export function InsightCard({
             aria-hidden
             className={cn(
               "flex size-3.5 items-center justify-center rounded-[3px] transition-colors duration-[90ms]",
-              compare ? "bg-ink text-on-ink" : "shadow-[inset_0_0_0_1px_var(--dt-edge)]",
+              compare ? "bg-ink text-on-ink" : "shadow-[inset_0_0_0_1px_var(--bis-edge)]",
             )}
           >
             {compare && <Icon name="check" size={12} strokeWidth={2} />}
           </span>
           <svg width="14" height="2" aria-hidden className="shrink-0">
-            <line x1="0" x2="14" y1="1" y2="1" stroke="var(--dt-edge)" strokeWidth="1.5" strokeDasharray="3 2" />
+            <line x1="0" x2="14" y1="1" y2="1" stroke="var(--bis-edge)" strokeWidth="1.5" strokeDasharray="3 2" />
           </svg>
           <span className={compare ? "text-ink-2" : undefined}>Previous {range} days</span>
         </button>
         <span className={cn("flex items-center gap-2 text-xs text-ink-2 transition-opacity duration-[120ms]", showPrev ? "opacity-100" : "opacity-0")} aria-hidden={!showPrev}>
           <svg width="14" height="2" aria-hidden className="shrink-0">
-            <line x1="0" x2="14" y1="1" y2="1" stroke="var(--dt-ink)" strokeWidth="2" strokeLinecap="round" />
+            <line x1="0" x2="14" y1="1" y2="1" stroke="var(--bis-ink)" strokeWidth="2" strokeLinecap="round" />
           </svg>
           Last {range} days
         </span>

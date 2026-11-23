@@ -1,51 +1,51 @@
-/* Tailwind v4 mapping of Detent tokens.
+/* Tailwind v4 mapping of Biscotti UI tokens.
  * Usage in a host app:   @import "tailwindcss";
- *                        @import "@detent/ui/styles.css";
- *                        @source "../node_modules/@detent/ui/src";  (or your copied path)
+ *                        @import "@biscotti/ui/styles.css";
+ *                        @source "../node_modules/@biscotti/ui/src";  (or your copied path)
  */
 @theme inline {
-  --color-paper: var(--dt-paper);
-  --color-surface: var(--dt-surface);
-  --color-raised: var(--dt-raised);
-  --color-sunken: var(--dt-sunken);
-  --color-well: var(--dt-well);
-  --color-ink: var(--dt-ink);
-  --color-ink-2: var(--dt-ink-2);
-  --color-muted: var(--dt-muted);
-  --color-faint: var(--dt-faint);
-  --color-on-ink: var(--dt-on-ink);
-  --color-hairline: var(--dt-hairline);
-  --color-rule: var(--dt-rule);
-  --color-edge: var(--dt-edge);
-  --color-pencil: var(--dt-pencil);
-  --color-pencil-ink: var(--dt-pencil-ink);
-  --color-pencil-soft: var(--dt-pencil-soft);
-  --color-pencil-line: var(--dt-pencil-line);
-  --color-ok: var(--dt-ok);
-  --color-ok-soft: var(--dt-ok-soft);
-  --color-warn: var(--dt-warn);
-  --color-warn-soft: var(--dt-warn-soft);
-  --color-err: var(--dt-err);
-  --color-err-soft: var(--dt-err-soft);
-  --color-thumb: var(--dt-thumb);
-  --color-field: var(--dt-field);
-  --color-thumb-on: var(--dt-thumb-on);
-  --color-track-on: var(--dt-track-on);
+  --color-paper: var(--bis-paper);
+  --color-surface: var(--bis-surface);
+  --color-raised: var(--bis-raised);
+  --color-sunken: var(--bis-sunken);
+  --color-well: var(--bis-well);
+  --color-ink: var(--bis-ink);
+  --color-ink-2: var(--bis-ink-2);
+  --color-muted: var(--bis-muted);
+  --color-faint: var(--bis-faint);
+  --color-on-ink: var(--bis-on-ink);
+  --color-hairline: var(--bis-hairline);
+  --color-rule: var(--bis-rule);
+  --color-edge: var(--bis-edge);
+  --color-pencil: var(--bis-pencil);
+  --color-pencil-ink: var(--bis-pencil-ink);
+  --color-pencil-soft: var(--bis-pencil-soft);
+  --color-pencil-line: var(--bis-pencil-line);
+  --color-ok: var(--bis-ok);
+  --color-ok-soft: var(--bis-ok-soft);
+  --color-warn: var(--bis-warn);
+  --color-warn-soft: var(--bis-warn-soft);
+  --color-err: var(--bis-err);
+  --color-err-soft: var(--bis-err-soft);
+  --color-thumb: var(--bis-thumb);
+  --color-field: var(--bis-field);
+  --color-thumb-on: var(--bis-thumb-on);
+  --color-track-on: var(--bis-track-on);
 
-  --font-sans: var(--dt-font-sans);
-  --font-mono: var(--dt-font-mono);
-  --font-serif: var(--dt-font-serif);
+  --font-sans: var(--bis-font-sans);
+  --font-mono: var(--bis-font-mono);
+  --font-serif: var(--bis-font-serif);
 
-  --radius-xs: var(--dt-r-xs);
-  --radius-sm: var(--dt-r-sm);
-  --radius-md: var(--dt-r-md);
-  --radius-lg: var(--dt-r-lg);
-  --radius-xl: var(--dt-r-xl);
+  --radius-xs: var(--bis-r-xs);
+  --radius-sm: var(--bis-r-sm);
+  --radius-md: var(--bis-r-md);
+  --radius-lg: var(--bis-r-lg);
+  --radius-xl: var(--bis-r-xl);
 
-  --shadow-1: var(--dt-shadow-1);
-  --shadow-2: var(--dt-shadow-2);
-  --shadow-3: var(--dt-shadow-3);
-  --shadow-press: var(--dt-press);
+  --shadow-1: var(--bis-shadow-1);
+  --shadow-2: var(--bis-shadow-2);
+  --shadow-3: var(--bis-shadow-3);
+  --shadow-press: var(--bis-press);
 
   /* type scale — size / line-height / tracking */
   --text-2xs: 11px;
@@ -67,14 +67,14 @@
   --text-3xl: 64px;
   --text-3xl--line-height: 62px;
 
-  --ease-out: var(--dt-ease-out);
-  --ease-surface: var(--dt-ease-surface);
+  --ease-out: var(--bis-ease-out);
+  --ease-surface: var(--bis-ease-surface);
 }
 
 @utility focus-ring {
   outline: none;
   &:focus-visible {
-    box-shadow: var(--dt-focus);
+    box-shadow: var(--bis-focus);
   }
 }
 
@@ -84,5 +84,5 @@
 }
 
 @utility hairline-b {
-  box-shadow: inset 0 -1px 0 var(--dt-hairline);
+  box-shadow: inset 0 -1px 0 var(--bis-hairline);
 }

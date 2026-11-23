@@ -216,7 +216,7 @@ function StepRow({ step, last, pencil }: { step: TimelineStep; index: number; la
             initial={false}
             animate={{
               scaleY: s === "pending" ? 0 : 1,
-              backgroundColor: pencil ? "var(--dt-pencil)" : "var(--dt-rule)",
+              backgroundColor: pencil ? "var(--bis-pencil)" : "var(--bis-rule)",
             }}
             transition={m.reduced ? { duration: 0 } : { scaleY: { duration: 0.32, ease: [0.2, 0.8, 0.2, 1] }, backgroundColor: tween.drain }}
           />
@@ -225,15 +225,15 @@ function StepRow({ step, last, pencil }: { step: TimelineStep; index: number; la
       {/* node */}
       <span aria-hidden className="absolute left-[-4px] top-[7px] grid size-[9px] place-items-center">
         {s === "running" ? (
-          <span className="size-[9px] rounded-full bg-pencil shadow-[0_0_0_3px_var(--dt-pencil-soft)]" />
+          <span className="size-[9px] rounded-full bg-pencil shadow-[0_0_0_3px_var(--bis-pencil-soft)]" />
         ) : s === "done" ? (
           <span className="size-[7px] rounded-full bg-ink-2" />
         ) : s === "error" ? (
-          <span className="size-[9px] rounded-full bg-err shadow-[0_0_0_3px_var(--dt-err-soft)]" />
+          <span className="size-[9px] rounded-full bg-err shadow-[0_0_0_3px_var(--bis-err-soft)]" />
         ) : s === "skipped" ? (
           <span className="h-px w-[7px] bg-faint" />
         ) : (
-          <span className="size-[7px] rounded-full shadow-[inset_0_0_0_1.25px_var(--dt-faint)]" />
+          <span className="size-[7px] rounded-full shadow-[inset_0_0_0_1.25px_var(--bis-faint)]" />
         )}
       </span>
 
@@ -286,7 +286,7 @@ function StepTitle({ status, title }: { status: StepStatus; title: string }) {
     <span
       className={cn(
         "min-w-0 truncate transition-colors duration-[240ms]",
-        status === "running" && "dt-live-text",
+        status === "running" && "bis-live-text",
         status === "done" && "text-ink-2",
         status === "pending" && "text-faint",
         status === "skipped" && "text-faint line-through decoration-faint",

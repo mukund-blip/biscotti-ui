@@ -284,8 +284,8 @@ export function PropertyRow({ label, htmlFor, children, className }: PropertyRow
 
 const fieldChrome = cn(
   "relative flex h-7 min-w-0 items-center rounded-md bg-field",
-  "transition-[box-shadow] duration-[90ms] ease-out hover:shadow-[inset_0_0_0_1px_var(--dt-rule)] hover:duration-0",
-  "focus-within:shadow-[inset_0_0_0_1px_var(--dt-pencil),0_0_0_3px_var(--dt-pencil-soft)] focus-within:hover:shadow-[inset_0_0_0_1px_var(--dt-pencil),0_0_0_3px_var(--dt-pencil-soft)]",
+  "transition-[box-shadow] duration-[90ms] ease-out hover:shadow-[inset_0_0_0_1px_var(--bis-rule)] hover:duration-0",
+  "focus-within:shadow-[inset_0_0_0_1px_var(--bis-pencil),0_0_0_3px_var(--bis-pencil-soft)] focus-within:hover:shadow-[inset_0_0_0_1px_var(--bis-pencil),0_0_0_3px_var(--bis-pencil-soft)]",
 );
 
 /**
@@ -373,7 +373,7 @@ export function PropertyScrub({
   className,
 }: PropertyScrubProps) {
   const autoId = useId();
-  const id = idProp ?? `dt-scrub-${autoId}`;
+  const id = idProp ?? `bis-scrub-${autoId}`;
   const play = useFieldSound(sound);
   const m = useMotionTokens();
   const [value, setValue] = useControllable(valueProp, defaultValue, onValueChange);
@@ -519,7 +519,7 @@ export function PropertyScrub({
 
   return (
     <div
-      className={cn(fieldChrome, invalid && "shadow-[inset_0_0_0_1px_var(--dt-err)] hover:shadow-[inset_0_0_0_1px_var(--dt-err)]", scrubbing && "shadow-[inset_0_0_0_1px_var(--dt-pencil-line)] hover:shadow-[inset_0_0_0_1px_var(--dt-pencil-line)]", disabled && "opacity-45", "overflow-hidden", className)}
+      className={cn(fieldChrome, invalid && "shadow-[inset_0_0_0_1px_var(--bis-err)] hover:shadow-[inset_0_0_0_1px_var(--bis-err)]", scrubbing && "shadow-[inset_0_0_0_1px_var(--bis-pencil-line)] hover:shadow-[inset_0_0_0_1px_var(--bis-pencil-line)]", disabled && "opacity-45", "overflow-hidden", className)}
       data-scrubbing={scrubbing || undefined}
       data-modified={modified || undefined}
     >
@@ -1014,7 +1014,7 @@ export function PropertyColor({
             <div className="mt-1.5 grid grid-cols-8 gap-1" role="group" aria-label="Recent colours">
               {Array.from({ length: maxRecents }, (_, i) => {
                 const c = recents[i];
-                if (!c) return <span key={`empty-${i}`} aria-hidden className="aspect-square rounded-xs shadow-[inset_0_0_0_1px_var(--dt-hairline)]" />;
+                if (!c) return <span key={`empty-${i}`} aria-hidden className="aspect-square rounded-xs shadow-[inset_0_0_0_1px_var(--bis-hairline)]" />;
                 const on = c === hex;
                 return (
                   <button
@@ -1235,11 +1235,11 @@ export function PropertyBoxModel({
 
   return (
     <div className={cn("relative select-none", disabled && "pointer-events-none opacity-45", className)} data-modified={modified || undefined}>
-      <div className="relative h-[156px] rounded-md bg-ink/[0.045] shadow-[inset_0_0_0_1px_var(--dt-hairline)]">
+      <div className="relative h-[156px] rounded-md bg-ink/[0.045] shadow-[inset_0_0_0_1px_var(--bis-hairline)]">
         <span className="pointer-events-none absolute top-1.5 left-2 font-mono text-[10px] leading-3 tracking-[0.06em] text-muted uppercase">margin</span>
-        <div className="absolute inset-[28px] rounded-sm bg-raised shadow-[inset_0_0_0_1px_var(--dt-rule)]">
+        <div className="absolute inset-[28px] rounded-sm bg-raised shadow-[inset_0_0_0_1px_var(--bis-rule)]">
           <span className="pointer-events-none absolute top-1.5 left-2 font-mono text-[10px] leading-3 tracking-[0.06em] text-muted uppercase">padding</span>
-          <div className="absolute inset-[26px] flex items-center justify-center rounded-xs bg-ink/[0.045] shadow-[inset_0_0_0_1px_var(--dt-hairline)]">
+          <div className="absolute inset-[26px] flex items-center justify-center rounded-xs bg-ink/[0.045] shadow-[inset_0_0_0_1px_var(--bis-hairline)]">
             <span className="font-mono text-2xs tabular text-muted">{contentLabel}</span>
           </div>
         </div>
@@ -1460,7 +1460,7 @@ function BoxEdge({
             if (e.key === "Enter") (e.preventDefault(), commitEdit(true));
             else if (e.key === "Escape") (e.preventDefault(), commitEdit(false));
           }}
-          className="h-5 w-9 rounded-xs bg-raised text-center font-mono text-2xs tabular text-ink shadow-[inset_0_0_0_1px_var(--dt-pencil)] outline-none"
+          className="h-5 w-9 rounded-xs bg-raised text-center font-mono text-2xs tabular text-ink shadow-[inset_0_0_0_1px_var(--bis-pencil)] outline-none"
         />
       ) : (
         <span

@@ -1,6 +1,6 @@
 "use client";
 import { useState } from "react";
-import { DiffInspector, type DiffHunk, type HunkDecision } from "@detent/ui";
+import { DiffInspector, type DiffHunk, type HunkDecision } from "@biscotti/ui";
 import { launchNotesHunks } from "@/demos/data";
 import { ControlButton, ControlSegment, Controls, DemoFrame, Readout, Stage } from "@/components/demo-kit";
 
@@ -12,7 +12,7 @@ const codeHunks: DiffHunk[] = [
       { type: "context", text: "export function readEncoder(pin: Pin) {" },
       { type: "del", text: "  const raw = adc.read(pin);" },
       { type: "add", text: "  const raw = debounce(adc.read(pin), 2);" },
-      { type: "context", text: "  return quantize(raw, DETENTS);" },
+      { type: "context", text: "  return quantize(raw, CLICKS_PER_TURN);" },
     ],
     rationale: "Beta testers reported double steps on fast turns (ticket #412).",
   },
@@ -20,10 +20,10 @@ const codeHunks: DiffHunk[] = [
     id: "c2",
     location: "L40–42",
     lines: [
-      { type: "del", text: "const DETENTS = 20;" },
-      { type: "add", text: "const DETENTS = 24;" },
+      { type: "del", text: "const CLICKS_PER_TURN = 20;" },
+      { type: "add", text: "const CLICKS_PER_TURN = 24;" },
     ],
-    rationale: "The PEC11R part ordered for the restock has 24 detents per turn.",
+    rationale: "The PEC11R part ordered for the restock has 24 clicks per turn.",
   },
 ];
 

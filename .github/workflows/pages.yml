@@ -1,7 +1,7 @@
 name: Static export check
 
 # Pull-request gate for the static export. It builds under a sub-path
-# (/detent by default), so base-path prefixing, canonicals and registry URLs are
+# (/biscotti-ui by default), so base-path prefixing, canonicals and registry URLs are
 # exercised, then validates and tests that export. Production is deployed from
 # main by netlify.yml (root path); that workflow doesn't run on pull requests,
 # so this is the only PR validation of the export. The former GitHub Pages
@@ -14,7 +14,7 @@ on:
       site_url:
         description: Public origin and optional base path to build for
         type: string
-        default: https://mukund-blip.github.io/detent
+        default: https://mukund-blip.github.io/biscotti-ui
 
 permissions:
   contents: read
@@ -32,7 +32,7 @@ jobs:
       - run: pnpm install --frozen-lockfile
       - run: pnpm build:pages
         env:
-          PAGES_SITE_URL: ${{ inputs.site_url || 'https://mukund-blip.github.io/detent' }}
+          PAGES_SITE_URL: ${{ inputs.site_url || 'https://mukund-blip.github.io/biscotti-ui' }}
       - run: node scripts/check-pages.mjs
       - run: pnpm exec playwright install --with-deps chromium
       - run: pnpm test:pages

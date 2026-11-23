@@ -27,7 +27,7 @@ for (const route of routes) {
   if (route.startsWith("components/")) assert.ok(html.includes(`${siteUrl}/r/${route.split("/")[1]}.json`), `wrong displayed install URL in ${route}`);
 }
 assert.ok(read("robots.txt").includes(`${siteUrl}/sitemap.xml`));
-// /detent/robots.txt can't hide anything, so every exported lab harness must carry noindex itself.
+// /biscotti-ui/robots.txt can't hide anything, so every exported lab harness must carry noindex itself.
 // Expected lab pages come from the source routes, so a missing export fails instead of passing with nothing checked.
 const labSrc = resolve(import.meta.dirname, "../apps/web/src/app/lab");
 const labPages = existsSync(labSrc) ? ["", ...readdirSync(labSrc, { withFileTypes: true }).filter((d) => d.isDirectory()).map((d) => d.name)]
@@ -43,7 +43,7 @@ assert.equal(registry.homepage, siteUrl);
 // Every catalog page advertises an install URL, so each needs an item, alongside the shared foundation.
 const names = registry.items.map((i) => i.name);
 assert.equal(new Set(names).size, names.length, "duplicate registry item names");
-const missing = ["detent-foundation", ...slugs].filter((n) => !names.includes(n));
+const missing = ["biscotti-foundation", ...slugs].filter((n) => !names.includes(n));
 assert.deepEqual(missing, [], `registry is missing ${missing.join(", ")}`);
 for (const { name } of registry.items) {
   const item = JSON.parse(read(`r/${name}.json`));
@@ -51,6 +51,8 @@ for (const { name } of registry.items) {
     assert.ok(dependency.startsWith(`${siteUrl}/r/`), `wrong dependency origin ${dependency}`);
     assert.ok(existsSync(join(root, dependency.slice(`${siteUrl}/`.length))), `missing dependency ${dependency}`);
   }
-  for (const file of item.files) assert.ok(file.target.startsWith("components/detent/"));
+  for (const file of item.files) assert.ok(file.target.startsWith("components/biscotti/"));
+  // Every component (not the shared foundation) ships with a one-line origin comment on its main file.
+  if (name !== "biscotti-foundation") assert.ok(item.files.some((f) => f.content.startsWith(`// ${item.title} · Biscotti UI — `)), `${name} is missing its origin comment`);
 }
 console.log(`Validated ${routes.length} public routes, prefixed assets/canonicals, sitemap/robots, ${labPages.length} noindex lab pages and ${registry.items.length} registry items with nested dependencies (${siteUrl}).`);

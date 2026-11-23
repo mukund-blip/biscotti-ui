@@ -12,7 +12,7 @@ export const entry: CatalogEntry = {
   useCases: ["Reviewing an agent's edits to a document or file", "Partial acceptance of a suggested rewrite", "Copy review before publishing"],
   scale: "l",
   Demo: DiffInspectorDemo,
-  usage: `import { DiffInspector } from "@detent/ui";
+  usage: `import { DiffInspector } from "@biscotti/ui";
 
 <DiffInspector
   title="Launch notes — edits from Scout"

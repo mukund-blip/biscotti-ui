@@ -14,7 +14,7 @@ for (const theme of ["light", "dark"] as const) {
       const errors: string[] = [];
       page.on("console", (m) => m.type() === "error" && errors.push(m.text()));
       page.on("pageerror", (e) => errors.push(e.message));
-      await page.addInitScript((t) => localStorage.setItem("detent.theme", t), theme);
+      await page.addInitScript((t) => localStorage.setItem("biscotti.theme", t), theme);
       await page.goto(route, { waitUntil: "networkidle" });
       await expect(page.locator("main")).toBeVisible();
       expect(errors, errors.join("\n")).toEqual([]);
@@ -44,7 +44,7 @@ test("reduced motion: pages render and timeline uses no sweep animation", async 
   await page.emulateMedia({ reducedMotion: "reduce" });
   await page.goto("/components/thinking-timeline", { waitUntil: "networkidle" });
   const anim = await page.evaluate(() => {
-    const el = document.querySelector(".dt-live-text");
+    const el = document.querySelector(".bis-live-text");
     return el ? getComputedStyle(el).animationName : "none";
   });
   expect(anim).toBe("none");

@@ -50,10 +50,10 @@ const SURFACE: Record<KineticButtonVariant, string> = {
 /* The skin is an inner layer that carries edges + the press inset, so the
  * button's own box-shadow stays free for the focus ring. */
 const SKIN: Record<KineticButtonVariant, string> = {
-  primary: "shadow-[inset_0_1px_0_rgb(255_255_255/0.12),inset_0_0_0_1px_var(--dt-ink)]",
-  secondary: "shadow-[inset_0_0_0_1px_var(--dt-rule),inset_0_-1px_0_var(--dt-edge)]",
+  primary: "shadow-[inset_0_1px_0_rgb(255_255_255/0.12),inset_0_0_0_1px_var(--bis-ink)]",
+  secondary: "shadow-[inset_0_0_0_1px_var(--bis-rule),inset_0_-1px_0_var(--bis-edge)]",
   quiet: "",
-  danger: "shadow-[inset_0_0_0_1px_color-mix(in_srgb,var(--dt-err)_34%,transparent)]",
+  danger: "shadow-[inset_0_0_0_1px_color-mix(in_srgb,var(--bis-err)_34%,transparent)]",
 };
 
 const isPromise = (v: unknown): v is Promise<unknown> => !!v && typeof (v as Promise<unknown>).then === "function";
@@ -90,7 +90,7 @@ export function KineticButtonGroup({ children, variant = "secondary", size, clas
           variant !== "quiet" && "shadow-1",
           // inner corners square off; neighbours overlap by a hairline so edges never double
           "[&>*:not(:first-child)>button]:rounded-l-none [&>*:not(:last-child)>button]:rounded-r-none",
-          "[&>*:not(:first-child)]:-ml-px [&>*>button]:shadow-none [&>*>button:focus-visible]:shadow-[var(--dt-focus)] [&>*>button:focus-visible]:z-10",
+          "[&>*:not(:first-child)]:-ml-px [&>*>button]:shadow-none [&>*>button:focus-visible]:shadow-[var(--bis-focus)] [&>*>button:focus-visible]:z-10",
           className,
         )}
       >
@@ -132,7 +132,7 @@ export interface KineticButtonProps extends Omit<ComponentPropsWithRef<"button">
   successDuration?: number;
   /**
    * Require a press-and-hold of this many ms before the action runs (destructive actions).
-   * Fills in pencil, ticks at quarter detents, drains back if released early.
+   * Fills in pencil, ticks at quarter notches, drains back if released early.
    */
   holdToConfirm?: number;
   /** Allow this instance to play sounds. */
@@ -246,10 +246,10 @@ export function KineticButton({
   const fillOpacity = useMotionValue(1);
   const holdCtrl = useRef<AnimationPlaybackControls | null>(null);
   const holding = useRef(false);
-  const detent = useRef(0);
+  const notch = useRef(0);
   const [holdActive, setHoldActive] = useState(false);
   const [latched, setLatched] = useState(false);
-  // Reduced motion: the fill steps between quarter detents instead of sweeping.
+  // Reduced motion: the fill steps between quarter notches instead of sweeping.
   const shown = useTransform(progress, (p) => (m.reduced ? Math.floor(p * 4 + 1e-6) / 4 : p));
   const clipRight = useTransform(shown, (p) => `${(1 - p) * 100}%`);
   const clipPath = useMotionTemplate`inset(0 ${clipRight} 0 0)`;
@@ -261,15 +261,15 @@ export function KineticButton({
     setLatched(false);
     holdCtrl.current?.stop();
     fillOpacity.set(1);
-    detent.current = Math.floor(progress.get() * 4 + 1e-6);
+    notch.current = Math.floor(progress.get() * 4 + 1e-6);
     const remaining = (1 - progress.get()) * holdToConfirm;
     holdCtrl.current = animate(progress, 1, {
       duration: remaining / 1000,
       ease: "linear",
       onUpdate: (p) => {
         const q = Math.floor(p * 4 + 1e-6);
-        if (q > detent.current && q < 4) {
-          detent.current = q;
+        if (q > notch.current && q < 4) {
+          notch.current = q;
           // Rising, slightly brighter with each quarter.
           play("tick", { pitch: 1 + q * 0.09, velocity: 0.4 + q * 0.12 });
         }
@@ -477,7 +477,7 @@ export function KineticButton({
           className={cn(
             "pointer-events-none absolute inset-0 rounded-[inherit]",
             SKIN[variant],
-            state === "error" && "!shadow-[inset_0_0_0_1.5px_var(--dt-err)]",
+            state === "error" && "!shadow-[inset_0_0_0_1.5px_var(--bis-err)]",
           )}
         />
         <span
@@ -493,7 +493,7 @@ export function KineticButton({
           <span aria-hidden className="pointer-events-none absolute inset-y-[7px] left-0 w-px bg-current opacity-20 [:first-child>*>&]:hidden" />
         )}
 
-        {/* quarter detents for hold buttons — non-text marks, quiet at rest */}
+        {/* quarter notches for hold buttons — non-text marks, quiet at rest */}
         {holdToConfirm && (
           <span aria-hidden className="pointer-events-none absolute inset-x-0 bottom-0 h-[3px]">
             {[0.25, 0.5, 0.75].map((q) => (
@@ -586,7 +586,7 @@ function ButtonSpinner({ size, pencil }: { size: number; pencil?: boolean }) {
       height={size}
       viewBox="0 0 16 16"
       aria-hidden
-      className={cn("shrink-0 motion-safe:animate-[dt-spin_0.8s_linear_infinite]", pencil && "text-pencil")}
+      className={cn("shrink-0 motion-safe:animate-[bis-spin_0.8s_linear_infinite]", pencil && "text-pencil")}
     >
       <circle cx="8" cy="8" r="5.5" fill="none" stroke="currentColor" strokeOpacity="0.22" strokeWidth="1.5" />
       <path d="M8 2.5A5.5 5.5 0 0 1 13.5 8" fill="none" stroke="currentColor" strokeWidth="1.5" strokeLinecap="round" />

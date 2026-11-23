@@ -11,7 +11,7 @@ export function Kbd({ children, className, ...rest }: ComponentPropsWithoutRef<"
     <kbd
       className={cn(
         "inline-flex h-[18px] min-w-[18px] items-center justify-center rounded-xs px-1 font-mono text-2xs text-muted",
-        "bg-surface shadow-[inset_0_0_0_1px_var(--dt-hairline),inset_0_-1px_0_var(--dt-rule)]",
+        "bg-surface shadow-[inset_0_0_0_1px_var(--bis-hairline),inset_0_-1px_0_var(--bis-rule)]",
         className,
       )}
       {...rest}
@@ -66,7 +66,7 @@ export function LiveMark({ live, className, shape = "dot" }: { live: boolean; cl
       className={cn(
         "inline-block shrink-0 transition-[background-color,opacity,transform] duration-[240ms] ease-out",
         shape === "dot" ? "size-1.5 rounded-full" : "h-3 w-[2px] rounded-full",
-        live ? "bg-pencil motion-safe:animate-[dt-breathe_1.6s_ease-in-out_infinite]" : "bg-faint",
+        live ? "bg-pencil motion-safe:animate-[bis-breathe_1.6s_ease-in-out_infinite]" : "bg-faint",
         className,
       )}
     />
@@ -81,7 +81,7 @@ export function Spinner({ size = 12, className }: { size?: number; className?: s
       height={size}
       viewBox="0 0 12 12"
       aria-hidden
-      className={cn("shrink-0 text-pencil motion-safe:animate-[dt-spin_0.8s_linear_infinite]", className)}
+      className={cn("shrink-0 text-pencil motion-safe:animate-[bis-spin_0.8s_linear_infinite]", className)}
     >
       <circle cx="6" cy="6" r="4.75" fill="none" stroke="currentColor" strokeOpacity="0.18" strokeWidth="1.5" />
       <path d="M6 1.25A4.75 4.75 0 0 1 10.75 6" fill="none" stroke="currentColor" strokeWidth="1.5" strokeLinecap="round" />

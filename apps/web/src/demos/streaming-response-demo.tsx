@@ -1,6 +1,6 @@
 "use client";
 import { useCallback, useEffect, useMemo, useRef, useState } from "react";
-import { StreamingResponse, useTextStream, type StreamingFeedback } from "@detent/ui";
+import { StreamingResponse, useTextStream, type StreamingFeedback } from "@biscotti/ui";
 import { ScriptBar, useScript, type Cue } from "@/components/stage/script-player";
 import { ControlButton, ControlCheck, ControlSegment, Controls, DemoFrame, Readout, Stage } from "@/components/demo-kit";
 import { demoTextStream, scoutAnswer, scoutQuestion, scoutSources, scoutSuggestions, streamTimeline } from "./streaming-response-data";
@@ -32,7 +32,7 @@ type Mode = "live" | "replay";
 function Conversation({ children }: { children: React.ReactNode }) {
   return (
     <div className="grid w-full max-w-[620px] content-start gap-5">
-      <p className="ml-auto max-w-[80%] rounded-lg bg-sunken px-3 py-2 text-sm text-ink-2 shadow-[inset_0_0_0_1px_var(--dt-hairline)]">{scoutQuestion}</p>
+      <p className="ml-auto max-w-[80%] rounded-lg bg-sunken px-3 py-2 text-sm text-ink-2 shadow-[inset_0_0_0_1px_var(--bis-hairline)]">{scoutQuestion}</p>
       <div>
         <div className="mb-2 flex items-center gap-2">
           <span aria-hidden className="grid size-5 place-items-center rounded-sm bg-ink font-mono text-[10px] font-medium text-on-ink">S</span>

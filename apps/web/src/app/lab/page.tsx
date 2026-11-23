@@ -1,5 +1,5 @@
 "use client";
-import { DiffInspector, PrecisionToggle, ThinkingTimeline, type TimelineStep } from "@detent/ui";
+import { DiffInspector, PrecisionToggle, ThinkingTimeline, type TimelineStep } from "@biscotti/ui";
 import { launchNotesHunks } from "@/demos/data";
 import { ScriptBar, useScript, type Cue } from "@/components/stage/script-player";
 
@@ -25,11 +25,11 @@ export default function Lab() {
   return (
     <div className="mx-auto grid max-w-3xl gap-10 px-6 py-16">
       <DiffInspector title="Launch notes — edits from Scout" path="press/os-1-launch.md" hunks={launchNotesHunks} />
-      <section ref={script.ref} className="rounded-xl bg-surface shadow-[inset_0_0_0_1px_var(--dt-hairline)]">
+      <section ref={script.ref} className="rounded-xl bg-surface shadow-[inset_0_0_0_1px_var(--bis-hairline)]">
         <div className="min-h-[260px] p-8"><div className="max-w-md"><ThinkingTimeline steps={script.state.steps} state={script.state.state} /></div></div>
         <div className="border-t border-hairline px-3 py-2"><ScriptBar script={script} /></div>
       </section>
-      <section className="grid gap-5 rounded-xl bg-surface p-8 shadow-[inset_0_0_0_1px_var(--dt-hairline)]">
+      <section className="grid gap-5 rounded-xl bg-surface p-8 shadow-[inset_0_0_0_1px_var(--bis-hairline)]">
         <div className="flex items-center gap-6">
           <PrecisionToggle aria-label="small" size="sm" />
           <PrecisionToggle aria-label="medium" defaultChecked />

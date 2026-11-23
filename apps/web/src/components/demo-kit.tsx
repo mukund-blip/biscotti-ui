@@ -4,7 +4,7 @@
  * Not part of the library. Deliberately quiet so the component is the hero.
  */
 import { useId, type ReactNode } from "react";
-import { cn } from "@detent/ui";
+import { cn } from "@biscotti/ui";
 
 /** Stage = the component's presentation surface. Size it to the component, not to a grid. */
 export function Stage({ children, className, tone = "paper", minH = 280, center = true }: { children: ReactNode; className?: string; tone?: "paper" | "sunken" | "surface"; minH?: number; center?: boolean }) {
@@ -35,7 +35,7 @@ export function ControlSegment<T extends string>({ label, value, options, onChan
   return (
     <div className="flex items-center gap-2">
       <span id={id} className="font-mono text-2xs uppercase tracking-[0.06em] text-muted">{label}</span>
-      <div role="radiogroup" aria-labelledby={id} className="flex rounded-sm bg-sunken p-0.5 shadow-[inset_0_0_0_1px_var(--dt-hairline)]">
+      <div role="radiogroup" aria-labelledby={id} className="flex rounded-sm bg-sunken p-0.5 shadow-[inset_0_0_0_1px_var(--bis-hairline)]">
         {opts.map((o) => (
           <button key={o.value} role="radio" aria-checked={value === o.value} onClick={() => onChange(o.value)}
             className={cn("focus-ring h-6 rounded-[3px] px-2 text-xs transition-colors duration-[90ms]", value === o.value ? "bg-raised text-ink shadow-1" : "text-muted hover:text-ink")}>
@@ -50,7 +50,7 @@ export function ControlSegment<T extends string>({ label, value, options, onChan
 export function ControlCheck({ label, checked, onChange }: { label: string; checked: boolean; onChange: (v: boolean) => void }) {
   return (
     <label className="flex cursor-pointer items-center gap-2 text-xs text-ink-2">
-      <input type="checkbox" checked={checked} onChange={(e) => onChange(e.target.checked)} className="accent-[var(--dt-ink)]" />
+      <input type="checkbox" checked={checked} onChange={(e) => onChange(e.target.checked)} className="accent-[var(--bis-ink)]" />
       {label}
     </label>
   );
@@ -58,7 +58,7 @@ export function ControlCheck({ label, checked, onChange }: { label: string; chec
 
 export function ControlButton({ children, onClick }: { children: ReactNode; onClick: () => void }) {
   return (
-    <button onClick={onClick} className="focus-ring h-7 rounded-sm px-2.5 text-xs text-ink-2 shadow-[inset_0_0_0_1px_var(--dt-rule)] hover:bg-sunken hover:text-ink">
+    <button onClick={onClick} className="focus-ring h-7 rounded-sm px-2.5 text-xs text-ink-2 shadow-[inset_0_0_0_1px_var(--bis-rule)] hover:bg-sunken hover:text-ink">
       {children}
     </button>
   );

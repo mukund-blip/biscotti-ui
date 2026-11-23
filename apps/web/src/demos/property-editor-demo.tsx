@@ -11,13 +11,13 @@ import {
   PropertySelect,
   type BoxModelTarget,
   type BoxModelValue,
-} from "@detent/ui";
-import { cn } from "@detent/ui";
+} from "@biscotti/ui";
+import { cn } from "@biscotti/ui";
 import { ControlCheck, Controls, DemoFrame, Readout, Stage } from "@/components/demo-kit";
 
 const FAMILIES = [
-  { value: "sans", label: "Geist", css: "var(--dt-font-sans)" },
-  { value: "mono", label: "Geist Mono", css: "var(--dt-font-mono)" },
+  { value: "sans", label: "Geist", css: "var(--bis-font-sans)" },
+  { value: "mono", label: "Geist Mono", css: "var(--bis-font-mono)" },
   { value: "serif", label: "Georgia", css: "Georgia, ui-serif, serif" },
   { value: "system", label: "System UI", css: "system-ui, sans-serif" },
 ];
@@ -63,7 +63,7 @@ function SynthGlyph({ accent, ink }: { accent: string; ink: string }) {
     <svg viewBox="0 0 220 84" className="block w-full" aria-hidden>
       <rect x="1" y="1" width="218" height="82" rx="8" fill="none" stroke={ink} strokeOpacity="0.22" />
       <rect x="10" y="10" width="70" height="22" rx="3" fill={ink} fillOpacity="0.85" />
-      <text x="16" y="25" fontFamily="var(--dt-font-mono)" fontSize="9" fill={accent}>
+      <text x="16" y="25" fontFamily="var(--bis-font-mono)" fontSize="9" fill={accent}>
         OSC 1 · SAW
       </text>
       {[0, 1, 2, 3].map((i) => (
@@ -84,7 +84,7 @@ function Highlight({ sides, show }: { sides: [number, number, number, number]; s
     <span
       aria-hidden
       className={cn("pointer-events-none absolute inset-0 border-solid transition-opacity duration-[90ms]", show ? "opacity-100" : "opacity-0")}
-      style={{ borderColor: "color-mix(in srgb, var(--dt-pencil) 16%, transparent)", borderWidth: sides.map((s) => `${s}px`).join(" "), borderRadius: "inherit" }}
+      style={{ borderColor: "color-mix(in srgb, var(--bis-pencil) 16%, transparent)", borderWidth: sides.map((s) => `${s}px`).join(" "), borderRadius: "inherit" }}
     />
   );
 }
@@ -121,7 +121,7 @@ export function PropertyEditorDemo({ compact = false }: { compact?: boolean }) {
     <div className="flex min-w-0 flex-1 flex-col items-center justify-center gap-5">
       {/* Margin is drawn as the wrapper's padding so it can be highlighted. */}
       <div
-        className="relative rounded-[2px] shadow-[inset_0_0_0_1px_var(--dt-hairline)]"
+        className="relative rounded-[2px] shadow-[inset_0_0_0_1px_var(--bis-hairline)]"
         style={{ padding: c.box.margin.map((v) => `${v}px`).join(" ") }}
       >
         <Highlight sides={c.box.margin} show={guides && target?.box === "margin"} />
@@ -146,7 +146,7 @@ export function PropertyEditorDemo({ compact = false }: { compact?: boolean }) {
         </div>
       </div>
       {!compact && (
-        <pre className="w-full max-w-[340px] rounded-md bg-surface px-3 py-2.5 font-mono text-2xs leading-[18px] shadow-[inset_0_0_0_1px_var(--dt-hairline)]" aria-label="Generated CSS">
+        <pre className="w-full max-w-[340px] rounded-md bg-surface px-3 py-2.5 font-mono text-2xs leading-[18px] shadow-[inset_0_0_0_1px_var(--bis-hairline)]" aria-label="Generated CSS">
           {cssLines.map(([k, v, mod]) => (
             <div key={k} className="flex gap-2">
               <span aria-hidden className={cn("mt-[7px] size-1 shrink-0 rounded-full", mod ? "bg-pencil" : "bg-transparent")} />

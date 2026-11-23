@@ -4,7 +4,7 @@ import path from "node:path";
 
 const root = path.resolve(path.dirname(fileURLToPath(import.meta.url)), "../..");
 
-const staticExport = process.env.DETENT_STATIC_EXPORT === "1";
+const staticExport = process.env.BISCOTTI_STATIC_EXPORT === "1";
 // The single basePath rule: only static exports get one (scripts/build-pages.mjs sets it from PAGES_SITE_URL).
 // It is republished below so site.ts's publicPath/robots always use exactly the value Next routes with.
 const basePath = staticExport ? (process.env.NEXT_PUBLIC_BASE_PATH ?? "") : "";
@@ -17,7 +17,7 @@ const nextConfig: NextConfig = {
     images: { unoptimized: true },
   } : {}),
   env: { NEXT_PUBLIC_BASE_PATH: basePath },
-  transpilePackages: ["@detent/ui"],
+  transpilePackages: ["@biscotti/ui"],
   turbopack: {
     root,
     rules: {

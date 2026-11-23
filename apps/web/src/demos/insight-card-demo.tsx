@@ -1,6 +1,6 @@
 "use client";
 import { useMemo, useState } from "react";
-import { InsightCard, type InsightAnnotation, type InsightContext, type InsightPoint } from "@detent/ui";
+import { InsightCard, type InsightAnnotation, type InsightContext, type InsightPoint } from "@biscotti/ui";
 import { ControlSegment, Controls, DemoFrame, Readout, Stage } from "@/components/demo-kit";
 
 /* ── Ostra OS-1 pre-order data: 180 days to 31 Mar 2026, deterministic ── */

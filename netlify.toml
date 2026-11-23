@@ -1,4 +1,4 @@
-# Build settings for https://detent.netlify.app.
+# Build settings for https://biscotti-ui.netlify.app.
 # Production now deploys from GitHub Actions (.github/workflows/netlify.yml):
 # Netlify's own Git builds are stopped for this site (build_settings.stop_builds)
 # because the Free plan blocks them for this private repo. This file still
@@ -22,7 +22,7 @@
   # build:pages derives the base path, canonicals, sitemap, robots and the
   # registry install URLs from this origin. Production (and any context without
   # its own command below) builds for the production URL at the domain root.
-  PAGES_SITE_URL = "https://detent.netlify.app"
+  PAGES_SITE_URL = "https://biscotti-ui.netlify.app"
 
 # Previews and branch deploys use their own unique URL (Netlify sets DEPLOY_PRIME_URL
 # at build time), so their canonicals and install commands point at themselves.
