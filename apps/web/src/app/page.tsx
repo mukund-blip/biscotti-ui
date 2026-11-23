@@ -5,14 +5,14 @@ import { catalog, groups } from "@/catalog";
 import { groupId, groupIntro, groupShort, tileLayout } from "@/catalog/group-info";
 import { CopyButton } from "@/components/code";
 import { ComponentCard } from "@/components/home/component-card";
-import { FeaturedTile } from "@/components/home/featured-tile";
+import { Showcase } from "@/components/home/showcase";
 import { IndexBrowser } from "@/components/home/index-browser";
 
 export const metadata = canonicalMetadata();
 
 const install = `npx shadcn@latest add ${REGISTRY_URL}/r/kinetic-button.json`;
 
-/** The homepage is the component index: a headline, one featured component, then the full index. */
+/** The homepage is the component index: a headline, two showcase rows, then the full index. */
 export default function Home() {
   const sections = groups.map((g) => {
     const order = tileLayout[g] ?? [];
@@ -60,7 +60,7 @@ export default function Home() {
         </div>
       </section>
 
-      <FeaturedTile />
+      <Showcase />
 
       <div className="mt-12">
         <IndexBrowser

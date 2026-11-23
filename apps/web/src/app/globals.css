@@ -14,6 +14,9 @@
 [data-theme="dark"] { --brand-toast: #c9a88f; }
 /* Featured tile: biscuit cream by day, toasted crust by night. */
 :root, [data-theme="light"] { --feature-bg: #f1e4cf; --feature-label: #6e4d2e; --feature-text: #5c4a36; --feature-ink: #1a1a18; }
+/* Dark showcase tile: graphite in light mode; one step above the page in dark mode, with a hairline. */
+:root, [data-theme="light"] { --showcase-dark-bg: #1a1a18; --showcase-dark-edge: transparent; }
+[data-theme="dark"] { --showcase-dark-bg: #202023; --showcase-dark-edge: #34343a; }
 [data-theme="dark"] { --feature-bg: #2b2118; --feature-label: #d9b88f; --feature-text: #cdb79c; --feature-ink: #f4ebdd; }
 
 html {
