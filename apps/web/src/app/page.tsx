@@ -30,7 +30,7 @@ export default function Home() {
         <div className="grid items-center gap-12 pb-14 pt-12 md:pb-20 md:pt-16 lg:grid-cols-[1.15fr_1fr] lg:gap-16">
           <div>
             <p className="mb-6 flex flex-wrap items-center gap-x-3 gap-y-1 font-mono text-2xs uppercase tracking-[0.08em] text-muted">
-              <span>Detent 0.1</span><span aria-hidden className="h-px w-6 bg-rule" /><span>{catalog.length} components</span><span aria-hidden className="h-px w-6 bg-rule" /><span>React · Tailwind v4 · Motion</span>
+              <span>Biscotti UI 0.1</span><span aria-hidden className="h-px w-6 bg-rule" /><span>{catalog.length} components</span><span aria-hidden className="h-px w-6 bg-rule" /><span>React · Tailwind v4 · Motion</span>
             </p>
             <h1 className="max-w-[760px] text-[clamp(46px,6.6vw,84px)] font-semibold leading-[0.94] tracking-[-0.045em]">
               Interfaces that<br className="hidden lg:block" /> click into place.
@@ -48,7 +48,20 @@ export default function Home() {
             </div>
             <p className="mt-5 flex items-center gap-2 font-mono text-2xs text-muted"><Icon name="code" size={13} /> Source you copy into your app, not a black-box package</p>
           </div>
-          <div className="flex justify-center lg:justify-end">
+          <div className="flex flex-col items-center lg:items-end">
+            {/* Biscotti stands on the bench: rendered from the editable Blender model. */}
+            <div className="hero-pup -mb-3 w-[min(62vw,240px)] self-center sm:w-[260px] lg:mr-12 lg:self-end">
+              {/* eslint-disable-next-line @next/next/no-img-element -- static export serves raw public assets */}
+              <img
+                src={publicPath("/brand/biscotti-hero-960.webp")}
+                srcSet={`${publicPath("/brand/biscotti-hero-480.webp")} 480w, ${publicPath("/brand/biscotti-hero-960.webp")} 960w`}
+                sizes="(min-width: 640px) 260px, 62vw"
+                width={963} height={1152} fetchPriority="high"
+                alt="Biscotti, the Biscotti UI mascot: a cream, velvety Spitz pup standing with a happy smile and its tongue out"
+                className="block h-auto w-full select-none"
+                draggable={false}
+              />
+            </div>
             <HeroBench />
           </div>
         </div>
@@ -66,7 +79,7 @@ export default function Home() {
             <p className="font-mono text-2xs uppercase tracking-[0.08em] text-pencil-ink">The idea</p>
             <h2 className="mt-3 text-[clamp(28px,3.4vw,40px)] font-semibold leading-[1.05] tracking-[-0.03em]">Pencil, then ink.</h2>
             <p className="mt-5 text-md leading-[26px] text-ink-2">
-              AI-era software is full of things that aren’t true yet — streamed text, proposed edits, pending approvals, running tools. Detent draws all of them in the same cobalt pencil, and gives the moment they become real one consistent feel: a detent.
+              AI-era software is full of things that aren’t true yet — streamed text, proposed edits, pending approvals, running tools. Biscotti UI draws all of them in the same cobalt pencil, and gives the moment they become real one consistent feel: a detent, the click of a part seating into place.
             </p>
             <p className="mt-4 text-md leading-[26px] text-ink-2">Accept a change on the right. Watch the gap close, the rule ink in, and the text settle into the document.</p>
           </div>
@@ -142,7 +155,7 @@ export default function Home() {
 
       <footer className="border-t border-hairline">
         <div className="mx-auto flex max-w-[1320px] flex-wrap items-center gap-x-6 gap-y-2 px-5 py-8 font-mono text-2xs text-muted md:px-8">
-          <span>Detent 0.1 — MIT</span>
+          <span>Biscotti UI 0.1 — MIT</span>
           <Link href="/foundations" className="hover:text-ink">Foundations</Link>
           <a href={publicPath("/r/registry.json")} className="hover:text-ink">Registry</a>
           <a href={REPO_URL} className="inline-flex items-center gap-1.5 hover:text-ink">Source on GitHub <Icon name="arrowUpRight" size={13} /></a>

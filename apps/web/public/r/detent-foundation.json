@@ -2,7 +2,7 @@
   "$schema": "https://ui.shadcn.com/schema/registry-item.json",
   "name": "detent-foundation",
   "type": "registry:lib",
-  "title": "Detent foundation",
+  "title": "Biscotti UI foundation",
   "description": "Tokens (CSS variables + Tailwind v4 theme), motion springs, the synthesised sound engine, utilities, primitives and icons.",
   "dependencies": [
     "motion"

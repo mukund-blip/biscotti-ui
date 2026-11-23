@@ -11,7 +11,7 @@ const BASE = (process.env.REGISTRY_URL ?? process.env.NEXT_PUBLIC_REGISTRY_URL ?
 const REPO = (process.env.NEXT_PUBLIC_REPO_URL ?? "https://github.com/mukund-blip/detent").replace(/\/$/, "");
 const BRANCH = process.env.NEXT_PUBLIC_REPO_BRANCH ?? "main";
 /** One quiet line at the top of each copied component, pointing back to its source. No licence terms implied. */
-const origin = (slug, title) => `// ${title} · Detent — ${REPO.replace(/^https?:\/\//, "")}/tree/${BRANCH}/packages/ui/src/components/${slug}\n`;
+const origin = (slug, title) => `// ${title} · Biscotti UI — ${REPO.replace(/^https?:\/\//, "")}/tree/${BRANCH}/packages/ui/src/components/${slug}\n`;
 mkdirSync(OUT, { recursive: true });
 
 const walk = (d) => readdirSync(d).flatMap((f) => (statSync(join(d, f)).isDirectory() ? walk(join(d, f)) : [join(d, f)]));
@@ -29,7 +29,7 @@ const foundation = {
   $schema: "https://ui.shadcn.com/schema/registry-item.json",
   name: "detent-foundation",
   type: "registry:lib",
-  title: "Detent foundation",
+  title: "Biscotti UI foundation",
   description: "Tokens (CSS variables + Tailwind v4 theme), motion springs, the synthesised sound engine, utilities, primitives and icons.",
   dependencies: depsOf(foundationFiles),
   files: foundationFiles,

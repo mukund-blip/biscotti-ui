@@ -1,0 +1,11 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 32 32">
+  <rect width="32" height="32" rx="8" fill="#3A2620"/>
+  <path d="M5.6 15 L6.4 4.4 C6.5 3.4 7.6 3 8.4 3.7 L14 9 Z M26.4 15 L25.6 4.4 C25.5 3.4 24.4 3 23.6 3.7 L18 9 Z" fill="#F7ECDB"/>
+  <path d="M8 6.8 L8.4 11 L11 9.4 Z M24 6.8 L23.6 11 L21 9.4 Z" fill="#E9A47E"/>
+  <path d="M16 7.6 C23 7.6 27.6 12.2 27.6 18.2 C27.6 24.4 22.6 28.6 16 28.6 C9.4 28.6 4.4 24.4 4.4 18.2 C4.4 12.2 9 7.6 16 7.6 Z" fill="#F7ECDB"/>
+  <ellipse cx="8.4" cy="20.4" rx="2.2" ry="1.4" fill="#F3A5A1"/>
+  <ellipse cx="23.6" cy="20.4" rx="2.2" ry="1.4" fill="#F3A5A1"/>
+  <path d="M9 16.6 Q11 13.8 13 16.6 M19 16.6 Q21 13.8 23 16.6" fill="none" stroke="#3A2620" stroke-width="2" stroke-linecap="round"/>
+  <path d="M13.6 23.4 L13.6 25 C13.6 26.6 14.6 27.6 16 27.6 C17.4 27.6 18.4 26.6 18.4 25 L18.4 23.4 Z" fill="#E8807F"/>
+  <path d="M12.2 22.4 Q14.2 24.6 16 22.8 Q17.8 24.6 19.8 22.4" fill="none" stroke="#3A2620" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round"/>
+  <path d="M13 19.6 C13 18.4 14.4 17.8 16 17.8 C17.6 17.8 19 18.4 19 19.6 C19 21 17.4 22.2 16 22.2 C14.6 22.2 13 21 13 19.6 Z" fill="#3A2620"/></svg>

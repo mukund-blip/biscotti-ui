@@ -4,7 +4,7 @@ import { Workbench } from "@/workbench/workbench";
 
 export const metadata: Metadata = { ...canonicalMetadata("workbench"),
   title: "Workbench",
-  description: "Ostra Ops: an integrated demo where Detent components drive each other, from the command palette to Scout's approvals.",
+  description: "Ostra Ops: an integrated demo where Biscotti UI components drive each other, from the command palette to Scout's approvals.",
 };
 
 export default function Page() {

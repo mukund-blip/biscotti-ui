@@ -4,6 +4,13 @@
 
 @custom-variant dark (&:where([data-theme="dark"], [data-theme="dark"] *));
 
+/* Biscotti UI brand: Fredoka for the wordmark only, and a toasted brown for its lighter "UI". */
+@theme inline {
+  --font-brand: var(--font-fredoka), ui-rounded, system-ui, sans-serif;
+}
+:root { --brand-toast: #8a6250; --brand-cream: #f7ecdb; }
+[data-theme="dark"] { --brand-toast: #c9a88f; }
+
 html {
   background: var(--dt-paper);
   color: var(--dt-ink);
@@ -32,6 +39,18 @@ body { margin: 0; }
   mask-image: linear-gradient(transparent, black 25%, black 75%, transparent);
   opacity: 0.6;
 }
+/* Biscotti stands on the bench: a warm pool of light behind the pup, never a card. */
+.hero-pup { position: relative; isolation: isolate; }
+.hero-pup::before {
+  content: "";
+  position: absolute;
+  z-index: -1;
+  inset: 4% 2% 8% 6%;
+  border-radius: 50%;
+  background: radial-gradient(closest-side, color-mix(in oklab, var(--brand-cream) 90%, transparent), transparent);
+  opacity: 0.9;
+}
+[data-theme="dark"] .hero-pup::before { opacity: 0.14; }
 .gallery-tile { transition: border-color 120ms ease; }
 .gallery-tile:focus-within { border-color: var(--dt-pencil); }
 .gallery-preview { isolation: isolate; }

@@ -3,25 +3,24 @@ import Link from "next/link";
 import { usePathname } from "next/navigation";
 import { useEffect, useRef, useState, type ReactNode } from "react";
 import { AnimatePresence, motion } from "motion/react";
-import { REPO_URL } from "@/site";
+import { REPO_URL, publicPath } from "@/site";
 import { Icon, cn, surfaceVariants, useMotionTokens, useSoundPrefs, sound } from "@detent/ui";
 
+/** Biscotti, the cream pup, as a rounded tile. Rendered from the editable Blender model. */
 export function Logo({ className }: { className?: string }) {
-  // A dial with one seated notch — the detent.
   return (
-    <svg viewBox="0 0 20 20" className={className} aria-hidden>
-      <circle cx="10" cy="10" r="7.25" fill="none" stroke="currentColor" strokeWidth="1.5" />
-      {Array.from({ length: 12 }).map((_, i) => {
-        const a = (i / 12) * Math.PI * 2;
-        const r1 = 8.75, r2 = 9.75;
-        const f = (n: number) => Math.round(n * 1000) / 1000;
-        return (
-          <line key={i} x1={f(10 + Math.cos(a) * r1)} y1={f(10 + Math.sin(a) * r1)} x2={f(10 + Math.cos(a) * r2)} y2={f(10 + Math.sin(a) * r2)}
-            stroke="currentColor" strokeOpacity={0.35} strokeWidth="1" />
-        );
-      })}
-      <line x1="10" y1="10" x2="10" y2="4.5" stroke="var(--dt-pencil)" strokeWidth="1.75" strokeLinecap="round" />
-    </svg>
+    // eslint-disable-next-line @next/next/no-img-element -- static export serves raw public assets
+    <img src={publicPath("/brand/biscotti-tile-64.webp")} srcSet={`${publicPath("/brand/biscotti-tile-64.webp")} 1x, ${publicPath("/brand/biscotti-tile-128.webp")} 2x`}
+      alt="" width={32} height={32} className={cn("rounded-[9px] shadow-[inset_0_0_0_1px_var(--dt-hairline)]", className)} />
+  );
+}
+
+/** "Biscotti" leads; "UI" is lighter and toasted. */
+export function Wordmark({ className }: { className?: string }) {
+  return (
+    <span className={cn("whitespace-nowrap font-brand font-semibold leading-none tracking-[-0.012em]", className)}>
+      Biscotti<span className="font-medium text-[var(--brand-toast)]"> UI</span>
+    </span>
   );
 }
 
@@ -166,11 +165,11 @@ export function SiteChrome({ children }: { children: ReactNode }) {
         Skip to content
       </a>
       <header className="sticky top-0 z-40 bg-paper/85 backdrop-blur-md [box-shadow:inset_0_-1px_0_var(--dt-hairline)]">
-        <div className="mx-auto flex h-16 max-w-[1320px] items-center gap-6 px-5 md:px-8">
-          <Link href="/" className="focus-ring flex items-center gap-2 rounded-sm text-ink">
-            <Logo className="size-5" />
-            <span className="text-[15px] font-semibold tracking-[-0.01em]">Detent</span>
-            <span className="font-mono text-2xs text-muted">0.1</span>
+        <div className="mx-auto flex h-16 max-w-[1320px] items-center gap-4 px-5 sm:gap-6 md:px-8">
+          <Link href="/" className="focus-ring flex shrink-0 items-center gap-2 rounded-sm sm:gap-2.5 text-ink">
+            <Logo className="size-7 shrink-0 sm:size-8" />
+            <Wordmark className="text-[17px] sm:text-[19px]" />
+            <span className="hidden font-mono text-2xs text-muted sm:inline">0.1</span>
           </Link>
           <nav className="hidden items-center gap-1 md:flex" aria-label="Primary">
             {nav.map((n) => {

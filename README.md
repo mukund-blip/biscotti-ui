@@ -1,10 +1,12 @@
-# Detent
+# Biscotti UI
+
+<img src="apps/web/public/brand/biscotti-hero-480.webp" alt="Biscotti, the cream pup mascot" width="180" align="right">
 
 **Interfaces that click into place.** Twenty interactive React components for productivity, creative and AI‑native software.
 
 > Quiet at rest. Delightful in motion. Precise in use.
 
-Detent is built around one idea: **pencil, then ink**. Anything provisional (streamed text, proposed edits, pending writes, running tools) is drawn in a cobalt *pencil*. The moment it becomes real is a *detent*: a latch you can see, feel and (optionally) hear. See [`DESIGN.md`](./DESIGN.md) for the full rationale.
+Biscotti UI is built around one idea: **pencil, then ink**. Anything provisional (streamed text, proposed edits, pending writes, running tools) is drawn in a cobalt *pencil*. The moment it becomes real is a *detent*: a latch you can see, feel and (optionally) hear. See [`DESIGN.md`](./DESIGN.md) for the full rationale. The mascot, Biscotti, is rendered from an editable Blender model; the package and registry names still use `@detent/ui` and `detent-*` so existing installs keep working.
 
 ## Run it
 

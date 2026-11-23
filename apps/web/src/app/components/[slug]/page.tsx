@@ -164,7 +164,7 @@ export default async function ComponentPage({ params }: { params: Promise<{ slug
                 {REGISTRY_IS_LOCAL && (
                   <p className="flex max-w-[680px] gap-2 rounded-md bg-pencil-soft px-3 py-2 text-sm text-ink-2">
                     <Icon name="info" size={14} className="mt-[3px] shrink-0 text-pencil-ink" />
-                    <span>This command points at the local registry, so it works while <span className="font-mono">pnpm dev</span> is running in the Detent repo. Set <span className="font-mono">NEXT_PUBLIC_REGISTRY_URL</span> when you host <span className="font-mono">public/r</span> elsewhere.</span>
+                    <span>This command points at the local registry, so it works while <span className="font-mono">pnpm dev</span> is running in the Biscotti UI repo. Set <span className="font-mono">NEXT_PUBLIC_REGISTRY_URL</span> when you host <span className="font-mono">public/r</span> elsewhere.</span>
                   </p>
                 )}
               </div>
