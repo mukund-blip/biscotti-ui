@@ -8,9 +8,9 @@ import { publicPath } from "@/site";
 export const metadata: Metadata = { title: "Page not found" };
 
 const routes = [
-  { href: "/components", label: "Components", detail: `All ${catalog.length}, live`, icon: "layers" },
-  { href: "/foundations", label: "Foundations", detail: "Colour, type, motion, sound", icon: "palette" },
-  { href: "/", label: "Home", detail: "Start from the top", icon: "arrowRight" },
+  { href: "/", label: "Components", detail: `All ${catalog.length}, live`, icon: "layers" },
+  { href: "/workbench", label: "Workbench", detail: "Ten components working together", icon: "activity" },
+  { href: "/foundations", label: "Foundations", detail: "Brand, colour, type, motion, sound", icon: "palette" },
 ] as const;
 
 /**

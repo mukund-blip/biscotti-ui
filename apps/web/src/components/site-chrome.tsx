@@ -1,17 +1,17 @@
 "use client";
 import Link from "next/link";
-import { usePathname } from "next/navigation";
 import { useEffect, useRef, useState, type ReactNode } from "react";
 import { AnimatePresence, motion } from "motion/react";
 import { REPO_URL, publicPath } from "@/site";
+import { announceIndexHash } from "@/components/home/index-browser";
 import { Icon, cn, surfaceVariants, useMotionTokens, useSoundPrefs, sound } from "@biscotti/ui";
 
 /** Biscotti, the cream pup, as a rounded tile. Rendered from the editable Blender model. */
-export function Logo({ className }: { className?: string }) {
+export function Logo({ className, style }: { className?: string; style?: React.CSSProperties }) {
   return (
     // eslint-disable-next-line @next/next/no-img-element -- static export serves raw public assets
     <img src={publicPath("/brand/biscotti-tile-64.webp")} srcSet={`${publicPath("/brand/biscotti-tile-64.webp")} 1x, ${publicPath("/brand/biscotti-tile-128.webp")} 2x`}
-      alt="" width={32} height={32} className={cn("rounded-[9px] shadow-[inset_0_0_0_1px_var(--bis-hairline)]", className)} />
+      alt="" width={32} height={32} style={style} className={cn("rounded-[9px] shadow-[inset_0_0_0_1px_var(--bis-hairline)]", className)} />
   );
 }
 
@@ -151,14 +151,8 @@ export function SoundControl({ compact = false }: { compact?: boolean }) {
   );
 }
 
-const nav = [
-  { href: "/components", label: "Components" },
-  { href: "/workbench", label: "Workbench" },
-  { href: "/foundations", label: "Foundations" },
-];
 
 export function SiteChrome({ children }: { children: ReactNode }) {
-  const path = usePathname();
   return (
     <>
       <a href="#main" className="focus-ring sr-only z-[100] rounded-sm bg-raised px-3 py-2 focus:not-sr-only focus:fixed focus:left-3 focus:top-3">
@@ -167,24 +161,13 @@ export function SiteChrome({ children }: { children: ReactNode }) {
       <header className="sticky top-0 z-40 bg-paper/85 backdrop-blur-md [box-shadow:inset_0_-1px_0_var(--bis-hairline)]">
         <div className="mx-auto flex h-16 max-w-[1320px] items-center gap-3 px-4 sm:gap-6 sm:px-5 md:px-8">
           {/* Named by its content ("Biscotti UI 0.1, home"; no version below sm) so the accessible name always contains the visible text. */}
-          <Link href="/" className="focus-ring flex shrink-0 items-center gap-2 rounded-sm text-ink sm:gap-2.5">
+          <Link href="/" onClick={() => announceIndexHash("")} className="focus-ring flex shrink-0 items-center gap-2 rounded-sm text-ink sm:gap-2.5">
             <Logo className="size-7 shrink-0 sm:size-8" />
             <Wordmark className="text-[17px] sm:text-[19px]" />{" "}
             {/* The version yields to the wordmark on narrow phones. */}
             <span className="hidden font-mono text-2xs text-muted sm:inline">0.1</span>
             <span className="sr-only">, home</span>
           </Link>
-          <nav className="hidden items-center gap-1 md:flex" aria-label="Primary">
-            {nav.map((n) => {
-              const active = path?.startsWith(n.href);
-              return (
-                <Link key={n.href} href={n.href} aria-current={active ? "page" : undefined}
-                  className={cn("focus-ring rounded-sm px-2.5 py-1.5 text-sm transition-colors duration-[90ms]", active ? "bg-sunken text-ink" : "text-muted hover:bg-surface hover:text-ink")}>
-                  {n.label}
-                </Link>
-              );
-            })}
-          </nav>
           <div className="ml-auto flex items-center gap-2">
             <a href={REPO_URL} className="focus-ring mr-2 hidden items-center gap-1.5 rounded-sm text-xs text-muted hover:text-ink lg:inline-flex">Source<Icon name="arrowUpRight" size={13} /></a>
             {/* The labelled control fits from 400 px; narrower phones get the icon-only version so the header never overflows. */}
@@ -193,13 +176,29 @@ export function SiteChrome({ children }: { children: ReactNode }) {
             <ThemeSwitch />
           </div>
         </div>
-        <nav className="flex gap-1 overflow-x-auto px-3 pb-2 md:hidden" aria-label="Primary mobile">
-          {nav.map((n) => (
-            <Link key={n.href} href={n.href} aria-current={path?.startsWith(n.href) ? "page" : undefined} className={cn("focus-ring rounded-sm px-2.5 py-1 text-sm", path?.startsWith(n.href) ? "bg-sunken text-ink" : "text-muted")}>{n.label}</Link>
-          ))}
-        </nav>
       </header>
       <main id="main">{children}</main>
+      <SiteFooter />
     </>
+  );
+}
+
+/** Secondary destinations live here, not in the header: the site opens straight into the components. */
+function SiteFooter() {
+  return (
+    <footer className="border-t border-hairline">
+      <div className="mx-auto flex max-w-[1320px] flex-wrap items-center gap-x-6 gap-y-3 px-5 py-8 text-sm text-muted md:px-8">
+        <Link href="/" onClick={() => announceIndexHash("")} className="focus-ring flex items-center gap-2 rounded-sm text-ink" aria-label="Biscotti UI components">
+          <Logo className="size-6" /><Wordmark className="text-[15px]" />
+        </Link>
+        <nav aria-label="Site" className="flex flex-wrap items-center gap-x-5 gap-y-2">
+          <Link href="/foundations" className="focus-ring rounded-xs hover:text-ink">Foundations</Link>
+          <Link href="/workbench" className="focus-ring rounded-xs hover:text-ink">Workbench</Link>
+          <a href={publicPath("/r/registry.json")} className="focus-ring rounded-xs hover:text-ink">Registry</a>
+          <a href={REPO_URL} className="focus-ring inline-flex items-center gap-1 rounded-xs hover:text-ink">Source <Icon name="arrowUpRight" size={12} /></a>
+        </nav>
+        <span className="text-xs sm:ml-auto">MIT licence</span>
+      </div>
+    </footer>
   );
 }

@@ -39,7 +39,7 @@ for (const [name, inject] of Object.entries(injections)) {
   test(`hydrates cleanly with host-injected HTML (${name})`, async ({ page }) => {
     await serveWith(page, inject);
     const errors = collectErrors(page);
-    for (const route of ["./", "components/", "components/tool-chip/", "foundations/"]) {
+    for (const route of ["./", "workbench/", "components/tool-chip/", "foundations/"]) {
       await page.goto(route);
       await expect(page.locator("main")).toBeVisible();
       // Let React finish hydrating and any recoverable-error fallback run.
@@ -61,7 +61,7 @@ for (const [name, inject] of Object.entries(injections)) {
     await expect(page.locator("html")).toHaveAttribute("data-theme", "dark");
     await expect(page.getByRole("button", { name: "Dark theme" })).toHaveAttribute("aria-pressed", "true");
     // A fresh page in the same session must also open dark.
-    await page.goto("components/");
+    await page.goto("./");
     await page.waitForLoadState("networkidle");
     await expect(page.locator("html")).toHaveAttribute("data-theme", "dark");
     expect(errors).toEqual([]);

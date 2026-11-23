@@ -8,7 +8,7 @@ export const entry: CatalogEntry = {
   group: "Tactile controls",
   summary: "A button family that presses physically and narrates its own async lifecycle.",
   description:
-    "Press and it sinks a pixel on the input frame, then springs back on release, with no hover lift. Return a Promise from onClick and it runs idle → pending → success | error by itself: a spinner while the present-progressive label shows, a check that draws itself beside the past tense, and a nudge plus an err edge on failure. Its width morphs between labels, so the row never jumps. Destructive actions can require a hold, which fills in pencil, ticks at each quarter and latches before running.",
+    "Press and it sinks a pixel on the input frame, then springs back on release, with no hover lift. Return a Promise from onClick and it runs idle → pending → success | error by itself: a spinner while the present-progressive label shows, a check that draws itself beside the past tense, and a nudge plus an err edge on failure. A button with a lifecycle holds the width of its widest state from the start, so its neighbours never reflow when the spinner or check appears. Destructive actions can require a hold, which fills in pencil, ticks at each quarter and latches before running.",
   useCases: ["Export, sync and publish actions that take a moment", "Destructive actions that deserve a deliberate hold", "Toolbars of attached actions"],
   scale: "s",
   Demo: KineticButtonDemo,
@@ -40,6 +40,7 @@ export const entry: CatalogEntry = {
     { name: "holdToConfirm", type: "number", description: "ms of press-and-hold (pointer, Space or Enter) required before the action runs." },
     { name: "disabled", type: "boolean", default: "false", description: "Native disabled, 45% opacity." },
     { name: "sound", type: "boolean", default: "true", description: "Allow this instance to play sounds." },
+    { name: "reserveWidth", type: "boolean", default: "on with a lifecycle", description: "Hold the widest state's width (idle, pending, success, error) from the start so nothing reflows. On by default when holdToConfirm, pendingLabel, successLabel or state is set; false morphs between label widths instead." },
   ],
   exports: [{ name: "KineticButtonGroup", description: "Attached row of buttons sharing one outline; sets default variant/size; pressed buttons sink without scaling so seams stay aligned." }],
   dependencies: ["motion"],
@@ -51,7 +52,7 @@ export const entry: CatalogEntry = {
     "Native <button>; aria-busy while pending, aria-invalid after failure; it stays focusable while busy (aria-disabled), so focus is never lost.",
     "The accessible name follows the visible label (Export bank → Exporting → Exported), and a polite status region announces each transition.",
     "Hold buttons carry aria-description “Press and hold to confirm”; keyboard holds work the same way as pointer holds.",
-    "Width morphs between labels, so neighbours never reflow.",
+    "Buttons with a lifecycle keep the width of their widest state, so neighbours never reflow; reserveWidth={false} morphs instead.",
   ],
   motion: [
     { state: "Rest", behaviour: "Flat. Secondary has a hairline outline with a darker bottom edge. No hover lift." },

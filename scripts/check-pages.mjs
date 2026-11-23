@@ -11,7 +11,7 @@ const slugs = readdirSync(resolve(import.meta.dirname, "../apps/web/src/catalog"
 assert.ok(slugs.length > 0, "no catalog entries found");
 assert.ok(existsSync(join(root, ".nojekyll")), "missing .nojekyll");
 assert.ok(!existsSync(join(root, "api/stream")), "obsolete API route exported");
-const routes = ["", "components", "foundations", "workbench", ...slugs.map((s) => `components/${s}`)];
+const routes = ["", "foundations", "workbench", ...slugs.map((s) => `components/${s}`)];
 const sitemap = read("sitemap.xml");
 for (const route of routes) {
   const html = read(`${route ? `${route}/` : ""}index.html`);
@@ -27,6 +27,10 @@ for (const route of routes) {
   if (route.startsWith("components/")) assert.ok(html.includes(`${siteUrl}/r/${route.split("/")[1]}.json`), `wrong displayed install URL in ${route}`);
 }
 assert.ok(read("robots.txt").includes(`${siteUrl}/sitemap.xml`));
+// The homepage install command must point at this deployment's registry, never a dev server.
+const home = read("index.html");
+assert.ok(home.includes(`npx shadcn@latest add ${siteUrl}/r/`), "homepage install command does not use the site registry");
+if (!/localhost|127\.0\.0\.1/.test(siteUrl)) assert.ok(!/localhost|127\.0\.0\.1/.test(home), "homepage mentions a local host");
 // /biscotti-ui/robots.txt can't hide anything, so every exported lab harness must carry noindex itself.
 // Expected lab pages come from the source routes, so a missing export fails instead of passing with nothing checked.
 const labSrc = resolve(import.meta.dirname, "../apps/web/src/app/lab");

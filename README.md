@@ -70,14 +70,14 @@ Requires Node 20+ and pnpm 10.
 
 ## Tour
 
-- **`/components`**: the index of all twenty, grouped as tactile controls, commands & composition, agent interactions, and information & editing. Every tile is live.
-- **`/components/<slug>`**: the full demo with state controls, a copyable usage example, props, keyboard map, accessibility notes, a motion spec and a sound map.
-- **`/workbench`**: *Ostra Ops: the encoder shortage*, an integrated mini-app where the components drive each other:
+- **`/`**: the component index. An editorial headline with the shadcn install command, one featured component (Kinetic Button), then all twenty as cards with live previews, grouped as tactile controls, commands & composition, agent interactions, and information & editing. A sticky category sidebar (a compact tab row on phones) filters the grid and is linkable (`/#agent-interactions`). `/components` redirects here.
+- **`/components/<slug>`**: the full demo with state controls, a copyable usage example, props, keyboard map, accessibility notes, a motion spec and a sound map. Components used in the Workbench link to it.
+- **`/workbench`** (footer, hero and component pages): *Ostra Ops: the encoder shortage*, an integrated mini-app where the components drive each other:
   - ⌘K filters the orders table, including a nested "Filter by status" page and live order search.
   - "Mark shipped" is undoable from the toast.
   - Scout's simulated tool calls collapse into a summary while a canned answer streams at a controlled pace in the browser (no backend or model request).
   - Approving the purchase order (hold to confirm, 5 s undo) creates a task in the agent activity stack.
-- **`/foundations`**: tokens, springs and the sound board.
+- **`/foundations`** (footer): the brand (Biscotti, the face tile and the wordmark), tokens, springs and the sound board.
 
 ## Verification
 
