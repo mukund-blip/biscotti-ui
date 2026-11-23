@@ -1,1 +1,1 @@
-Biscotti UI: interfaces that click into place. Biscotti, a cream velvety pup, stands beside the wordmark.
+Biscotti UI: interactive React components. Biscotti, a cream pup, stands beside the wordmark.

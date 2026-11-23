@@ -14,7 +14,7 @@ const serif = Newsreader({ subsets: ["latin"], style: ["italic"], weight: ["400"
 export const metadata: Metadata = {
   metadataBase: SITE_URL ? new URL(`${SITE_URL}/`) : undefined,
   title: { default: "Biscotti UI: interactive React components", template: "%s · Biscotti UI" },
-  description: "Twenty interactive React components. Try controls, editors and agent workflows, then copy the source into your app.",
+  description: "Interactive React components for controls, editors and agent workflows. Try each component, then install its source with the shadcn CLI.",
   applicationName: "Biscotti UI",
   openGraph: { siteName: "Biscotti UI", type: "website" },
   twitter: { card: "summary_large_image" },

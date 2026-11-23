@@ -7,6 +7,15 @@
 /** Source repository. Override with NEXT_PUBLIC_REPO_URL for forks. */
 export const REPO_URL = (process.env.NEXT_PUBLIC_REPO_URL ?? "https://github.com/mukund-blip/biscotti-ui").replace(/\/$/, "");
 
+/**
+ * The repository is private until launch. Links to it (header and footer Source, Star on GitHub, and
+ * "View source" on component pages) render only when the build sets NEXT_PUBLIC_REPO_PUBLIC=true.
+ */
+export const REPO_PUBLIC = process.env.NEXT_PUBLIC_REPO_PUBLIC === "true";
+
+/** Author profile on X, linked from the footer. */
+export const X_PROFILE_URL = "https://x.com/MukundMohanK";
+
 /** Branch used for "view source" links. */
 export const REPO_BRANCH = process.env.NEXT_PUBLIC_REPO_BRANCH ?? "main";
 
@@ -21,7 +30,12 @@ export const REGISTRY_IS_LOCAL = REGISTRY_URL === LOCAL_REGISTRY;
 export const componentSourceUrl = (slug: string) => `${REPO_URL}/tree/${REPO_BRANCH}/packages/ui/src/components/${slug}`;
 
 /** One quiet line that travels with copied examples, pointing back to where they came from. */
-export const originComment = (slug: string, name: string) => `// ${name} · Biscotti UI — ${componentSourceUrl(slug).replace(/^https?:\/\//, "")}`;
+export const originComment = (slug: string, name: string) =>
+  `// ${name} · Biscotti UI — ${originTarget(slug).replace(/^https?:\/\//, "")}`;
+
+/** Where the origin line points: the source on GitHub once public, else the live component page. */
+const originTarget = (slug: string) =>
+  REPO_PUBLIC ? componentSourceUrl(slug) : `${SITE_URL ?? REGISTRY_URL}/components/${slug}/`;
 
 
 /**

@@ -2,7 +2,7 @@
 import Link from "next/link";
 import { useEffect, useRef, useState, type ReactNode } from "react";
 import { AnimatePresence, motion } from "motion/react";
-import { REPO_URL, publicPath } from "@/site";
+import { REPO_PUBLIC, REPO_URL, X_PROFILE_URL, publicPath } from "@/site";
 import { announceIndexHash } from "@/components/home/index-browser";
 import { Icon, cn, surfaceVariants, useMotionTokens, useSoundPrefs, sound } from "@biscotti/ui";
 
@@ -169,7 +169,7 @@ export function SiteChrome({ children }: { children: ReactNode }) {
             <span className="sr-only">, home</span>
           </Link>
           <div className="ml-auto flex items-center gap-2">
-            <a href={REPO_URL} className="focus-ring mr-2 hidden items-center gap-1.5 rounded-sm text-xs text-muted hover:text-ink lg:inline-flex">Source<Icon name="arrowUpRight" size={13} /></a>
+            {REPO_PUBLIC && <a href={REPO_URL} className="focus-ring mr-2 hidden items-center gap-1.5 rounded-sm text-xs text-muted hover:text-ink lg:inline-flex">Source<Icon name="arrowUpRight" size={13} /></a>}
             {/* The labelled control fits from 400 px; narrower phones get the icon-only version so the header never overflows. */}
             <div className="hidden min-[400px]:block"><SoundControl /></div>
             <div className="min-[400px]:hidden"><SoundControl compact /></div>
@@ -183,6 +183,19 @@ export function SiteChrome({ children }: { children: ReactNode }) {
   );
 }
 
+/** Brand marks for the footer's profile links (not in the UI icon set). */
+function XMark() {
+  return <svg viewBox="0 0 24 24" width="14" height="14" aria-hidden fill="currentColor"><path d="M18.244 2.25h3.308l-7.227 8.26 8.502 11.24H16.17l-5.214-6.817L4.99 21.75H1.68l7.73-8.835L1.254 2.25H8.08l4.713 6.231zm-1.161 17.52h1.833L7.084 4.126H5.117z" /></svg>;
+}
+function GitHubMark() {
+  return <svg viewBox="0 0 16 16" width="15" height="15" aria-hidden fill="currentColor"><path d="M8 0C3.58 0 0 3.58 0 8c0 3.54 2.29 6.53 5.47 7.59.4.07.55-.17.55-.38 0-.19-.01-.82-.01-1.49-2.01.37-2.53-.49-2.69-.94-.09-.23-.48-.94-.82-1.13-.28-.15-.68-.52-.01-.53.63-.01 1.08.58 1.23.82.72 1.21 1.87.87 2.33.66.07-.52.28-.87.51-1.07-1.78-.2-3.64-.89-3.64-3.95 0-.87.31-1.59.82-2.15-.08-.2-.36-1.02.08-2.12 0 0 .67-.21 2.2.82.64-.18 1.32-.27 2-.27.68 0 1.36.09 2 .27 1.53-1.04 2.2-.82 2.2-.82.44 1.1.16 1.92.08 2.12.51.56.82 1.27.82 2.15 0 3.07-1.87 3.75-3.65 3.95.29.25.54.73.54 1.48 0 1.07-.01 1.93-.01 2.2 0 .21.15.46.55.38A8.01 8.01 0 0 0 16 8c0-4.42-3.58-8-8-8z" /></svg>;
+}
+function StarMark() {
+  return <svg viewBox="0 0 16 16" width="13" height="13" aria-hidden fill="none" stroke="currentColor" strokeWidth="1.4" strokeLinejoin="round"><path d="M8 1.6l1.9 3.9 4.3.6-3.1 3 .7 4.3L8 11.4l-3.8 2 .7-4.3-3.1-3 4.3-.6z" /></svg>;
+}
+
+const circle = "focus-ring grid size-8 shrink-0 place-items-center rounded-full text-ink-2 shadow-[inset_0_0_0_1px_var(--bis-hairline)] transition-colors duration-[90ms] hover:bg-surface hover:text-ink";
+
 /** Secondary destinations live here, not in the header: the site opens straight into the components. */
 function SiteFooter() {
   return (
@@ -195,9 +208,20 @@ function SiteFooter() {
           <Link href="/foundations" className="focus-ring rounded-xs hover:text-ink">Foundations</Link>
           <Link href="/workbench" className="focus-ring rounded-xs hover:text-ink">Workbench</Link>
           <a href={publicPath("/r/registry.json")} className="focus-ring rounded-xs hover:text-ink">Registry</a>
-          <a href={REPO_URL} className="focus-ring inline-flex items-center gap-1 rounded-xs hover:text-ink">Source <Icon name="arrowUpRight" size={12} /></a>
         </nav>
-        <span className="text-xs sm:ml-auto">MIT licence</span>
+        <div className="flex w-full flex-wrap items-center gap-x-4 gap-y-3 sm:ml-auto sm:w-auto">
+          {/* GitHub links render only once the repository is public (NEXT_PUBLIC_REPO_PUBLIC=true). */}
+          {REPO_PUBLIC && (
+            <a href={REPO_URL} className="focus-ring inline-flex h-8 items-center gap-1.5 rounded-full px-3 text-ink-2 shadow-[inset_0_0_0_1px_var(--bis-hairline)] transition-colors duration-[90ms] hover:bg-surface hover:text-ink">
+              <StarMark /> Star on GitHub
+            </a>
+          )}
+          <div className="flex items-center gap-2">
+            {REPO_PUBLIC && <a href={REPO_URL} aria-label="Biscotti UI on GitHub" className={circle}><GitHubMark /></a>}
+            <a href={X_PROFILE_URL} aria-label="Mukund Mohan on X" rel="me noopener" className={circle}><XMark /></a>
+          </div>
+          <span className="text-xs">MIT licence</span>
+        </div>
       </div>
     </footer>
   );

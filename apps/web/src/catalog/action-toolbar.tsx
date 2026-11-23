@@ -6,9 +6,9 @@ export const entry: CatalogEntry = {
   number: "08",
   name: "Contextual Action Toolbar",
   group: "Commands & composition",
-  summary: "A floating toolbar that follows the text selection and morphs into an inline input.",
+  summary: "Shows a toolbar at the text selection. Link and Comment open an inline input in the toolbar.",
   description:
-    "A selection-aware toolbar for an editable region or a read-only article. It sits above the selection, flips below when there is no room, and glides with the selection as it changes instead of jumping. Link and Comment morph the toolbar into an inline input: the width springs open and the buttons crossfade out. Keyboard users reach it with ⌥F10 or ⌘/, rove with the arrows, and Escape hands focus and the selection back to the text.",
+    "A toolbar for a text selection in an editable region or a read-only article. It appears above the selection. If there is no space above, it appears below. It moves with the selection and does not jump. Link and Comment change the toolbar into an inline input: the width opens on a spring and the buttons fade out. Press ⌥F10 or ⌘/ to move focus to the toolbar. Use the arrow keys to move between buttons. Press Escape to return focus and the selection to the text.",
   useCases: ["Formatting in a lightweight editor", "Commenting on or annotating a read-only document", "Asking an agent about a highlighted passage"],
   scale: "m",
   Demo: ActionToolbarDemo,

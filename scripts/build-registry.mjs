@@ -10,8 +10,16 @@ const BASE = (process.env.REGISTRY_URL ?? process.env.NEXT_PUBLIC_REGISTRY_URL ?
 // Keep in sync with apps/web/src/site.ts.
 const REPO = (process.env.NEXT_PUBLIC_REPO_URL ?? "https://github.com/mukund-blip/biscotti-ui").replace(/\/$/, "");
 const BRANCH = process.env.NEXT_PUBLIC_REPO_BRANCH ?? "main";
-/** One quiet line at the top of each copied component, pointing back to its source. No licence terms implied. */
-const origin = (slug, title) => `// ${title} · Biscotti UI — ${REPO.replace(/^https?:\/\//, "")}/tree/${BRANCH}/packages/ui/src/components/${slug}\n`;
+// Keep in sync with REPO_PUBLIC in apps/web/src/site.ts: the repository is private until launch.
+const REPO_PUBLIC = process.env.NEXT_PUBLIC_REPO_PUBLIC === "true";
+/**
+ * One line at the top of each copied component, pointing back to where it came from: the source on
+ * GitHub once the repository is public, else the live component page. No licence terms implied.
+ */
+const origin = (slug, title) => {
+  const target = REPO_PUBLIC ? `${REPO}/tree/${BRANCH}/packages/ui/src/components/${slug}` : `${BASE}/components/${slug}/`;
+  return `// ${title} · Biscotti UI — ${target.replace(/^https?:\/\//, "")}\n`;
+};
 mkdirSync(OUT, { recursive: true });
 
 const walk = (d) => readdirSync(d).flatMap((f) => (statSync(join(d, f)).isDirectory() ? walk(join(d, f)) : [join(d, f)]));

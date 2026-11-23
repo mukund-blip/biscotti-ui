@@ -13,121 +13,121 @@
       "name": "action-toolbar",
       "type": "registry:ui",
       "title": "Contextual Action Toolbar",
-      "description": "A floating toolbar that follows the text selection and morphs into an inline input."
+      "description": "Shows a toolbar at the text selection. Link and Comment open an inline input in the toolbar."
     },
     {
       "name": "activity-stack",
       "type": "registry:ui",
       "title": "Agent Activity Stack",
-      "description": "Concurrent agent tasks that sort by urgency and sink into a deck of finished work."
+      "description": "Lists concurrent agent tasks by urgency. Collapses finished tasks into a stack."
     },
     {
       "name": "approval-card",
       "type": "registry:ui",
       "title": "Human Approval Card",
-      "description": "An agent asks before it acts. Decide, and the card folds into a receipt you can undo."
+      "description": "Asks for approval before an agent acts. After a decision, it shows a receipt that you can undo."
     },
     {
       "name": "command-palette",
       "type": "registry:ui",
       "title": "Command Palette",
-      "description": "⌘K search over commands, with fuzzy ranking, nested pages and async results."
+      "description": "Searches commands with ⌘K. Supports fuzzy ranking, nested pages and async results."
     },
     {
       "name": "data-table",
       "type": "registry:ui",
       "title": "Smart Data Table",
-      "description": "Sort, inspect, and act on live records without losing your place."
+      "description": "Sorts, selects and updates live records. Keeps focus and selection on the same rows."
     },
     {
       "name": "diff-inspector",
       "type": "registry:ui",
       "title": "Interactive Diff Inspector",
-      "description": "Review proposed edits hunk by hunk. Accepted changes settle into the document."
+      "description": "Reviews proposed edits one hunk at a time. Applies accepted changes to the document."
     },
     {
       "name": "filter-builder",
       "type": "registry:ui",
       "title": "Visual Filter Builder",
-      "description": "Build readable filters with typed editors, editable clauses, and live results."
+      "description": "Builds filters from typed clauses. Shows the matching results while you edit."
     },
     {
       "name": "insight-card",
       "type": "registry:ui",
       "title": "Insight Card",
-      "description": "A KPI with rolling digits, a scrubbable SVG chart and an insight sentence worth reading."
+      "description": "Shows one KPI with animated digits, a scrubbable SVG chart and a one-sentence insight."
     },
     {
       "name": "interactive-slider",
       "type": "registry:ui",
       "title": "Interactive Slider",
-      "description": "A precision fader with a measuring ruler, magnetic notches and fine adjust."
+      "description": "A precision slider with a ruler, snap points and fine adjustment with Shift."
     },
     {
       "name": "kinetic-button",
       "type": "registry:ui",
       "title": "Kinetic Button",
-      "description": "A button family that presses physically and narrates its own async lifecycle."
+      "description": "A button that shows pending, success and error states. Supports hold to confirm."
     },
     {
       "name": "mention-picker",
       "type": "registry:ui",
       "title": "Contextual Mention Picker",
-      "description": "Find people, files and tools at the caret, then insert a reference as one token."
+      "description": "Finds people, files and tools at the caret. Inserts the selection as one token."
     },
     {
       "name": "notifications",
       "type": "registry:ui",
       "title": "Notification & Feedback System",
-      "description": "Stacked toasts with undo countdowns, in-place progress and a persistent Callout."
+      "description": "Shows stacked toasts with undo countdowns and progress. Callout shows persistent messages."
     },
     {
       "name": "precision-toggle",
       "type": "registry:ui",
       "title": "Precision Toggle",
-      "description": "A latching switch that stays in pencil until the change is actually saved."
+      "description": "A switch that stays pending in pencil until the save is complete."
     },
     {
       "name": "prompt-composer",
       "type": "registry:ui",
       "title": "Intelligent Prompt Composer",
-      "description": "Compose a prompt with file uploads, inline references and slash commands."
+      "description": "A prompt input with file uploads, inline references and slash commands."
     },
     {
       "name": "property-editor",
       "type": "registry:ui",
       "title": "Inline Property Editor",
-      "description": "An inspector with scrubbable numbers, a colour picker and a box model you drag directly."
+      "description": "An inspector with drag-to-change numbers, a colour picker and an editable box model."
     },
     {
       "name": "segmented-control",
       "type": "registry:ui",
       "title": "Segmented Control",
-      "description": "A segmented control whose indicator inchworms — lead edge first, trailing edge after."
+      "description": "Selects one option from a set. The indicator moves its leading edge first."
     },
     {
       "name": "streaming-response",
       "type": "registry:ui",
       "title": "Streaming Response",
-      "description": "Renders a real text stream as light markdown, with chunk fades, citations and a pencil caret."
+      "description": "Renders a text stream as Markdown, with chunk fades, citations and a pencil caret."
     },
     {
       "name": "thinking-timeline",
       "type": "registry:ui",
       "title": "Thinking Timeline",
-      "description": "An agent's progress as user-facing steps that shrink into a past-tense summary."
+      "description": "Shows agent progress as steps. Collapses into a past-tense summary when the run ends."
     },
     {
       "name": "tool-chip",
       "type": "registry:ui",
       "title": "Tool Execution Chip",
-      "description": "One quiet inline chip per tool call that opens in place into its input and output."
+      "description": "Shows one inline chip per tool call. Opens in place to show the input and output."
     },
     {
       "name": "workflow-stepper",
       "type": "registry:ui",
       "title": "Workflow Stepper",
-      "description": "A multi-step run drawn as dependency lanes that split, run in parallel and merge."
+      "description": "Shows a multi-step run as dependency lanes that split, run in parallel and merge."
     }
   ]
 }

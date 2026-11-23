@@ -71,7 +71,7 @@ export default function Foundations() {
           <p className="mb-3 font-mono text-2xs uppercase tracking-[0.08em] text-muted">Foundations</p>
           <h1 className="max-w-[820px] text-[clamp(34px,5.5vw,56px)] font-semibold leading-[1] tracking-[-0.04em]">Pencil, then ink.</h1>
           <p className="mt-5 max-w-[640px] text-md text-ink-2">
-            One rule explains every colour in Biscotti UI: anything provisional — streaming, proposed, pending, live — is drawn in pencil. When it becomes true, it’s inked. Everything else is paper, graphite and hairlines.
+            One rule sets every colour in Biscotti UI. Provisional state (streaming, proposed, pending, live) uses pencil. Committed state uses ink. All other surfaces use paper, graphite and hairlines.
           </p>
         </div>
         {/* Biscotti, the mascot: rendered from the editable Blender model. */}
@@ -89,7 +89,7 @@ export default function Foundations() {
         </div>
       </header>
 
-      <Section id="brand" n="00" title="Brand" intro="Biscotti is the mascot: a cream pup rendered in 3D. The face tile is the logo; the wordmark is set in Fredoka, with a lighter, toasted “UI”. Use the tile from 24 px up and keep clear space of half its width.">
+      <Section id="brand" n="00" title="Brand" intro="Biscotti is the mascot, a cream pup rendered in 3D. The face tile is the logo. The wordmark uses Fredoka, with a lighter “UI” in toasted brown. Use the tile at 24 px or larger. Keep clear space of half the tile width around it.">
         <div className="grid gap-3 sm:grid-cols-2">
           {(["light", "dark"] as const).map((t) => (
             <div key={t} data-theme={t} className="flex flex-col gap-5 rounded-lg bg-paper p-5 text-ink shadow-[inset_0_0_0_1px_var(--bis-hairline)]">
@@ -108,14 +108,14 @@ export default function Foundations() {
         </div>
       </Section>
 
-      <Section id="color" n="01" title="Colour" intro="Warm paper and graphite, one cobalt pencil, and status colours reserved for status. Every token is a CSS variable you can remap in a host app.">
+      <Section id="color" n="01" title="Colour" intro="Warm paper and graphite, one cobalt pencil, and status colours for status only. Each token is a CSS variable. A host app can remap any token.">
         <div className="grid gap-3 lg:grid-cols-2">
           <Swatches theme="light" />
           <Swatches theme="dark" />
         </div>
       </Section>
 
-      <Section id="type" n="02" title="Type" intro="Geist for interface, Geist Mono (tabular) for every number, timer, path and key. Newsreader italic appears in exactly one role: provenance — where a claim came from.">
+      <Section id="type" n="02" title="Type" intro="Geist for the interface. Geist Mono with tabular figures for numbers, timers, paths and keys. Newsreader italic for one role only: provenance, which shows the source of a claim.">
         <div className="grid">
           {typeScale.map(([k, px, use]) => (
             <div key={k} className="grid items-baseline gap-4 border-b border-hairline py-2.5 sm:grid-cols-[90px_1fr_200px]">
@@ -132,7 +132,7 @@ export default function Foundations() {
         </div>
       </Section>
 
-      <Section id="shape" n="03" title="Geometry & depth" intro="Small radii that grow with the size of the surface. Depth comes from hairlines and one soft ambient shadow — never glass or glow.">
+      <Section id="shape" n="03" title="Geometry & depth" intro="Radii increase with surface size. Depth comes from hairlines and one soft ambient shadow. No glass or glow.">
         <div className="flex flex-wrap items-end gap-5">
           {[["xs", 2, "chips, kbd"], ["sm", 4, "controls"], ["md", 6, "inputs"], ["lg", 10, "panels"], ["xl", 14, "stages"]].map(([k, r, use]) => (
             <div key={k as string} className="text-center">
@@ -153,15 +153,15 @@ export default function Foundations() {
         </div>
       </Section>
 
-      <Section id="motion" n="04" title="Motion" intro="Timing is chosen per interaction class. State changes on the input frame; springs only settle what already happened. Only the latch overshoots. Under reduced motion, travel becomes instant and a 120 ms fade remains.">
+      <Section id="motion" n="04" title="Motion" intro="Each interaction class has its own timing. State changes on the input frame. Springs only settle a change that already happened. Only the latch overshoots. With reduced motion, travel is instant and a 120 ms fade remains.">
         <Springs />
       </Section>
 
-      <Section id="sound" n="05" title="Sound" intro="Thirteen voices synthesised with the Web Audio API — filtered noise transients and pentatonic sine partials through one limiter. Off by default; never on hover, focus or background updates.">
+      <Section id="sound" n="05" title="Sound" intro="Thirteen voices synthesised with the Web Audio API: filtered noise transients and pentatonic sine partials through one limiter. Sound is off by default. It never plays on hover, focus or background updates.">
         <SoundBoard />
       </Section>
 
-      <Section id="icons" n="06" title="Icons" intro="Drawn on a 16 px grid with a 1.5 px stroke and round joins, sized to sit on the text baseline. Click to copy a name.">
+      <Section id="icons" n="06" title="Icons" intro="Drawn on a 16 px grid with a 1.5 px stroke and round joins. Sized for the text baseline. Click an icon to copy its name.">
         <IconGrid />
       </Section>
     </div>

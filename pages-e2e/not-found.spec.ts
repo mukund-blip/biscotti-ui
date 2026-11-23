@@ -10,7 +10,7 @@ test("unknown paths return a real 404 with the Biscotti UI not-found page", asyn
 
   const response = await page.goto("definitely-not-a-page/");
   expect(response?.status()).toBe(404);
-  await expect(page.getByRole("heading", { level: 1, name: "Still in pencil." })).toBeVisible();
+  await expect(page.getByRole("heading", { level: 1, name: "Page not found." })).toBeVisible();
   const robots = await page.locator('meta[name="robots"]').evaluateAll((els) => els.map((e) => e.getAttribute("content")));
   expect(robots.length, "robots meta present").toBeGreaterThan(0);
   for (const content of robots) expect(content).toMatch(/noindex/);
@@ -22,6 +22,6 @@ test("unknown paths return a real 404 with the Biscotti UI not-found page", asyn
   await nav.getByRole("link", { name: /Components/ }).click();
   // The component index is the homepage.
   await expect(page).toHaveURL(/\/biscotti-ui\/$|\/$/);
-  await expect(page.getByRole("heading", { level: 1, name: "Twenty components, built to be touched." })).toBeVisible();
+  await expect(page.getByRole("heading", { level: 1, name: "Interactive React components." })).toBeVisible();
   expect(errors).toEqual([]);
 });

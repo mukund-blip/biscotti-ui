@@ -6,9 +6,9 @@ export const entry: CatalogEntry = {
   number: "11",
   name: "Agent Activity Stack",
   group: "Agent interactions",
-  summary: "Concurrent agent tasks that sort by urgency and sink into a deck of finished work.",
+  summary: "Lists concurrent agent tasks by urgency. Collapses finished tasks into a stack.",
   description:
-    "A live board of everything an agent is doing in the background. Running work sits on top with pencil progress, failures stay in view with their error and a Retry, and paused or queued tasks wait below. When a task finishes it sinks and compresses into a physically layered “N completed” deck at the bottom; click the deck and the cards fan out into a list. A thin segmented bar in the header shows how many concurrency slots are in use and by what.",
+    "A live list of background agent tasks. Running tasks are at the top and show progress in pencil. Failed tasks stay visible with the error and a Retry button. Paused and queued tasks are below. Finished tasks collapse into an “N completed” stack at the bottom. Click the stack to expand it into a list. A segmented bar in the header shows the concurrency slots that are in use and the tasks that use them.",
   useCases: ["Background agent jobs in a copilot sidebar", "Batch automations with limited concurrency", "Long-running exports, imports and syncs"],
   scale: "l",
   Demo: ActivityStackDemo,

@@ -12,7 +12,7 @@ export const metadata = canonicalMetadata();
 
 const install = `npx shadcn@latest add ${REGISTRY_URL}/r/kinetic-button.json`;
 
-/** The homepage is the component index: an editorial headline, one featured component, then all of them. */
+/** The homepage is the component index: a headline, one featured component, then the full index. */
 export default function Home() {
   const sections = groups.map((g) => {
     const order = tileLayout[g] ?? [];
@@ -39,10 +39,10 @@ export default function Home() {
       <section aria-labelledby="home-h" className="grid gap-8 pb-8 pt-10 md:pt-16 lg:grid-cols-[minmax(0,1fr)_minmax(0,460px)] lg:items-end lg:gap-14 lg:pb-10">
         <div className="min-w-0">
           <h1 id="home-h" className="max-w-[760px] text-[clamp(40px,7.4vw,72px)] font-semibold leading-[1] tracking-[-0.035em]">
-            Twenty components, built to be touched.
+            Interactive React components.
           </h1>
           <p className="mt-5 max-w-[520px] text-md leading-[26px] text-ink-2">
-            Interactive React components for productivity, creative and AI-native software. Try each one here, then copy the source into your app.
+            Try a component here. Use the shadcn CLI to add its source files to your project.
           </p>
         </div>
         <div className="min-w-0">
@@ -55,7 +55,7 @@ export default function Home() {
             </div>
           </div>
           <Link href="/workbench" className="focus-ring mt-4 inline-flex items-center gap-1.5 rounded-xs text-sm text-ink-2 hover:text-ink">
-            See ten of them working together in the Workbench <Icon name="arrowRight" size={14} />
+            Open Workbench <Icon name="arrowRight" size={14} />
           </Link>
         </div>
       </section>

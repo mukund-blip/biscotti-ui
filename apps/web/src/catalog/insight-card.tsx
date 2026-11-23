@@ -6,10 +6,10 @@ export const entry: CatalogEntry = {
   number: "19",
   name: "Insight Card",
   group: "Information & editing",
-  summary: "A KPI with rolling digits, a scrubbable SVG chart and an insight sentence worth reading.",
+  summary: "Shows one KPI with animated digits, a scrubbable SVG chart and a one-sentence insight.",
   description:
-    "One metric, told well. The headline digits roll column by column to each new value. Scrub the chart by pointer or arrow keys and the headline becomes that day (“on Sat 14 Mar”), compared with the same day of the previous period. Switching 7D/30D/90D morphs the line rather than redrawing it: both shapes are resampled at the union of their vertices, so each end of the morph is exact. Events sit on the x-axis as small markers with detail on hover or focus.",
-  useCases: ["Dashboards and launch rooms", "Agent-written reports with a headline number", "Sales, sign-ups, conversion at a glance"],
+    "Shows one metric. When the value changes, the headline digits roll to the new value column by column. Scrub the chart with the pointer or the arrow keys. The headline then shows the selected day (“on Sat 14 Mar”) and compares it with the same day of the previous period. Select 7D, 30D or 90D to change the range. The line morphs to the new range and is not redrawn. Events are small markers on the x-axis. Hover or focus a marker to see its details.",
+  useCases: ["Dashboards and launch rooms", "Agent-written reports with a headline number", "Sales, sign-up and conversion metrics"],
   scale: "m",
   Demo: InsightCardDemo,
   Preview: InsightCardPreview,

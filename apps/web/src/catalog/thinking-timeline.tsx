@@ -6,9 +6,9 @@ export const entry: CatalogEntry = {
   number: "09",
   name: "Thinking Timeline",
   group: "Agent interactions",
-  summary: "An agent's progress as user-facing steps that shrink into a past-tense summary.",
+  summary: "Shows agent progress as steps. Collapses into a past-tense summary when the run ends.",
   description:
-    "Shows what an agent is doing — not invented private reasoning — as a vertical run of steps. A pencil rail draws toward the active step while the header names it with a live elapsed timer. When the run finishes, the rail drains to ink, the header turns past tense (“Worked for 5s · 4 steps”) and the trace collapses unless the user has taken control of it.",
+    "Shows what an agent does, not invented private reasoning, as a vertical list of steps. A pencil rail extends to the active step. The header names the step and shows a live elapsed time. When the run ends, the rail changes to ink and the header changes to past tense (“Worked for 5s · 4 steps”). The trace then collapses, unless the user expanded or collapsed it.",
   useCases: ["Agent or copilot progress in chat", "Long-running background jobs with discrete stages", "Audit trail of what an automation did"],
   scale: "m",
   Demo: ThinkingTimelineDemo,

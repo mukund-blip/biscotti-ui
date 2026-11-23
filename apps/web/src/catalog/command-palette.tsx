@@ -6,9 +6,9 @@ export const entry: CatalogEntry = {
   number: "05",
   name: "Command Palette",
   group: "Commands & composition",
-  summary: "⌘K search over commands, with fuzzy ranking, nested pages and async results.",
+  summary: "Searches commands with ⌘K. Supports fuzzy ranking, nested pages and async results.",
   description:
-    "A keyboard-first palette, as a ⌘K dialog or embedded inline. Queries are fuzzy-matched across titles, subtitles and hidden keywords; matched letters are underlined in pencil and results re-rank by match quality. Some commands push a nested page with a breadcrumb chip in the input, and Backspace on an empty query steps back. Running a command flashes the row in ink, then the palette closes.",
+    "A keyboard-first command palette. Use it as a ⌘K dialog or inline. The query is fuzzy-matched against titles, subtitles and hidden keywords. Matched letters are underlined in pencil. Results re-rank by match quality. Some commands open a nested page and show a breadcrumb chip in the input. Press Backspace in an empty query to go back one page. When a command runs, its row flashes in ink and the palette closes.",
   useCases: ["App-wide navigation and actions", "Changing a record's status or assignee without leaving the keyboard", "Searching remote data (orders, tickets) beside local commands"],
   scale: "l",
   Demo: CommandPaletteDemo,

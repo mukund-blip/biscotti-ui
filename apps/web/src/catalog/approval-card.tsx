@@ -6,9 +6,9 @@ export const entry: CatalogEntry = {
   number: "13",
   name: "Human Approval Card",
   group: "Agent interactions",
-  summary: "An agent asks before it acts. Decide, and the card folds into a receipt you can undo.",
+  summary: "Asks for approval before an agent acts. After a decision, it shows a receipt that you can undo.",
   description:
-    "A request from an agent to take a consequential action: one sentence of what, its scope in tabular figures, a risk level shown as text and a meter (never colour alone), a peek at exactly what will happen, and the agent's reason as provenance. High-risk approvals use a one-second press-and-hold. Once you decide, the card folds into a single receipt line. Its pencil rule stays provisional for the five-second undo window, then drains to ink, and only then does onCommit fire.",
+    "A request from an agent before it does a consequential action. The card shows the action in one sentence, its scope in tabular figures, the risk level as text and a meter (never colour only), a preview of the result and the agent's reason. High-risk approvals need a one-second press-and-hold. After you decide, the card collapses into one receipt line. The receipt rule stays in pencil for the five-second undo window, then changes to ink. onCommit fires only after the undo window ends.",
   useCases: [
     "Agent wants to send email or messages on someone's behalf",
     "Payments, refunds and other irreversible money movement",

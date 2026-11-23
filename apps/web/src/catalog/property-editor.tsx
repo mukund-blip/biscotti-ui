@@ -6,9 +6,9 @@ export const entry: CatalogEntry = {
   number: "18",
   name: "Inline Property Editor",
   group: "Information & editing",
-  summary: "An inspector with scrubbable numbers, a colour picker and a box model you drag directly.",
+  summary: "An inspector with drag-to-change numbers, a colour picker and an editable box model.",
   description:
-    "A compact inspector for editing a live element. Drag any numeric label to scrub (Shift ×10, Alt ×0.1) and a hairline ruler appears under the field, one tick per audible tick. Type 16*1.5 and it evaluates. Margin and padding edges in the box-model diagram are handles you drag. Every changed value carries a pencil dot that is also its reset, and the header counts changes and resets them together.",
+    "A compact inspector for a live element. Drag a numeric label to change its value (Shift ×10, Alt ×0.1). A ruler shows under the field, with one tick for each sound tick. Type an expression such as 16*1.5 to calculate a value. Drag the margin and padding edges in the box-model diagram. Each changed value shows a pencil dot. Click the dot to reset that value. The header shows the number of changes and can reset all of them.",
   useCases: ["Design and layout tools", "Theme and component customisers", "No-code editors and CMS block settings"],
   scale: "l",
   Demo: PropertyEditorDemo,

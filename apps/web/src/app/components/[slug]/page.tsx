@@ -6,7 +6,7 @@ import { groupId, inWorkbench } from "@/catalog/group-info";
 import { StageShell } from "@/components/stage-shell";
 import { Code } from "@/components/code";
 import { Icon, Kbd } from "@biscotti/ui";
-import { canonicalMetadata, siteUrl, REGISTRY_IS_LOCAL, REGISTRY_URL, componentSourceUrl, originComment } from "@/site";
+import { canonicalMetadata, siteUrl, REGISTRY_IS_LOCAL, REGISTRY_URL, REPO_PUBLIC, componentSourceUrl, originComment } from "@/site";
 
 export function generateStaticParams() {
   return catalog.map((e) => ({ slug: e.slug }));
@@ -141,9 +141,11 @@ export default async function ComponentPage({ params }: { params: Promise<{ slug
                 </li>
               ))}
             </ol>
-            <a href={source} className="focus-ring mt-6 inline-flex items-center gap-1.5 rounded-xs text-sm text-ink-2 hover:text-ink">
-              <Icon name="code" size={14} /> View source <Icon name="external" size={12} className="text-muted" />
-            </a>
+            {REPO_PUBLIC && (
+              <a href={source} className="focus-ring mt-6 inline-flex items-center gap-1.5 rounded-xs text-sm text-ink-2 hover:text-ink">
+                <Icon name="code" size={14} /> View source <Icon name="external" size={12} className="text-muted" />
+              </a>
+            )}
           </div>
         </nav>
 
@@ -161,7 +163,7 @@ export default async function ComponentPage({ params }: { params: Promise<{ slug
           <Section id="install" n={num("install")} title="Install">
             <div className="grid gap-5">
               <div className="grid gap-2">
-                <h3 className="text-sm font-medium">Copy the source with the shadcn CLI</h3>
+                <h3 className="text-sm font-medium">Install the source with the shadcn CLI</h3>
                 <Code lang="sh" title="Terminal" code={install} />
                 <p className="max-w-[680px] text-sm text-muted [overflow-wrap:anywhere]">
                   Adds the component and the shared <span className="font-mono text-ink-2">biscotti-foundation</span> (tokens, springs, sound engine, icons) under <span className="font-mono text-ink-2">components/biscotti/</span>
@@ -178,9 +180,11 @@ export default async function ComponentPage({ params }: { params: Promise<{ slug
                 <h3 className="text-sm font-medium">Or import it inside this monorepo</h3>
                 <Code lang="tsx" title="workspace" code={`import { ${componentImport(e.usage)} } from "@biscotti/ui";`} />
               </div>
-              <a href={source} className="focus-ring inline-flex w-fit items-center gap-1.5 rounded-xs text-sm text-ink-2 hover:text-ink lg:hidden">
-                <Icon name="code" size={14} /> View source on GitHub <Icon name="external" size={12} className="text-muted" />
-              </a>
+              {REPO_PUBLIC && (
+                <a href={source} className="focus-ring inline-flex w-fit items-center gap-1.5 rounded-xs text-sm text-ink-2 hover:text-ink lg:hidden">
+                  <Icon name="code" size={14} /> View source on GitHub <Icon name="external" size={12} className="text-muted" />
+                </a>
+              )}
             </div>
           </Section>
 
