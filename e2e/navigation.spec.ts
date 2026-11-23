@@ -1,25 +1,19 @@
 import { expect, test } from "@playwright/test";
 
-test("the homepage is the component index: no section nav, a working category filter, secondary links in the footer", async ({ page }) => {
+test("the homepage is the component index: no section nav, group anchors, secondary links in the footer", async ({ page }) => {
   await page.goto("/", { waitUntil: "networkidle" });
   await expect(page.getByRole("heading", { level: 1, name: "Interactive React components" })).toBeVisible();
   // The header carries the brand, sound and theme only.
   await expect(page.locator("header nav")).toHaveCount(0);
   await expect(page.getByRole("button", { name: /Copy to clipboard/ }).first()).toBeVisible();
 
-  const filter = page.getByRole("navigation", { name: "Filter components by category" });
-  await expect(filter.getByRole("button", { name: /^All/ })).toHaveAttribute("aria-pressed", "true");
-  await expect(page.locator("main section#tactile-controls")).toBeVisible();
-
-  await filter.getByRole("button", { name: /^Agent interactions/ }).click();
+  // Every group is on the page, and the group chips jump to them.
+  for (const id of ["tactile-controls", "commands-composition", "agent-interactions", "information-editing"]) {
+    await expect(page.locator(`main section#${id}`)).toBeAttached();
+  }
+  await page.getByRole("navigation", { name: "Groups" }).getByRole("link", { name: /^Agent interactions/ }).click();
   await expect(page).toHaveURL(/#agent-interactions$/);
-  await expect(page.locator("main section#agent-interactions")).toBeVisible();
-  await expect(page.locator("main section#tactile-controls")).toBeHidden();
-
-  // A linked category opens filtered.
-  await page.goto("/#information-editing", { waitUntil: "networkidle" });
-  await expect(filter.getByRole("button", { name: /^Information & editing/ })).toHaveAttribute("aria-pressed", "true");
-  await expect(page.locator("main section#commands-composition")).toBeHidden();
+  await expect(page.locator("main section#agent-interactions h2")).toBeInViewport();
 
   const footer = page.getByRole("navigation", { name: "Site" });
   await footer.getByRole("link", { name: "Foundations" }).click();
@@ -33,7 +27,7 @@ test("component pages lead back to the index and, where relevant, to the Workben
   await expect(page.getByRole("link", { name: /in the Workbench/ })).toBeVisible();
   await page.getByRole("navigation", { name: "Breadcrumb" }).getByRole("link", { name: "Commands & composition" }).click();
   await expect(page).toHaveURL(/\/#commands-composition$/);
-  await expect(page.locator("main section#commands-composition")).toBeVisible();
+  await expect(page.locator("main section#commands-composition h2")).toBeInViewport();
   await page.goto("/components/segmented-control", { waitUntil: "networkidle" });
   await expect(page.getByRole("link", { name: /in the Workbench/ })).toHaveCount(0);
 });
