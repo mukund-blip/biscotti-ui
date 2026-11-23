@@ -160,12 +160,10 @@ export function SiteChrome({ children }: { children: ReactNode }) {
       </a>
       <header className="sticky top-0 z-40 bg-paper/85 backdrop-blur-md [box-shadow:inset_0_-1px_0_var(--bis-hairline)]">
         <div className="mx-auto flex h-16 max-w-[1320px] items-center gap-3 px-4 sm:gap-6 sm:px-5 md:px-8">
-          {/* Named by its content ("Biscotti UI 0.1, home"; no version below sm) so the accessible name always contains the visible text. */}
+          {/* Named by its content ("Biscotti UI, home") so the accessible name always contains the visible text. */}
           <Link href="/" onClick={() => announceIndexHash("")} className="focus-ring flex shrink-0 items-center gap-2 rounded-sm text-ink sm:gap-2.5">
             <Logo className="size-7 shrink-0 sm:size-8" />
             <Wordmark className="text-[17px] sm:text-[19px]" />{" "}
-            {/* The version yields to the wordmark on narrow phones. */}
-            <span className="hidden font-mono text-2xs text-muted sm:inline">0.1</span>
             <span className="sr-only">, home</span>
           </Link>
           <div className="ml-auto flex items-center gap-2">

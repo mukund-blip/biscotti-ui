@@ -125,3 +125,52 @@ test("footer: circular X profile link; no GitHub links while the repository is p
     await expect(page.getByRole("link", { name: /Star on GitHub|View source|^Source/ })).toHaveCount(0);
   }
 });
+
+test("homepage showcase: live demos, links to component pages and group links; no version badge", async ({ page }) => {
+  await page.goto("/", { waitUntil: "networkidle" });
+  // The header shows the brand only; the version badge is gone at every width.
+  await expect(page.locator("header.sticky")).not.toContainText("0.1");
+
+  // Both leads and every small tile link to their component pages.
+  for (const [name, slug] of [
+    ["Kinetic Button", "kinetic-button"], ["Precision Toggle", "precision-toggle"], ["Segmented Control", "segmented-control"],
+    ["Interactive Slider", "interactive-slider"], ["Tool Execution Chip", "tool-chip"], ["Streaming Response", "streaming-response"],
+    ["Workflow Stepper", "workflow-stepper"], ["Human Approval Card", "approval-card"],
+  ]) {
+    await expect(page.locator(`main a[href="/components/${slug}"]`).filter({ hasText: name }).first()).toBeVisible();
+  }
+
+  // The approval demo works from the keyboard: Approve, receipt, Undo.
+  const lead = page.getByRole("region", { name: "Human Approval Card" });
+  await lead.getByRole("button", { name: "Approve" }).focus();
+  await page.keyboard.press("Enter");
+  await expect(lead.getByRole("status")).toContainText("Approved");
+  await lead.getByRole("button", { name: "Undo" }).click();
+  await expect(lead.getByRole("button", { name: "Approve" })).toBeVisible();
+
+  // The segmented control is live and keyboard-operable.
+  const seg = page.getByRole("radiogroup", { name: "Range" });
+  await seg.getByRole("radio", { name: "Week" }).focus();
+  await page.keyboard.press("ArrowRight");
+  await expect(seg.getByRole("radio", { name: "Month" })).toBeChecked();
+
+  // Group links filter the index below.
+  await page.getByRole("link", { name: /All tactile controls/ }).click();
+  await expect(page).toHaveURL(/#tactile-controls$/);
+  await expect(page.locator("main section#tactile-controls")).toBeVisible();
+  await expect(page.locator("main section#agent-interactions")).toBeHidden();
+  await page.getByRole("link", { name: /\+2 more/ }).click();
+  await expect(page).toHaveURL(/#agent-interactions$/);
+  await expect(page.locator("main section#agent-interactions")).toBeVisible();
+});
+
+test("homepage showcase: the hold-to-delete demo completes and keeps its size", async ({ page }) => {
+  await page.goto("/", { waitUntil: "networkidle" });
+  const lead = page.getByRole("region", { name: "Kinetic Button" });
+  const btn = (await lead.getByRole("button", { name: /^Hold to delete/ }).elementHandle())!;
+  const before = (await btn.boundingBox())!;
+  await page.mouse.move(before.x + before.width / 2, before.y + before.height / 2);
+  await page.mouse.down(); await page.waitForTimeout(1300); await page.mouse.up();
+  await expect.poll(() => btn.getAttribute("data-state")).toMatch(/pending|success/);
+  expect(Math.round((await btn.boundingBox())!.width)).toBe(Math.round(before.width));
+});
