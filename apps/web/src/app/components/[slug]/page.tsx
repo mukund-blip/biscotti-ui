@@ -2,6 +2,7 @@ import Link from "next/link";
 import { notFound } from "next/navigation";
 import type { Metadata } from "next";
 import { bySlug, catalog } from "@/catalog";
+import { groupId, inWorkbench } from "@/catalog/group-info";
 import { StageShell } from "@/components/stage-shell";
 import { Code } from "@/components/code";
 import { Icon, Kbd } from "@biscotti/ui";
@@ -73,9 +74,9 @@ export default async function ComponentPage({ params }: { params: Promise<{ slug
     <article className="mx-auto max-w-[1180px] px-5 pb-24 pt-8 md:px-8 md:pt-12">
       <nav aria-label="Breadcrumb" className="mb-8">
         <ol className="flex flex-wrap items-center gap-1.5 font-mono text-2xs text-muted">
-          <li><Link href="/components" className="focus-ring rounded-xs hover:text-ink">Components</Link></li>
+          <li><Link href="/" className="focus-ring rounded-xs hover:text-ink">Components</Link></li>
           <li aria-hidden><Icon name="chevronRight" size={11} /></li>
-          <li><Link href={`/components#${e.group.toLowerCase().replace(/[^a-z]+/g, "-")}`} className="focus-ring rounded-xs hover:text-ink">{e.group}</Link></li>
+          <li><Link href={`/#${groupId(e.group)}`} className="focus-ring rounded-xs hover:text-ink">{e.group}</Link></li>
           <li aria-hidden><Icon name="chevronRight" size={11} /></li>
           <li aria-current="page" className="text-ink-2">{e.name}</li>
         </ol>
@@ -90,6 +91,11 @@ export default async function ComponentPage({ params }: { params: Promise<{ slug
           </p>
           <h1 className="text-[clamp(32px,5vw,52px)] font-semibold leading-[1.02] tracking-[-0.035em]">{e.name}</h1>
           <p className="mt-4 max-w-[640px] text-md leading-[26px] text-ink-2">{e.summary}</p>
+          {inWorkbench.has(e.slug) && (
+            <Link href="/workbench" className="focus-ring mt-4 inline-flex items-center gap-1.5 rounded-xs text-sm text-ink-2 hover:text-ink">
+              See it working with other components in the Workbench <Icon name="arrowRight" size={14} />
+            </Link>
+          )}
         </div>
         <dl className="grid grid-cols-2 gap-px overflow-hidden rounded-lg bg-hairline text-sm shadow-[inset_0_0_0_1px_var(--bis-hairline)] sm:grid-cols-4 lg:grid-cols-2">
           {[

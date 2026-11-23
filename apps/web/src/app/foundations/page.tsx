@@ -1,4 +1,5 @@
-import { canonicalMetadata } from "@/site";
+import { canonicalMetadata, publicPath } from "@/site";
+import { Logo, Wordmark } from "@/components/site-chrome";
 import type { Metadata } from "next";
 import { IconGrid, SoundBoard, Springs } from "./foundations-client";
 
@@ -65,13 +66,47 @@ function Section({ id, n, title, intro, children }: { id: string; n: string; tit
 export default function Foundations() {
   return (
     <div className="mx-auto max-w-[1180px] px-5 pb-24 pt-12 md:px-8 md:pt-16">
-      <header className="mb-12">
-        <p className="mb-3 font-mono text-2xs uppercase tracking-[0.08em] text-muted">Foundations</p>
-        <h1 className="max-w-[820px] text-[clamp(34px,5.5vw,56px)] font-semibold leading-[1] tracking-[-0.04em]">Pencil, then ink.</h1>
-        <p className="mt-5 max-w-[640px] text-md text-ink-2">
-          One rule explains every colour in Biscotti UI: anything provisional — streaming, proposed, pending, live — is drawn in pencil. When it becomes true, it’s inked. Everything else is paper, graphite and hairlines.
-        </p>
+      <header className="mb-12 grid items-center gap-8 md:grid-cols-[minmax(0,1fr)_minmax(0,300px)] lg:grid-cols-[minmax(0,1fr)_minmax(0,360px)]">
+        <div className="min-w-0">
+          <p className="mb-3 font-mono text-2xs uppercase tracking-[0.08em] text-muted">Foundations</p>
+          <h1 className="max-w-[820px] text-[clamp(34px,5.5vw,56px)] font-semibold leading-[1] tracking-[-0.04em]">Pencil, then ink.</h1>
+          <p className="mt-5 max-w-[640px] text-md text-ink-2">
+            One rule explains every colour in Biscotti UI: anything provisional — streaming, proposed, pending, live — is drawn in pencil. When it becomes true, it’s inked. Everything else is paper, graphite and hairlines.
+          </p>
+        </div>
+        {/* Biscotti, the mascot: rendered from the editable Blender model. */}
+        <div className="hero-pup mx-auto w-[min(64vw,240px)] md:w-full">
+          {/* eslint-disable-next-line @next/next/no-img-element -- static export serves raw public assets */}
+          <img
+            src={publicPath("/brand/biscotti-hero-960.webp")}
+            srcSet={`${publicPath("/brand/biscotti-hero-480.webp")} 480w, ${publicPath("/brand/biscotti-hero-960.webp")} 960w`}
+            sizes="(min-width: 1024px) 360px, (min-width: 768px) 300px, 64vw"
+            width={963} height={1152} fetchPriority="high"
+            alt="Biscotti, the Biscotti UI mascot: a cream, velvety Spitz pup standing with a happy smile and its tongue out"
+            className="block h-auto w-full select-none"
+            draggable={false}
+          />
+        </div>
       </header>
+
+      <Section id="brand" n="00" title="Brand" intro="Biscotti is the mascot: a cream pup rendered in 3D. The face tile is the logo; the wordmark is set in Fredoka, with a lighter, toasted “UI”. Use the tile from 24 px up and keep clear space of half its width.">
+        <div className="grid gap-3 sm:grid-cols-2">
+          {(["light", "dark"] as const).map((t) => (
+            <div key={t} data-theme={t} className="flex flex-col gap-5 rounded-lg bg-paper p-5 text-ink shadow-[inset_0_0_0_1px_var(--bis-hairline)]">
+              <p className="font-mono text-2xs uppercase tracking-[0.08em] text-muted">{t}</p>
+              <div className="flex items-center gap-3"><Logo className="size-10" /><Wordmark className="text-[26px]" /></div>
+              <div className="flex items-end gap-4">
+                {[24, 32, 48].map((px) => (
+                  <figure key={px} className="m-0 grid justify-items-center gap-1">
+                    <Logo className="shrink-0" style={{ width: px, height: px }} />
+                    <figcaption className="tabular font-mono text-[10.5px] text-muted">{px}</figcaption>
+                  </figure>
+                ))}
+              </div>
+            </div>
+          ))}
+        </div>
+      </Section>
 
       <Section id="color" n="01" title="Colour" intro="Warm paper and graphite, one cobalt pencil, and status colours reserved for status. Every token is a CSS variable you can remap in a host app.">
         <div className="grid gap-3 lg:grid-cols-2">

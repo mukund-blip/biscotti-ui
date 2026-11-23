@@ -3,7 +3,7 @@ import { readdirSync } from "node:fs";
 
 const slugs = readdirSync("apps/web/src/catalog").filter((f) => f.endsWith(".tsx")).map((f) => f.slice(0, -4));
 for (const theme of ["light", "dark"] as const) {
-  for (const route of ["", "components/", "foundations/", "workbench/", ...slugs.map((s) => `components/${s}/`)]) {
+  for (const route of ["", "foundations/", "workbench/", ...slugs.map((s) => `components/${s}/`)]) {
     test(`${route || "/"} direct navigation + reload [${theme}]`, async ({ page }) => {
       const errors: string[] = [];
       page.on("pageerror", (e) => errors.push(e.message));

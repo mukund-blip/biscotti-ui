@@ -6,7 +6,7 @@ import { join } from "node:path";
 const slugs = readdirSync(join(__dirname, "../apps/web/src/catalog"))
   .filter((f) => f.endsWith(".tsx"))
   .map((f) => f.replace(".tsx", ""));
-const routes = ["/", "/components", "/foundations", "/workbench", ...slugs.map((s) => `/components/${s}`)];
+const routes = ["/", "/foundations", "/workbench", ...slugs.map((s) => `/components/${s}`)];
 
 for (const theme of ["light", "dark"] as const) {
   for (const route of routes) {

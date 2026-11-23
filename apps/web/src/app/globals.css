@@ -8,7 +8,9 @@
 @theme inline {
   --font-brand: var(--font-fredoka), ui-rounded, system-ui, sans-serif;
 }
-:root { --brand-toast: #8a6250; --brand-cream: #f7ecdb; }
+:root { --brand-cream: #f7ecdb; }
+/* Per theme, so a light sample inside a dark page (and vice versa) gets its own toast. */
+:root, [data-theme="light"] { --brand-toast: #8a6250; }
 [data-theme="dark"] { --brand-toast: #c9a88f; }
 
 html {
@@ -28,7 +30,7 @@ body { min-height: 100dvh; }
 /* Site surfaces use the same paper, rules and pencil as the components. */
 html { scroll-padding-top: 6rem; }
 body { margin: 0; }
-/* Biscotti stands on the tactile tray: a warm pool of light behind the pup, never a card. */
+/* Biscotti on the Foundations page: a warm pool of light behind the pup, never a card. */
 .hero-pup { position: relative; isolation: isolate; }
 .hero-pup::before {
   content: "";

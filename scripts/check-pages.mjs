@@ -11,7 +11,7 @@ const slugs = readdirSync(resolve(import.meta.dirname, "../apps/web/src/catalog"
 assert.ok(slugs.length > 0, "no catalog entries found");
 assert.ok(existsSync(join(root, ".nojekyll")), "missing .nojekyll");
 assert.ok(!existsSync(join(root, "api/stream")), "obsolete API route exported");
-const routes = ["", "components", "foundations", "workbench", ...slugs.map((s) => `components/${s}`)];
+const routes = ["", "foundations", "workbench", ...slugs.map((s) => `components/${s}`)];
 const sitemap = read("sitemap.xml");
 for (const route of routes) {
   const html = read(`${route ? `${route}/` : ""}index.html`);

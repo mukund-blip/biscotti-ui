@@ -137,6 +137,13 @@ export interface KineticButtonProps extends Omit<ComponentPropsWithRef<"button">
   holdToConfirm?: number;
   /** Allow this instance to play sounds. */
   sound?: boolean;
+  /**
+   * Hold the width of the widest lifecycle state (idle, pending, success, error) from the start, so
+   * the button never grows when a spinner or check appears and neighbours never reflow. Defaults to
+   * on for buttons that declare a lifecycle (`holdToConfirm`, `pendingLabel`, `successLabel` or a
+   * controlled `state`); pass `false` to morph between label widths instead.
+   */
+  reserveWidth?: boolean;
 }
 
 export function KineticButton({
@@ -152,6 +159,7 @@ export function KineticButton({
   errorLabel = "Retry",
   successDuration = 1600,
   holdToConfirm,
+  reserveWidth: reserveWidthProp,
   sound: soundOn = true,
   disabled = false,
   className,
@@ -317,11 +325,15 @@ export function KineticButton({
   const iconKind: "icon" | "spinner" | "check" | "error" | null =
     state === "pending" ? "spinner" : state === "success" ? "check" : state === "error" ? "error" : icon ? "icon" : null;
   const hasLabel = label !== undefined && label !== null && label !== false && label !== "";
+  // A button that can change state reserves its widest state, so it never reflows its neighbours.
+  const reserveWidth = reserveWidthProp ?? Boolean(holdToConfirm || pendingLabel != null || successLabel != null || stateProp !== undefined);
+  const reserve = useRef<HTMLSpanElement>(null);
+  const targetWidth = () => Math.max(sizer.current?.offsetWidth ?? 0, reserve.current?.offsetWidth ?? 0);
 
   useIsoLayoutEffect(() => {
     const el = sizer.current;
     if (!el) return;
-    const w = el.offsetWidth;
+    const w = targetWidth();
     if (firstMeasure.current) {
       firstMeasure.current = false;
       width.set(w);
@@ -330,17 +342,19 @@ export function KineticButton({
     }
     animate(width, w, m.move(spring.control));
     // eslint-disable-next-line react-hooks/exhaustive-deps
-  }, [labelKey, iconKind, size]);
+  }, [labelKey, iconKind, size, reserveWidth]);
   useEffect(() => {
     const el = sizer.current;
     if (!el || typeof ResizeObserver === "undefined") return;
     // Late font loads etc. — follow without animating.
     const ro = new ResizeObserver(() => {
-      if (!width.isAnimating()) width.set(el.offsetWidth);
+      if (!width.isAnimating()) width.set(targetWidth());
     });
     ro.observe(el);
+    if (reserve.current) ro.observe(reserve.current);
     return () => ro.disconnect();
-  }, [width]);
+    // eslint-disable-next-line react-hooks/exhaustive-deps
+  }, [width, reserveWidth]);
 
   /* ── content ── */
   const iconNode = (kind: typeof iconKind) => {
@@ -569,6 +583,26 @@ export function KineticButton({
         >
           {contentStatic(iconKind, label)}
         </span>
+        {/* reserve: every lifecycle state stacked in one grid cell, so its width is the widest of them */}
+        {reserveWidth && (
+          <span
+            ref={reserve}
+            aria-hidden
+            className="pointer-events-none invisible absolute left-0 top-0 inline-grid whitespace-nowrap"
+            style={{ paddingInline: padX, minWidth: d.h }}
+          >
+            {([
+              [icon ? "icon" : null, children],
+              ["spinner", pendingLabel ?? children],
+              ["check", successLabel ?? children],
+              ["error", errorLabel],
+            ] as const).map(([kind, lbl], k) => (
+              <span key={k} className="col-start-1 row-start-1 inline-flex items-center" style={{ gap: d.gap }}>
+                {contentStatic(kind, lbl)}
+              </span>
+            ))}
+          </span>
+        )}
       </motion.button>
       <VisuallyHidden>
         <span role="status">{statusText}</span>
