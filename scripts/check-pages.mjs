@@ -13,6 +13,7 @@ assert.ok(existsSync(join(root, ".nojekyll")), "missing .nojekyll");
 assert.ok(!existsSync(join(root, "api/stream")), "obsolete API route exported");
 // Mirrors apps/web/src/site.ts REPO_PUBLIC; set NEXT_PUBLIC_REPO_PUBLIC=true for both the build and this check.
 const repoPublic = process.env.NEXT_PUBLIC_REPO_PUBLIC === "true";
+const repoText = /github\.com\\?\/[A-Za-z0-9_.-]+\\?\/[A-Za-z0-9_.-]+/g;
 const routes = ["", "foundations", "workbench", ...slugs.map((s) => `components/${s}`)];
 const sitemap = read("sitemap.xml");
 for (const route of routes) {
@@ -30,7 +31,8 @@ for (const route of routes) {
   // The repository stays private until launch: no page may link to it unless the build opts in.
   const repoLinks = html.match(/href="https:\/\/github\.com\/[^"]*"/g) ?? [];
   if (repoPublic) assert.ok(repoLinks.length > 0, `public build has no GitHub link in ${route || "/"}`);
-  else assert.deepEqual(repoLinks, [], `private build links to GitHub in ${route || "/"}`);
+  // Private: no GitHub repository reference anywhere in the page (links, text, usage examples, RSC data).
+  else assert.deepEqual(html.match(repoText) ?? [], [], `private build mentions a GitHub repository in ${route || "/"}`);
   assert.ok(html.includes('href="https://x.com/MukundMohanK"'), `missing X profile link in ${route || "/"}`);
 }
 assert.ok(read("robots.txt").includes(`${siteUrl}/sitemap.xml`));
@@ -64,6 +66,9 @@ for (const { name } of registry.items) {
   }
   for (const file of item.files) assert.ok(file.target.startsWith("components/biscotti/"));
   // Every component (not the shared foundation) ships with a one-line origin comment on its main file.
-  if (name !== "biscotti-foundation") assert.ok(item.files.some((f) => f.content.startsWith(`// ${item.title} · Biscotti UI — `)), `${name} is missing its origin comment`);
+  // Every component (not the foundation) starts with an origin line: GitHub once public, the live page while private.
+  const originTarget = repoPublic ? "github.com/" : `${siteUrl.replace(/^https?:\/\//, "")}/components/${name}/`;
+  if (name !== "biscotti-foundation") assert.ok(item.files.some((f) => f.content.startsWith(`// ${item.title} · Biscotti UI — ${originTarget}`)), `${name} has a missing or wrong origin comment`);
+  if (!repoPublic) assert.deepEqual(read(`r/${name}.json`).match(repoText) ?? [], [], `private registry item ${name} mentions a GitHub repository`);
 }
-console.log(`Validated ${routes.length} public routes (${repoPublic ? "public repo links" : "private: no repo links"}), prefixed assets/canonicals, sitemap/robots, ${labPages.length} noindex lab pages and ${registry.items.length} registry items with nested dependencies (${siteUrl}).`);
+console.log(`Validated ${routes.length} public routes (${repoPublic ? "public repo links" : "private: no repo links or repo text in pages and registry"}), prefixed assets/canonicals, sitemap/robots, ${labPages.length} noindex lab pages and ${registry.items.length} registry items with nested dependencies (${siteUrl}).`);

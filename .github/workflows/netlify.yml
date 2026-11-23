@@ -121,6 +121,8 @@ jobs:
             grep -q 'Star on GitHub' <<<"$home" || { echo "::error::public repo but no Star on GitHub link"; exit 1; }
             echo "public: Star on GitHub present"
           else
-            ! grep -q 'href="https://github.com/' <<<"$home" || { echo "::error::private repo but the homepage links to GitHub"; exit 1; }
+            ! grep -qE 'github\.com/[A-Za-z0-9_.-]+/[A-Za-z0-9_.-]+' <<<"$home" || { echo "::error::private repo but the homepage mentions a GitHub repository"; exit 1; }
+            reg=$(curl -fsS "$PAGES_SITE_URL/r/kinetic-button.json")
+            ! grep -qE 'github\.com/[A-Za-z0-9_.-]+/[A-Za-z0-9_.-]+' <<<"$reg" || { echo "::error::private repo but the registry mentions a GitHub repository"; exit 1; }
             echo "private: no GitHub links"
           fi

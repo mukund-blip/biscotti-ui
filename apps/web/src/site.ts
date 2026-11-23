@@ -30,7 +30,12 @@ export const REGISTRY_IS_LOCAL = REGISTRY_URL === LOCAL_REGISTRY;
 export const componentSourceUrl = (slug: string) => `${REPO_URL}/tree/${REPO_BRANCH}/packages/ui/src/components/${slug}`;
 
 /** One quiet line that travels with copied examples, pointing back to where they came from. */
-export const originComment = (slug: string, name: string) => `// ${name} · Biscotti UI — ${componentSourceUrl(slug).replace(/^https?:\/\//, "")}`;
+export const originComment = (slug: string, name: string) =>
+  `// ${name} · Biscotti UI — ${originTarget(slug).replace(/^https?:\/\//, "")}`;
+
+/** Where the origin line points: the source on GitHub once public, else the live component page. */
+const originTarget = (slug: string) =>
+  REPO_PUBLIC ? componentSourceUrl(slug) : `${SITE_URL ?? REGISTRY_URL}/components/${slug}/`;
 
 
 /**
