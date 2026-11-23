@@ -3,6 +3,7 @@ import Link from "next/link";
 import { useEffect, useRef, useState, type ReactNode } from "react";
 import { AnimatePresence, motion } from "motion/react";
 import { REPO_URL, publicPath } from "@/site";
+import { announceIndexHash } from "@/components/home/index-browser";
 import { Icon, cn, surfaceVariants, useMotionTokens, useSoundPrefs, sound } from "@biscotti/ui";
 
 /** Biscotti, the cream pup, as a rounded tile. Rendered from the editable Blender model. */
@@ -160,7 +161,7 @@ export function SiteChrome({ children }: { children: ReactNode }) {
       <header className="sticky top-0 z-40 bg-paper/85 backdrop-blur-md [box-shadow:inset_0_-1px_0_var(--bis-hairline)]">
         <div className="mx-auto flex h-16 max-w-[1320px] items-center gap-3 px-4 sm:gap-6 sm:px-5 md:px-8">
           {/* Named by its content ("Biscotti UI 0.1, home"; no version below sm) so the accessible name always contains the visible text. */}
-          <Link href="/" className="focus-ring flex shrink-0 items-center gap-2 rounded-sm text-ink sm:gap-2.5">
+          <Link href="/" onClick={() => announceIndexHash("")} className="focus-ring flex shrink-0 items-center gap-2 rounded-sm text-ink sm:gap-2.5">
             <Logo className="size-7 shrink-0 sm:size-8" />
             <Wordmark className="text-[17px] sm:text-[19px]" />{" "}
             {/* The version yields to the wordmark on narrow phones. */}
@@ -187,7 +188,7 @@ function SiteFooter() {
   return (
     <footer className="border-t border-hairline">
       <div className="mx-auto flex max-w-[1320px] flex-wrap items-center gap-x-6 gap-y-3 px-5 py-8 text-sm text-muted md:px-8">
-        <Link href="/" className="focus-ring flex items-center gap-2 rounded-sm text-ink" aria-label="Biscotti UI components">
+        <Link href="/" onClick={() => announceIndexHash("")} className="focus-ring flex items-center gap-2 rounded-sm text-ink" aria-label="Biscotti UI components">
           <Logo className="size-6" /><Wordmark className="text-[15px]" />
         </Link>
         <nav aria-label="Site" className="flex flex-wrap items-center gap-x-5 gap-y-2">

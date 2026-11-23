@@ -4,6 +4,13 @@ import { cn } from "@biscotti/ui";
 
 export type CategoryOption = { id: string; label: string; short: string; count: number };
 
+/** Fired by in-app links to the homepage, so the index can reset even though Next's pushState fires no hashchange. */
+export const INDEX_HASH_EVENT = "biscotti:index-hash";
+/** Call from a link's onClick when it navigates to the index; `hash` is the target, "" meaning All. */
+export const announceIndexHash = (hash = "") => dispatchEvent(new CustomEvent(INDEX_HASH_EVENT, { detail: hash }));
+
+type NavigationLike = EventTarget & { currentEntry?: { url?: string } | null };
+
 /**
  * The component index: a sticky category sidebar on desktop, a compact tab row at 768 px and below,
  * and server-rendered group sections. Sections are hidden, not unmounted, so live previews keep
@@ -16,13 +23,27 @@ export function IndexBrowser({ options, total, install, sections }: {
   const top = useRef<HTMLDivElement>(null);
 
   useEffect(() => {
-    const fromHash = () => {
-      const id = decodeURIComponent(location.hash.slice(1));
+    const apply = (hash: string) => {
+      const id = decodeURIComponent(hash.replace(/^#/, ""));
       setActive(options.some((o) => o.id === id) ? id : "all");
     };
-    fromHash();
-    addEventListener("hashchange", fromHash);
-    return () => removeEventListener("hashchange", fromHash);
+    const fromLocation = () => apply(location.hash);
+    // In-app links announce where they are going; their click runs before Next updates the URL.
+    const fromEvent = (e: Event) => apply(String((e as CustomEvent<string>).detail ?? ""));
+    fromLocation();
+    addEventListener("hashchange", fromLocation);
+    addEventListener("popstate", fromLocation);
+    addEventListener(INDEX_HASH_EVENT, fromEvent);
+    // Next's <Link> uses history.pushState, which fires no hashchange. Where the Navigation API
+    // exists, follow every same-document navigation too (any future link to "/" is covered).
+    const nav = (globalThis as { navigation?: NavigationLike }).navigation;
+    nav?.addEventListener("navigatesuccess", fromLocation);
+    return () => {
+      removeEventListener("hashchange", fromLocation);
+      removeEventListener("popstate", fromLocation);
+      removeEventListener(INDEX_HASH_EVENT, fromEvent);
+      nav?.removeEventListener("navigatesuccess", fromLocation);
+    };
   }, [options]);
 
   const choose = (id: string) => {

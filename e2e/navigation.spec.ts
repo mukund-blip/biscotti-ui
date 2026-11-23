@@ -20,6 +20,18 @@ test("the homepage is the component index: headline, featured tile, category sid
   await expect(page.locator("main section#agent-interactions")).toBeVisible();
   await expect(page.locator("main section#tactile-controls")).toBeHidden();
 
+  // In-app navigation home (Next pushState, no hashchange) resets the filter: header logo and footer wordmark.
+  for (const home of [page.locator("header a[href='/']"), page.getByRole("contentinfo").locator("a[href='/']")]) {
+    await cats.getByRole("button", { name: mobile ? /^Agents/ : /^Agent interactions/ }).click();
+    await expect(page).toHaveURL(/#agent-interactions$/);
+    await home.click();
+    await expect(page).toHaveURL(/\/$/);
+    await expect(cats.getByRole("button", { name: /^All/ })).toHaveAttribute("aria-pressed", "true");
+    for (const id of ["tactile-controls", "commands-composition", "agent-interactions", "information-editing"]) {
+      await expect(page.locator(`main section#${id}`)).toBeVisible();
+    }
+  }
+
   // A linked category opens filtered.
   await page.goto("/#information-editing", { waitUntil: "networkidle" });
   await expect(cats.getByRole("button", { name: mobile ? /^Editing/ : /^Information & editing/ })).toHaveAttribute("aria-pressed", "true");
