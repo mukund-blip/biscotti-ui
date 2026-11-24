@@ -75,18 +75,31 @@ jobs:
         run: |
           # --filter web: this pnpm workspace has two packages (web, @biscotti/ui) and the
           # CLI refuses to pick one in CI. --dir still resolves from the repo root.
-          npx -y "netlify-cli@${NETLIFY_CLI_VERSION}" deploy \
+          if npx -y "netlify-cli@${NETLIFY_CLI_VERSION}" deploy \
             --prod --no-build --filter web \
             --dir apps/web/out \
             --site "$NETLIFY_SITE_ID" \
             --message "GitHub Actions ${GITHUB_SHA::7} (run ${GITHUB_RUN_ID})" \
-            --json > netlify-deploy.json
-          deploy_id=$(jq -r .deploy_id netlify-deploy.json)
+            --json > netlify-deploy.json; then
+            deploy_id=$(jq -r '.deploy_id // empty' netlify-deploy.json)
+            [ -n "$deploy_id" ] || { echo "::error::Netlify CLI returned no deploy ID"; exit 1; }
+          else
+            # Netlify can publish the deploy and then return 422 to the CLI. Accept
+            # that result only after the exact commit is served in production.
+            echo "::warning::Netlify CLI failed; checking the published revision"
+            for i in $(seq 1 12); do
+              revision=$(curl -fsS "$PAGES_SITE_URL/pages-build.json" | jq -r '.revision // empty') || revision=""
+              if [ "$revision" = "$GITHUB_SHA" ]; then break; fi
+              sleep 5
+            done
+            [ "$revision" = "$GITHUB_SHA" ] || { echo "::error::Netlify CLI failed and production does not serve $GITHUB_SHA"; exit 1; }
+            deploy_id=""
+          fi
           echo "deploy_id=$deploy_id" >> "$GITHUB_OUTPUT"
           {
             echo "### Netlify production deploy"
-            echo "- Deploy: \`$deploy_id\` ($(jq -r .deploy_url netlify-deploy.json))"
-            echo "- Site: $(jq -r .url netlify-deploy.json)"
+            if [ -n "$deploy_id" ]; then echo "- Deploy: \`$deploy_id\` ($(jq -r .deploy_url netlify-deploy.json))"; fi
+            echo "- Site: $PAGES_SITE_URL"
             echo "- Commit: \`${GITHUB_SHA}\`"
           } >> "$GITHUB_STEP_SUMMARY"
           rm netlify-deploy.json
