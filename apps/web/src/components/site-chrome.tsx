@@ -31,17 +31,20 @@ function readThemePref(): ThemePref {
     const v = localStorage.getItem("biscotti.theme");
     if (v === "light" || v === "dark" || v === "system") return v;
   } catch {}
-  return "system";
+  return "dark";
 }
 
 function paintTheme(p: ThemePref) {
   const dark = p === "dark" || (p === "system" && matchMedia("(prefers-color-scheme: dark)").matches);
   document.documentElement.setAttribute("data-theme", dark ? "dark" : "light");
   document.documentElement.setAttribute("data-theme-pref", p);
+  document.querySelectorAll('meta[name="theme-color"]').forEach((meta) => {
+    meta.setAttribute("content", dark ? "#111113" : "#f4f3ef");
+  });
 }
 
 function ThemeSwitch() {
-  const [pref, setPref] = useState<ThemePref>("system");
+  const [pref, setPref] = useState<ThemePref>("dark");
   useEffect(() => {
     // The saved preference is the source of truth. If hydration ever falls back to a
     // client render, React resets <html data-theme> to its server value; re-apply it here.

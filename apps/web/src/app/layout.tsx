@@ -1,4 +1,4 @@
-import type { Metadata } from "next";
+import type { Metadata, Viewport } from "next";
 import { Fredoka, Geist, Geist_Mono, Newsreader } from "next/font/google";
 import { SiteChrome } from "@/components/site-chrome";
 import { ThemeScript } from "@/components/theme-script";
@@ -20,9 +20,11 @@ export const metadata: Metadata = {
   twitter: { card: "summary_large_image" },
 };
 
+export const viewport: Viewport = { themeColor: "#111113" };
+
 export default function RootLayout({ children }: { children: React.ReactNode }) {
   return (
-    <html lang="en" data-theme="light" suppressHydrationWarning className={`${sans.variable} ${mono.variable} ${serif.variable} ${brand.variable}`}>
+    <html lang="en" data-theme="dark" suppressHydrationWarning className={`${sans.variable} ${mono.variable} ${serif.variable} ${brand.variable}`}>
       <head>
         <style>{`:root{--bis-font-sans:var(--font-geist),ui-sans-serif,system-ui,sans-serif;--bis-font-mono:var(--font-geist-mono),ui-monospace,monospace;--bis-font-serif:var(--font-newsreader),Georgia,serif}`}</style>
       </head>

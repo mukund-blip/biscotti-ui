@@ -49,21 +49,21 @@ for (const [name, inject] of Object.entries(injections)) {
     expect(errors).toEqual([]);
   });
 
-  test(`saved dark theme survives reload with host-injected HTML (${name})`, async ({ page }) => {
+  test(`saved light theme survives reload with host-injected HTML (${name})`, async ({ page }) => {
     await serveWith(page, inject);
     const errors = collectErrors(page);
     await page.goto("foundations/");
     await page.waitForLoadState("networkidle");
-    await page.getByRole("button", { name: "Dark theme" }).click();
-    await expect(page.locator("html")).toHaveAttribute("data-theme", "dark");
+    await page.getByRole("button", { name: "Light theme" }).click();
+    await expect(page.locator("html")).toHaveAttribute("data-theme", "light");
     await page.reload();
     await page.waitForLoadState("networkidle");
-    await expect(page.locator("html")).toHaveAttribute("data-theme", "dark");
-    await expect(page.getByRole("button", { name: "Dark theme" })).toHaveAttribute("aria-pressed", "true");
-    // A fresh page in the same session must also open dark.
+    await expect(page.locator("html")).toHaveAttribute("data-theme", "light");
+    await expect(page.getByRole("button", { name: "Light theme" })).toHaveAttribute("aria-pressed", "true");
+    // A fresh page in the same session must also open light.
     await page.goto("./");
     await page.waitForLoadState("networkidle");
-    await expect(page.locator("html")).toHaveAttribute("data-theme", "dark");
+    await expect(page.locator("html")).toHaveAttribute("data-theme", "light");
     expect(errors).toEqual([]);
   });
 }
