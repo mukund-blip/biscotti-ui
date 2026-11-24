@@ -1,5 +1,7 @@
 # Biscotti UI
 
+Free and open source under the [MIT License](./LICENSE).
+
 [![Live site](https://img.shields.io/badge/Live_site-biscotti--ui.netlify.app-8a6250?style=for-the-badge)](https://biscotti-ui.netlify.app/)
 
 **[Open the live site →](https://biscotti-ui.netlify.app/)** Try every component, then install it with the shadcn CLI.
